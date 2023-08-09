@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "보건학데이터과학 실습"
@@ -7,9 +8,9 @@ book:
   date: "2023. 8. 8."
   chapters:
     - index.qmd
-    - part: intro1.qmd
+    - part: "I. R 기본"
       chapters:
-        - intro.qmd
+        - 210_randrstudio.qmd
     - summary.qmd
     - references.qmd
 
