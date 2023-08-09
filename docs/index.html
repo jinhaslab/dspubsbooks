@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="jinha">
+<meta name="dcterms.date" content="2023-08-08">
+
+<title>보건학데이터과학 실습</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./intro1.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">보건학데이터과학 실습</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">보건학데이터과학 실습</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">소개</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./intro1.html" class="sidebar-item-text sidebar-link">Introduction1</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">part1-chapter1</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#소개" id="toc-소개" class="nav-link active" data-scroll-target="#소개">소개</a>
+  <ul class="collapse">
+  <li><a href="#보건학" id="toc-보건학" class="nav-link" data-scroll-target="#보건학">보건학</a></li>
+  <li><a href="#보건학-데이터과학" id="toc-보건학-데이터과학" class="nav-link" data-scroll-target="#보건학-데이터과학">보건학 데이터과학</a></li>
+  <li><a href="#보건학-데이터-과학-과학이-되려면" id="toc-보건학-데이터-과학-과학이-되려면" class="nav-link" data-scroll-target="#보건학-데이터-과학-과학이-되려면">보건학 데이터 과학, 과학이 되려면</a></li>
+  <li><a href="#참고-books" id="toc-참고-books" class="nav-link" data-scroll-target="#참고-books">참고 books</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">보건학데이터과학 실습</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>jinha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 8, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="소개" class="level1 unnumbered">
+<h1 class="unnumbered">소개</h1>
+<section id="보건학" class="level2">
+<h2 class="anchored" data-anchor-id="보건학">보건학</h2>
+<p>보건학은 인간과 그들의 사회의 건강을 향상시키기 위한 과학입니다. 보건학은 의학에서 사회과학에 이르기까지 여러 학문과 밀접하게 연관되어 있습니다. 따라서, 다학제적 접근법은 보건학 전문가에게 가장 중요한 기술 중 하나입니다.</p>
+</section>
+<section id="보건학-데이터과학" class="level2">
+<h2 class="anchored" data-anchor-id="보건학-데이터과학">보건학 데이터과학</h2>
+<p>데이터 과학은 크게 데이터를 수집, 처리, 분석하고, 그 결과를 해석하여 의사결정이나 예측, 분류 등의 작업을 수행하는 분야입니다. 이를 위해 프로그래밍, 통계학, 머신러닝 및 도메인 지식을 종합적으로 활용합니다. 이러한 기술을 보건학에 접목시키는 것이 보건학 데이터과학입니다.</p>
+<p>보건학 데이터과학의 주요 특징은 다음과 같습니다:</p>
+<ul>
+<li>다양한 데이터의 수집 및 관리:
+<ul>
+<li>보건학에서는 환자 기록, 임상 데이터, 역학 조사 데이터, 환경 데이터 등 다양한 유형의 데이터를 다룹니다. 이러한 데이터의 효율적인 수집과 관리는 보건학의 데이터과학에서 중요한 부분을 차지합니다.</li>
+</ul></li>
+<li>통계 및 머신러닝의 적용:
+<ul>
+<li>공공보건의 문제를 해결하기 위해, 통계적 방법과 머신러닝 기술을 사용하여 데이터에서 통찰력을 얻거나 예측 모델을 만드는 작업을 수행합니다.</li>
+</ul></li>
+<li>데이터 시각화:
+<ul>
+<li>복잡한 보건 데이터를 쉽게 이해하고 해석하기 위해 시각화 기술을 사용합니다. 이를 통해 정책 결정자나 일반 대중에게 데이터를 효과적으로 전달할 수 있습니다.</li>
+</ul></li>
+<li>재현성 및 공유 가능한 연구:
+<ul>
+<li>보건학 데이터과학에서는 연구 결과의 재현성을 보장하고, 연구 결과를 다른 연구자와 공유할 수 있도록 투명한 방법을 추구합니다.</li>
+</ul></li>
+<li>도메인 지식:
+<ul>
+<li>보건학 데이터과학자는 단순히 데이터과학의 기술만을 가지고 있는 것이 아니라, 보건학에 대한 깊은 이해도 필요합니다. 이를 통해 데이터를 올바르게 해석하고, 실제 보건 문제에 적절한 솔루션을 제시할 수 있습니다.</li>
+</ul></li>
+</ul>
+</section>
+<section id="보건학-데이터-과학-과학이-되려면" class="level2">
+<h2 class="anchored" data-anchor-id="보건학-데이터-과학-과학이-되려면">보건학 데이터 과학, 과학이 되려면</h2>
+<p><strong>과학에서의 제현성</strong> 과학에서의 재현성은 연구 결과를 다른 연구자들이 동일한 조건 하에서 반복해서 얻을 수 있는지의 여부를 나타내는 중요한 원칙입니다. 재현성은 과학적 연구의 진정성과 신뢰성을 평가하는 기준 중 하나로 간주됩니다.</p>
+<p><strong>보건학 데이터과학이 과학의 기준에 부합하려면 다음과 같은 재현성 요소들을 갖추어야 합니다</strong></p>
+<ul>
+<li><strong>데이터의 접근성</strong>:
+<ul>
+<li>연구에 사용된 원본 데이터는 공개되어야 하며, 연구를 재현하려는 다른 연구자들이 접근할 수 있어야 합니다. 당연히 개인정보 보호와 관련된 법률 및 규정을 준수하면서, 필요한 경우 익명화 또는 변조된 형태로 데이터를 공개해야 합니다.</li>
+</ul></li>
+<li><strong>분석 코드 및 소프트웨어의 공개</strong>:
+<ul>
+<li>연구에 사용된 데이터 처리, 분석, 시각화 등의 코드와 사용된 소프트웨어의 버전 정보도 공개되어야 합니다.</li>
+</ul></li>
+<li><strong>분석 방법론의 명확성</strong>:
+<ul>
+<li>사용된 통계적 방법, 머신러닝 알고리즘, 모델링 접근법 등이 명확하게 기술되어야 합니다.</li>
+</ul></li>
+<li><strong>외부 변수 및 제어</strong>:
+<ul>
+<li>연구 과정에서 영향을 미칠 수 있는 외부 변수들에 대한 정보와 그것들을 어떻게 제어했는지에 대한 정보가 필요합니다.</li>
+</ul></li>
+<li><strong>결과의 재현 가능성 평가</strong>:
+<ul>
+<li>가능한 경우, 연구 결과의 재현 가능성을 평가하기 위해 독립된 데이터셋이나 방법론을 사용하여 검증을 시도해야 합니다.</li>
+</ul></li>
+<li><strong>연구 환경의 명세</strong>:
+<ul>
+<li>연구가 수행된 하드웨어 및 소프트웨어 환경, 그리고 이를 설정하기 위한 파라미터 등도 기록되어야 합니다. 이는 특히 계산적으로 복잡한 모델이나 시뮬레이션을 다룰 때 중요합니다.</li>
+</ul></li>
+<li><strong>피어 리뷰</strong>:
+<ul>
+<li>보건학 데이터과학 연구의 결과는 동료 평가 과정을 거쳐 검증되어야 합니다. 피어 리뷰는 연구의 품질과 재현성을 높이는 데 중요한 역할을 합니다.</li>
+</ul></li>
+</ul>
+<p>정리하면 아래와 같은 흐름데로 연구하게 됩니다.</p>
+<p><img src="images/flow1.png" alt="sorry~~"></p>
+<p>이 튜토리얼에서는 R, Rstudio, markdown, Shiny server, PostgreSQL 및 github를 사용할 것입니다. R은 무료 오픈 소스 통계 언어로, 데이터 과학 분야에서 널리 사용됩니다. 가장 중요한 참고 자료는 Rafael A. Irizarry의 책과 Hadley Wickham의 책입니다. 아래와 같습니다.</p>
+<p>
+</p></section>
+<section id="참고-books" class="level2">
+<h2 class="anchored" data-anchor-id="참고-books">참고 books</h2>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>title</th>
+<th>authos</th>
+<th>url</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Introduction to Data Science with R</td>
+<td>Rafael A. Irizarry</td>
+<td>https://rafalab.github.io/dsbook/</td>
+</tr>
+<tr class="even">
+<td>R for Data Science</td>
+<td>Garrett Grolemund, Hadley Wickham</td>
+<td>https://r4ds.had.co.nz/index.html</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>I hope you will get valuable experience with me.</li>
+</ul>
+<p>그럼 시작하겠습니다.!!! <strong>jinha</strong></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./intro1.html" class="pagination-link">
+        <span class="nav-page-text">Introduction1</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
