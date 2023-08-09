@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "보건학데이터과학 실습",
+    "section": "",
+    "text": "소개"
+  },
+  {
+    "objectID": "index.html#보건학",
+    "href": "index.html#보건학",
+    "title": "보건학데이터과학 실습",
+    "section": "보건학",
+    "text": "보건학\n보건학은 인간과 그들의 사회의 건강을 향상시키기 위한 과학입니다. 보건학은 의학에서 사회과학에 이르기까지 여러 학문과 밀접하게 연관되어 있습니다. 따라서, 다학제적 접근법은 보건학 전문가에게 가장 중요한 기술 중 하나입니다."
+  },
+  {
+    "objectID": "index.html#보건학-데이터과학",
+    "href": "index.html#보건학-데이터과학",
+    "title": "보건학데이터과학 실습",
+    "section": "보건학 데이터과학",
+    "text": "보건학 데이터과학\n데이터 과학은 크게 데이터를 수집, 처리, 분석하고, 그 결과를 해석하여 의사결정이나 예측, 분류 등의 작업을 수행하는 분야입니다. 이를 위해 프로그래밍, 통계학, 머신러닝 및 도메인 지식을 종합적으로 활용합니다. 이러한 기술을 보건학에 접목시키는 것이 보건학 데이터과학입니다.\n보건학 데이터과학의 주요 특징은 다음과 같습니다:\n\n다양한 데이터의 수집 및 관리:\n\n보건학에서는 환자 기록, 임상 데이터, 역학 조사 데이터, 환경 데이터 등 다양한 유형의 데이터를 다룹니다. 이러한 데이터의 효율적인 수집과 관리는 보건학의 데이터과학에서 중요한 부분을 차지합니다.\n\n통계 및 머신러닝의 적용:\n\n공공보건의 문제를 해결하기 위해, 통계적 방법과 머신러닝 기술을 사용하여 데이터에서 통찰력을 얻거나 예측 모델을 만드는 작업을 수행합니다.\n\n데이터 시각화:\n\n복잡한 보건 데이터를 쉽게 이해하고 해석하기 위해 시각화 기술을 사용합니다. 이를 통해 정책 결정자나 일반 대중에게 데이터를 효과적으로 전달할 수 있습니다.\n\n재현성 및 공유 가능한 연구:\n\n보건학 데이터과학에서는 연구 결과의 재현성을 보장하고, 연구 결과를 다른 연구자와 공유할 수 있도록 투명한 방법을 추구합니다.\n\n도메인 지식:\n\n보건학 데이터과학자는 단순히 데이터과학의 기술만을 가지고 있는 것이 아니라, 보건학에 대한 깊은 이해도 필요합니다. 이를 통해 데이터를 올바르게 해석하고, 실제 보건 문제에 적절한 솔루션을 제시할 수 있습니다."
+  },
+  {
+    "objectID": "index.html#보건학-데이터-과학-과학이-되려면",
+    "href": "index.html#보건학-데이터-과학-과학이-되려면",
+    "title": "보건학데이터과학 실습",
+    "section": "보건학 데이터 과학, 과학이 되려면",
+    "text": "보건학 데이터 과학, 과학이 되려면\n과학에서의 제현성 과학에서의 재현성은 연구 결과를 다른 연구자들이 동일한 조건 하에서 반복해서 얻을 수 있는지의 여부를 나타내는 중요한 원칙입니다. 재현성은 과학적 연구의 진정성과 신뢰성을 평가하는 기준 중 하나로 간주됩니다.\n보건학 데이터과학이 과학의 기준에 부합하려면 다음과 같은 재현성 요소들을 갖추어야 합니다\n\n데이터의 접근성:\n\n연구에 사용된 원본 데이터는 공개되어야 하며, 연구를 재현하려는 다른 연구자들이 접근할 수 있어야 합니다. 당연히 개인정보 보호와 관련된 법률 및 규정을 준수하면서, 필요한 경우 익명화 또는 변조된 형태로 데이터를 공개해야 합니다.\n\n분석 코드 및 소프트웨어의 공개:\n\n연구에 사용된 데이터 처리, 분석, 시각화 등의 코드와 사용된 소프트웨어의 버전 정보도 공개되어야 합니다.\n\n분석 방법론의 명확성:\n\n사용된 통계적 방법, 머신러닝 알고리즘, 모델링 접근법 등이 명확하게 기술되어야 합니다.\n\n외부 변수 및 제어:\n\n연구 과정에서 영향을 미칠 수 있는 외부 변수들에 대한 정보와 그것들을 어떻게 제어했는지에 대한 정보가 필요합니다.\n\n결과의 재현 가능성 평가:\n\n가능한 경우, 연구 결과의 재현 가능성을 평가하기 위해 독립된 데이터셋이나 방법론을 사용하여 검증을 시도해야 합니다.\n\n연구 환경의 명세:\n\n연구가 수행된 하드웨어 및 소프트웨어 환경, 그리고 이를 설정하기 위한 파라미터 등도 기록되어야 합니다. 이는 특히 계산적으로 복잡한 모델이나 시뮬레이션을 다룰 때 중요합니다.\n\n피어 리뷰:\n\n보건학 데이터과학 연구의 결과는 동료 평가 과정을 거쳐 검증되어야 합니다. 피어 리뷰는 연구의 품질과 재현성을 높이는 데 중요한 역할을 합니다.\n\n\n정리하면 아래와 같은 흐름데로 연구하게 됩니다.\n 이 튜토리얼에서는 R, Rstudio, markdown, Shiny server, PostgreSQL 및 github를 사용할 것입니다. R은 무료 오픈 소스 통계 언어로, 데이터 과학 분야에서 널리 사용됩니다. 가장 중요한 참고 자료는 Rafael A. Irizarry의 책과 Hadley Wickham의 책입니다. 아래와 같습니다."
+  },
+  {
+    "objectID": "index.html#참고-books",
+    "href": "index.html#참고-books",
+    "title": "보건학데이터과학 실습",
+    "section": "참고 books",
+    "text": "참고 books\n\n\n\n\n\n\n\n\ntitle\nauthos\nurl\n\n\n\n\nIntroduction to Data Science with R\nRafael A. Irizarry\nhttps://rafalab.github.io/dsbook/\n\n\nR for Data Science\nGarrett Grolemund, Hadley Wickham\nhttps://r4ds.had.co.nz/index.html\n\n\n\n\nI hope you will get valuable experience with me.\n\n그럼 시작하겠습니다.!!! jinha"
+  },
+  {
+    "objectID": "210_randrstudio.html#rstudio-cloud",
+    "href": "210_randrstudio.html#rstudio-cloud",
+    "title": "1  R & R studio 사용",
+    "section": "1.1 Rstudio Cloud",
+    "text": "1.1 Rstudio Cloud\nR studio cloud는 R과 R studio를 가장 빠르고 쉽게 사용할 수 있는 방법입니다. 다양한 옵션이 있으며, 무료 옵션도 포함되어 있습니다.\n\nRstudio cloud 로그인 방법\n\n RStudio Cloud  에 접속합니다.\n로그인을 합니다.\nNew Project 를 실행합니다.\n시작합니다.\n\n\n아래 동영상으로 되어 있으니 참고하시기 바랍니다."
+  },
+  {
+    "objectID": "210_randrstudio.html#r-and-r-studio-on-window-system",
+    "href": "210_randrstudio.html#r-and-r-studio-on-window-system",
+    "title": "1  R & R studio 사용",
+    "section": "1.2 R and R studio on Window system",
+    "text": "1.2 R and R studio on Window system\n여기에서는 Windows 시스템에서 R과 R 스튜디오를 설치하는 방법을 설명합니다.\n\n구글에서 R cran을 검색하세요.\n\n\n아래와 같은 사이트가 나타날 것입니다.\n\n\nR을 다운로드 및 설치하기를 클릭하세요.\nWindows용 R 다운로드하기\nBase → Install R for the first Time\nDownload R * for Windows\n\n\n\n\nR설치\n\n\n\n1.2.1 R studio install\nR 스튜디오 설치는 정말 쉽습니다. Rstudio 로 검색한 다음 아래의 사이트에 들어갑니다. https://posit.co/download/rstudio-desktop/\n\n\n\nR 설치 사이트\n\n\n여기서 R studio 를 클릭해서 다운로드 후 설치하면 됩니다.\n\n\n1.2.2 R studio project\nR 스튜디오는 프로젝트 옵션을 제공합니다. 프로젝트는 데이터와 스크립트를 가져오고 내보내는 기본 경로를 만듭니다. 프로젝트를 공유할 때 협업이 쉬워집니다.\n\n\n저는 또한 흔히 사용되는 기본 디렉토리를 권장합니다. 이것은 동료와 아이디어를 공유하는 또 다른 규칙입니다.\n\n\n우리가 Windows 시스템을 사용하더라도 복사 및 이동과 같은 기본 명령은 코딩 프로세스를 용이하게 만드는 데 필요합니다. 아래 동영상을 보세요\n\n\n네, 이제 R 코딩을 시작할 준비가 되었습니다."
+  },
+  {
+    "objectID": "210_randrstudio.html#r-and-r-studio-on-ubuntus",
+    "href": "210_randrstudio.html#r-and-r-studio-on-ubuntus",
+    "title": "1  R & R studio 사용",
+    "section": "1.3 R and R studio on Ubuntus",
+    "text": "1.3 R and R studio on Ubuntus\n우분투스 서버에 R을 설치하는 과정입니다. 아마존, 구글클라우드등 서버에 설치할때 아래의 동영상을 따라해 주세요. 필요한 분만 하시면 됩니다. 여러 복잡한 과정이 있으니, 아래의 구글 docs를 보고 따라해 주세요.\n참고 동영상 \nGoogle Doc   Google Doc Download"
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "2  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2"
+  }
+]
