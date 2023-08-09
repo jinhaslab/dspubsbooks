@@ -1,0 +1,29 @@
+project:
+  type: book
+
+book:
+  title: "보건학데이터과학 실습"
+  author: "jinha"
+  date: "2023. 8. 8."
+  chapters:
+    - index.qmd
+    - part: intro1.qmd
+      chapters:
+        - intro.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    #css: style.css
+    theme:
+      light: flatly
+      dark: darkly
+  
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
