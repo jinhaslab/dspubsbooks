@@ -11,6 +11,7 @@ book:
     - part: "I. R 기본"
       chapters:
         - 210_randrstudio.qmd
+        - 221_Rbasic1.qmd
     - summary.qmd
     - references.qmd
 
@@ -27,4 +28,5 @@ format:
     documentclass: scrreprt
 
 editor: visual
+
 
