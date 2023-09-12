@@ -13,6 +13,7 @@ book:
         - 210_randrstudio.qmd
         - 221_Rbasic1.qmd
         - 231_dataimportsave.qmd
+        - 241_datamanipulation.qmd
     - summary.qmd
     - references.qmd
 
