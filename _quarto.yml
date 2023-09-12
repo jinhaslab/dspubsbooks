@@ -12,6 +12,7 @@ book:
       chapters:
         - 210_randrstudio.qmd
         - 221_Rbasic1.qmd
+        - 231_dataimportsave.qmd
     - summary.qmd
     - references.qmd
 

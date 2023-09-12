@@ -1,4 +1,4 @@
-# R 기본 {.unnumbered}
+# R 속성
 
 ## vector matirx list
 
