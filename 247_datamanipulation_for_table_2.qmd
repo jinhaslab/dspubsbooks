@@ -1,0 +1,634 @@
+# Manipulation for table_2
+ 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qhuoLuZLLSQ?si=5ICIPokgLZMXxJ6j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## 데이터 준비
+ 데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다.. 
+```{r , message = FALSE}
+rm(list=ls())
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("htmlTable")) install.packages("htmlTable")
+if(!require("haven")) install.packages("haven")
+if(!require("broom")) install.packages("broom")
+```
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다.. 데이터를 불러오겠습니다. 안전보건공단 홈페이에서 자료를 다운 받는게 원칙입니다. 다만 실습을 빠르게 진행하기 위해서, dspubs.org 페이지에 있는 파일을 이용하겠습니다. <br> <a href="https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"> kwcsData6th.rds </a> <br> 자신의 folder에 data 라는 folder가 있는지 확인하십시오. data라는 폴더에 다운로드하고, 불러오도록 하겠습니다.
+
+```{r}
+url <- "https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"
+download.file(url, "data/tutorKWCS.rds")
+kwcs = readRDS("data/tutorKWCS.rds")
+```
+
+## 분석 주제 선정
+
+ 우선 수면 장애를 중심으로 연구를 하기로 했습니다. 이때 장시간 근무가 수면장애를 일으킬 수 있다는 가정을 했습니다. 기존 연구에서 유사한 내용이 있었기 때문입니다. 그 이유를 생각해보니, 오래 일하면 어떤 방식으로든 수면시간 자체가 줄어들 것으로 보였기 때문입니다. 우선 sleep disturbance, long working hours per week 이 정해졌습니다. 이후 연구방법론의 혼란변수 선정 방법이나, 연구자의 Domain knowledge에 따른 선정, 새로운 가설 개발 (originality) 위한 변수 선정등을 고려할 수 있습니다. 이러한 내용은 각각의 연구방법론 수업에서 학습하시기를 바랍니다. <br>
+ 여러 토론을 하다보니, 일을 마치고 집에 돌아온 후 해야할 일이 많은 경우 수면장애가 발생할 것 같은 느낌이 들었습니다. 이 것을 확인해 보고자 합니다. <br>
+ &nbsp; 즉, 장시간근로와 일과 삶의 균형에 따른 수면장애 관련성을 연구해 보고 싶습니다. 
+ 
+<img src="img/wlbalance.PNG">
+
+&nbsp; 이제 data manipulation, long wide 변환을 통해 실습을 해보겠습니다. 
+
+### 근로환경조사와 recode (선택사항)
+
+번외로 분석을 빠르게 진행하기 위해 `recode`에 대한 복습을 해 보겠습니다. `recode`는 아주 단순한 변경에 사용되는데요, 근로환경조사는 이미 변수를 1, 2, 3, 4, 5 의 순서를 Likert 척도로 사용하고 있습니다. 
+
+> 근로환경조사 Likert 척도
+
+| 근로환경조사| Likert 척도|
+|---|---|
+|얼마나 자주 그렇습니까(freq)?|"4.Always", <br> "3.Often", "2.Sometimes", "1.Rarely", "0.Never"|
+|얼마나 자주 그렇습니까(time)?|"5.All of the time", "4.Most of the time", "3.More than half of the time", "2.less than half of the time", "1.Some of the time", "0.At no time"|
+|얼마나 적당 합니까?|"3.Very well", "3.Well", "2.Not very well", "0.Not at all well"|
+
+이것을 이용하면 매우 쉽게 정리할 수 있습니다. <br>
+
+* wwa4: 집안일 때문에 집중하기 어렵다가
+  + 1: 항상그렇다, 
+  + 2: 대부분그렇다. 
+  + 3: 가끔 그렇다
+  + 4: 별로 그렇지 않다. 
+  + 5: 전혀 그렇지 않다
+로 되어 있습니다. 
+
+> recode
+
+아래의 함수 결과를 살펴보면, 숫자의 경우 순서에 따라 문자를 어사인하는 것을 볼 수 있습니다. 데이터가 정형화되어 정리되어 있는 경우, 그리고 숫자인경우, case_when 이나 ifelse보다 더 쉬운 방법입니다. 
+```{r}
+vars = c(1, 1, 1, 3, 3, 3, 2, 2, 2, 4, 4, 4)
+r1 = recode(vars, `1`= "a", `2`= "b", `3`= "c", `4`= "d")
+r1
+r2 = recode(vars, "a", "b", "c", "d")
+r1 == r2
+```
+
+문자일 때는 어떨까요? 문자는 순서를 특정화 해주지 않았으므로 어렵습니다. 근로환경조사는 대부분 문자로 저장되어 있습니다. 
+```{r, eval=FALSE}
+vars_char = as.character(vars)
+r3 = recode(vars_char, "a", "b", "c", "d")
+r3_n = recode(as.numeric(vars_char), "a", "b", "c", "d")
+```
+ 이를 as.numeric을 통해 숫자로 변형시켜준 후 시행하면 잘 작동합니다. 
+```{r}
+vars_char = as.character(vars)
+r3_n = recode(as.numeric(vars_char), "a", "b", "c", "d")
+```
+
+
+
+이제 `kwcs` 에서 wwa1부터 wwa5까지를 가져와 역순으로 Likert 척도를 구해보겠습니다. 
+
+```{r}
+wwas = kwcs %>% select(TSEX, contains("wwa"))
+wwas %>% head()
+```
+
+Quizz1: wwa1 변수에서 1의 값을 갖는 것은 남녀 별로 각각 몇명일까요? (script 안에 count 를 이용해서 작성해 보세요)
+
+```{r, eval = FALSE}
+wwas %>%
+  group_by(TSEX) %>%
+  [ script     ]
+```
+이제 recode를 이용해 변환해 보겠습니다. 
+
+* wwa 관련 변수를 
+  + 1: 항상그렇다 &rarr;   "4.Always"
+  + 2: 대부분그렇다 &rarr; "3.Often"
+  + 3: 가끔 그렇다 &rarr; "2.Sometimes"
+  + 4: 별로 그렇지 않다 &rarr; "1.Rarely"
+  + 5: 전혀 그렇지 않다 &rarr;"0.Never"
+로 변경해 보겠습니다. <br>
+첫번째는 case_when으로 두번째는 recode로 변경했습니다. 누가 더 쉬운가요?
+
+```{r}
+test = wwas %>%
+  mutate(wwa1gp1 = case_when(
+    wwa1 ==1 ~ "4.Always",
+    wwa1 ==2 ~ "3.Often", 
+    wwa1 ==3 ~ "2.Sometimes", 
+    wwa1 ==4 ~ "1.Rarely",
+    wwa1 ==5 ~ "0.Never" 
+  )) %>%
+  mutate(wwa1gp2 = recode(as.numeric(wwa1), 
+                          "4.Always","3.Often","2.Sometimes", "1.Rarely","0.Never" 
+                          )) 
+test %>%
+  mutate(diff = wwa1gp1 == wwa1gp2) %>%
+  pull(diff) %>% table(.)
+```
+
+ 코드가 길어지는 것은 누군가와 소통하는데 장벽이 될수 있습니다. 반복적인 것은 함수를 만들어 요약할 수 있습니다. 
+
+```{r}
+Likerts = function(x){
+  recode(as.numeric(x), 
+         "4.Always","3.Often","2.Sometimes", "1.Rarely","0.Never" 
+         )
+}
+
+wwas %>%
+  mutate(wwa1gp1 = recode(as.numeric(wwa1), 
+                          "4.Always","3.Often","2.Sometimes", "1.Rarely","0.Never" 
+                          )) %>%
+  mutate(wwa1gp2 = Likerts(wwa1)) %>%
+  mutate(diff = wwa1gp1 == wwa1gp2) %>%
+  pull(diff) %>% table(.)
+
+```
+
+### 근로환경조사 기본 변수 생성
+
+ data manipulation에서 실습한 내용을 통해 변수를 생성해 보겠습니다. 
+
+```{r, cache = FALSE}
+# data manip function
+Likert5f = function(x){dplyr::recode(as.numeric(x), 
+         "4.Always","3.Often","2.Sometimes", "1.Rarely","0.Never" )}
+
+# data step start ----------
+
+dat1 = kwcs %>%
+  filter(AGE <70) %>%
+  filter(AGE >18) %>%
+  # sleep --------
+  filter(!is.na(sleep1)&!is.na(sleep2)&!is.na(sleep3)) %>%
+  filter(sleep1 %in% c(1:5), 
+         sleep2 %in% c(1:5), 
+         sleep3 %in% c(1:5)) %>%
+  mutate(sleep1in = 5-sleep1, 
+         sleep2in = 5-sleep2,
+         sleep3in = 5-sleep3
+         ) %>%
+  mutate(sleepgp = case_when(
+    sleep1in + sleep2in+ sleep3in >=6 ~ "1.sleep disturbance", 
+    TRUE ~ "0.non distrubance"
+  )) %>%
+  # work life balances -------------
+  filter(!is.na(wbalance), !is.na(wwa1), !is.na(wwa2), !is.na(wwa3), !is.na(wwa4), !is.na(wwa5)) %>%
+  filter(!is.na(wbalance)) %>%
+  mutate(wbalancegp = case_when(
+    wbalance %in% c(1, 2) ~ "0.balance", 
+    TRUE ~ "1.non balance"
+  )) %>%
+  mutate(wwa1gp=Likert5f(wwa1), wwa2gp=Likert5f(wwa2),  wwa3gp=Likert5f(wwa3), 
+         wwa4gp=Likert5f(wwa4), wwa5gp=Likert5f(wwa5), 
+         ) %>%
+  # job and sex, agegp  ----------
+  filter(!is.na(job1))%>%
+  filter(job1 %in% c(1, 2, 3)) %>%
+  mutate(sexgp = case_when(
+    TSEX ==1 ~ "Men", 
+    TRUE ~ "Women"
+  )) %>%
+  mutate(agegp = case_when(AGE <25 ~ "<25", AGE <30 ~ "<30",  AGE <35 ~ "<35", 
+    AGE <40 ~ "<40", AGE <45 ~ "<45", AGE <50 ~ "<50",AGE <55 ~ "<55", AGE <60 ~ "<60",
+    TRUE ~ "\u226560" # 나머지는 모두 >65 (\u2265는 크거나 같다는 symbol)
+  )) %>%
+  filter(!is.na(edu)) %>% filter(edu %in% c(1:7)) %>%
+  mutate(edugp = case_when(
+    edu %in% c(1:3) ~    "2.middle school or below",
+    edu %in% c(4  ) ~    "1.high school",
+    edu %in% c(5:7)   ~  "0.university or more"
+  )) %>%
+  mutate(njob=case_when(
+    job1 %in% c(2, 3) ~ "1.njob", 
+    TRUE ~ "0.one-job")) %>%
+  # back pains -----------
+  mutate(backpain= case_when(
+    heal_prob1==1 ~ "pain", 
+    TRUE ~ "no-pain")) %>%
+  # emp_type,working hours, shiftwork, work life balance -------
+  filter(!is.na(emp_type)) %>%
+  filter(emp_type %in% c(1:4)) %>%
+  mutate(empgp = case_when(
+    emp_type ==1 ~ "2.own-account worker", 
+    emp_type ==2 ~ "1.employer/self-employer", 
+    emp_type ==3 ~ "0.paid-worker", 
+    emp_type ==4 ~ "3.unpaind family work"
+  )) %>%
+  filter(!is.na(wtime_week)) %>%
+  mutate(whgp=case_when(
+    wtime_week < 35 ~ "<35", 
+    wtime_week < 40 ~ "<40", 
+    wtime_week < 52 ~ "<52", 
+    wtime_week < 60 ~ "<60", 
+    TRUE ~ "\u226560", 
+  )) %>%
+  filter(!is.na(wtime_length5)) %>%
+  filter(wtime_length5 %in% c(1, 2)) %>%
+  mutate(shiftWork = case_when(
+    wtime_length5 ==1 ~ "1.shift work", 
+    TRUE ~ "0.non shift work"
+  )) %>%
+  filter(!is.na(wtime_resilience)) %>%
+  mutate(shortReturn = case_when(
+    wtime_resilience ==1 ~ "1.short return", 
+    TRUE ~ "0.non short return"
+  )) %>%
+  filter(!is.na(satisfaction)) %>%
+  filter(satisfaction %in% c(1:4)) %>%
+  mutate(satisInv = 5-satisfaction) %>%
+  mutate(shiftShort=case_when(
+    shiftWork == "1.shift work" & shortReturn == "1.short return" ~ "3.shift work with short return", 
+    shiftWork == "1.shift work" & shortReturn != "1.short return" ~ "2.shift work", 
+    shiftWork != "1.shift work" & shortReturn == "1.short return" ~ "1.day work with short return", 
+    shiftWork != "1.shift work" & shortReturn != "1.short return" ~ "0.day work", 
+  )) 
+
+```
+
+## 근로환경조사 Table 1 만들기
+ 지금까지 작업을 통해 분석한 변수를 선정합니다. 이때 정리할 부분은 무엇으로 구분할지, 관심변수는 무엇인지 이중 명목변수와 연속변수는 무엇인지를 구분하는 것입니다. 
+```{r}
+## Variables selection
+stratas  = c("sleepgp")
+catVars = c(
+  # interesting
+  #"wbalancegp",
+  "wwa1gp", "wwa2gp","wwa3gp","wwa4gp","wwa5gp",
+  # confounder
+  #"whgp", 
+  "shortReturn",#"shiftWork" , #"njob", 
+  # demograhpics
+  "sexgp", #"agegp", 
+  "edugp", "empgp" #, "backpain" 
+)
+conVars = c("AGE","satisfaction")
+
+```
+
+### 변수 값 요약하기
+
+아래 코드가 뜻하는 것은 무엇일까요? 하나하나 살펴보아야 합니다. Table을 만들때 long file 형태로 만든 것입니다. 
+
+```{r}
+catTab = dat1 %>%
+  select(stratas, all_of(catVars)) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values")%>%
+  group_by( variables, values) %>%
+  count(!!sym(stratas)) %>%
+  mutate(prob = n/sum(n), 
+         smry= sprintf("%.0f (%.1f%%)", n, prob*100)
+         ) %>%
+  select(-n, -prob) %>%
+  ungroup() %>%
+  pivot_wider(names_from = stratas, values_from =smry) 
+
+```
+
+아래 코드가 뜻하는 것은 무엇일까요? 하나하나 살펴보아야 합니다. Table을 만들때 long file 형태로 만든 것입니다. 
+
+```{r}
+conTab = 
+  dat1 %>%
+  select(stratas, all_of(conVars)) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values")%>%
+  group_by( !!sym(stratas), variables) %>%
+  summarise(avg = mean(values, na.rm =TRUE), 
+            std = sd(values, na.rm =TRUE) 
+            ) %>%
+  mutate(smry  = sprintf("%.1f\u00b1%.1f", avg, std)) %>%
+  select(stratas, variables, smry)%>%
+  ungroup() %>%
+  pivot_wider(names_from = stratas, values_from =smry) %>%
+  mutate(values ="") 
+```
+
+ 명목변수 요약 표   `catTab`과 연속편수 요약표 `conTab`을 합쳐 보겠습니다. rbind는 종으로 합친다는 뜻입니다. 
+```{r}
+tabDat = rbind(catTab, conTab)
+```
+
+### P value 구하기. 
+
+ 이제 P value를 구해보겠습니다. 명목변수는 카이검정, 연속변수는 T검정을 해보겠습니다. 
+
+> Chisq-Test
+ 
+ Cross Table을 만든 다음, chisq.test() 명령을 통해 수행합니다. 
+```{r}
+tab= data.frame(A = c(1000, 2000), 
+           B = c(100,  300))
+tab
+chisq.test(tab)
+```
+
+> T.Test
+
+ 두 연속변수로 구성된 Data를 만들고 t.test() 명령을 통해 수행합니다. 
+
+```{r}
+tab = data.frame(A=rnorm(100), 
+           B=rnorm(100)+0.3)
+t.test(tab)
+```
+
+이것을 이용해서 카이검정과 T검정을 수행해보겠습니다. <br>
+가장 정확하면서 쉬운 방식은 반복하는 것입니다. 우리가 이미 변수 값을 long file을 통해 정리하는 것을 실습하였기 때문에, 이 방식도 long file을 이용하겠습니다. <br>
+
+이때 중요한 개념임 `map`, `nest`, `tidy`가 나옵니다. <br>
+
+> map, nest, tidy
+
+각 백터 값에 대해서 함수를 실행한다. 
+```{r}
+1:5 %>%
+  map(function(x){x^2})
+tibble(a=1:5, b=6:10) %>%
+  map(sum)
+```
+이번에는 좀 복잡한 것을 해보겠습니다 아래와 같이 두 집단에 대해서 size와 power를 각 20명에게 측정했다고 가정합시다. 그리고 size와 power를 동시에 측정하고 측정 순서대로 데이터를 정리한 것입니다. 이후 G1과 G2의 Size와 Power에 대해 T.test를 수행하겠습니다. 
+```{r}
+test = tibble(
+  Variables= rep(c("Size","Power"), each=20), 
+  G1= c(rnorm(20), rnorm(20)), 
+  G2= c(rnorm(20)-0.3, rnorm(20)+0.3), 
+  )
+```
+ 일반적 방식은 아래와 같습니다. 이것을 반복하면 되는 것입니다. 
+```{r}
+test %>% filter(Variables=="Size") %>%
+  select(-Variables) %>%
+  t.test(.)
+
+t.test(test[test$Variables=="Size", ]$G1, 
+  test[test$Variables=="Size", ]$G2)
+
+```
+이에 이것을 반복 수행하기 위해, data를 slice 하여 하나의 list로 만드는과정을 하겠습니다. nest의 과정입니다. 이후 각 데이터에 map을 이용해서 반복 수행을 하겠습니다. 그리고 그 값을 정리하여 unnest하는 과정이 필요합니다. 필요한 값인 p. value만 남겨 정리합니다. 
+```{r}
+
+test1 = test %>%
+  nest(dat = -Variables) %>%
+  mutate(fit=map(dat, ~t.test(.x)), 
+         tidied=map(fit, tidy)) 
+test1 %>% unnest(tidied) %>%
+  select(Variables, p.value)
+```
+
+
+
+지금까지 사용한 것을 가지고, 명목변수에서는 Chisq-Test, 연속변수에서 t.test 를 수행하여 정리하겠습니다. 
+
+> 명목변수, chisq.test
+
+```{r}
+catPvalue = 
+  dat1 %>%
+  select(stratas, catVars) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values")%>%
+  group_by(variables, values) %>%
+  count(!!sym(stratas)) %>%
+  pivot_wider(names_from = stratas, values_from =n) %>%
+  ungroup() %>%
+  select(-values) %>%
+  nest(dat = -variables) %>%
+  mutate(
+    fit = map(dat, 
+              ~chisq.test(.x)), 
+    tidied = map(fit, tidy)
+  ) %>%
+  unnest(tidied) %>%
+  select(variables, p.value) %>%
+  mutate(p.value = ifelse(p.value <0.001, "<0.001", sprintf("%.3f", p.value)))
+
+```
+
+> 연속변수, t.test
+
+```{r}
+conPvalue=dat1 %>%
+  mutate(stratas = !!sym(stratas)) %>%
+  select(stratas, conVars) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values") %>%
+  nest(dat = -variables) %>%
+  mutate(
+    fit   =map(dat, ~t.test(.$values ~ .$stratas)), 
+    tidied=map(fit, tidy)
+  ) %>%
+  unnest(tidied) %>%
+  select(variables, p.value) %>%
+  mutate(p.value = ifelse(p.value <0.001, "<0.001", sprintf("%.3f", p.value)))
+```
+
+> P.valeu 합치기
+
+```{r}
+tabPvalue = rbind(catPvalue, conPvalue)
+```
+
+> 표가 어떤 순서대로 표현될지에 대한 순서를 정합니다. 
+
+```{r}
+varOrder = tibble("variables"=c(catVars, conVars)) %>%
+  mutate(order = row_number())
+varOrder
+
+```
+
+
+## Table 1 정리하기
+
+이제 변수값 요약과, p.value를 합치고, 순서에 맞게 정리하겠습니다. 
+
+```{r}
+tab1 = tabDat %>%
+  left_join(tabPvalue, by=c("variables")) %>%
+  left_join(varOrder, by = c("variables")) %>%
+  arrange(order, values) %>%
+  group_by(variables) %>%
+  mutate(ranks = row_number()) %>%
+  mutate(p.value   = ifelse(ranks==min(ranks), p.value,   "")) %>% 
+  mutate(variables = ifelse(ranks==min(ranks), variables, "")) %>%
+  ungroup() %>%
+  select(-order, -ranks)%>%
+  mutate(values = str_replace(values, "[:digit:]\\.", ""))
+```
+
+이것을 htmlTable로 나타내면 다음과 같습니다. 
+
+```{r}
+tab1 %>% htmlTable()
+```
+ 
+### htmlTable visulaization
+
+ 테이블이 너무 길기 때문에,  wwa2, wwa3, wwa4, wwa5,  는 제외하고 표를 만들겠습니다. 
+```{r}
+tab2 = tab1 %>% slice(-c(6:25))
+tab2 %>% 
+  `rownames<-`(NULL)  %>%
+  htmlTable(rnames = FALSE) 
+  
+```
+
+ 변수 이름을 변경하요 보기 좋게 변환시키고, cgroup을 이용하여 colum 부분을 조정합니다. Caption과 Footer를 작성하여 마무리 합니다. 
+
+```{r}
+tab2 %>%
+  setNames(c("", "", "None", "Disturbance", "P value")) %>%
+  htmlTable(
+    cgroup = c("",  "Sleep disturbance", ""), 
+    n.cgroup = c(2, 2, 1), 
+    tfoot = "P value calculated by Chisq-Test and T-Test", 
+    rnames = FALSE, 
+    caption = "Basic Characteristics according to Sleep disturbance"
+  ) 
+```
+
+
+## 함수만들기 {#kwcsfunction}
+ 
+ 지금가지 했던 일련의 과정을 함수로 정리하겠습니다. 
+
+```{r}
+kwcsTabf = function(dat1, stratas, catVars, conVars){
+varOrder = tibble("variables"=c(catVars, conVars)) %>%
+  mutate(order = row_number())
+  
+catTab = dat1 %>%
+  select(stratas, all_of(catVars)) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values")%>%
+  group_by( variables, values) %>%
+  count(!!sym(stratas)) %>%
+  mutate(prob = n/sum(n), 
+         smry= sprintf("%.0f (%.1f%%)", n, prob*100)
+  ) %>%
+  select(-n, -prob) %>%
+  ungroup() %>%
+  pivot_wider(names_from = stratas, values_from =smry) 
+
+conTab = 
+  dat1 %>%
+  select(stratas, all_of(conVars)) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values")%>%
+  group_by( !!sym(stratas), variables) %>%
+  summarise(avg = mean(values, na.rm =TRUE), 
+            std = sd(values, na.rm =TRUE) 
+  ) %>%
+  mutate(smry  = sprintf("%.1f\u00b1%.1f", avg, std)) %>%
+  select(stratas, variables, smry)%>%
+  ungroup() %>%
+  pivot_wider(names_from = stratas, values_from =smry) %>%
+  mutate(values ="") 
+tabDat = rbind(catTab, conTab)
+
+
+catPvalue = 
+  dat1 %>%
+  select(stratas, catVars) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values")%>%
+  group_by(variables, values) %>%
+  count(!!sym(stratas)) %>%
+  pivot_wider(names_from = stratas, values_from =n) %>%
+  ungroup() %>%
+  select(-values) %>%
+  nest(dat = -variables) %>%
+  mutate(
+    fit = map(dat, 
+              ~chisq.test(.x)), 
+    tidied = map(fit, tidy)
+  ) %>%
+  unnest(tidied) %>%
+  select(variables, p.value) %>%
+  mutate(p.value = ifelse(p.value <0.001, "<0.001", sprintf("%.3f", p.value)))
+
+conPvalue=dat1 %>%
+  mutate(stratas = !!sym(stratas)) %>%
+  select(stratas, conVars) %>%
+  pivot_longer(-c(stratas), names_to = "variables", values_to ="values") %>%
+  nest(dat = -variables) %>%
+  mutate(
+    fit   =map(dat, ~t.test(.$values ~ .$stratas)), 
+    tidied=map(fit, tidy)
+  ) %>%
+  unnest(tidied) %>%
+  select(variables, p.value) %>%
+  mutate(p.value = ifelse(p.value <0.001, "<0.001", sprintf("%.3f", p.value)))
+
+tabPvalue = rbind(catPvalue, conPvalue)
+
+tab1 = tabDat %>%
+  left_join(tabPvalue, by=c("variables")) %>%
+  left_join(varOrder, by = c("variables")) %>%
+  arrange(order, values) %>%
+  group_by(variables) %>%
+  mutate(ranks = row_number()) %>%
+  mutate(p.value   = ifelse(ranks==min(ranks), p.value,   "")) %>% 
+  mutate(variables = ifelse(ranks==min(ranks), variables, "")) %>%
+  ungroup() %>%
+  select(-order, -ranks)%>%
+  mutate(values = str_replace(values, "[:digit:]\\.", ""))
+return(tab1)
+}
+```
+
+층화변수, 명목변수, 연속변수를 구성하여 함수를 실행해 보겠습니다. 
+
+```{r}
+## Variables selection
+stratas  = c("sleepgp")
+catVars = c(
+  # interesting
+  #"wbalancegp",
+  "wwa1gp", "wwa2gp","wwa3gp","wwa4gp","wwa5gp",
+  # confounder
+  #"whgp", 
+  "shortReturn","shiftWork" , "njob", 
+  # demograhpics
+  "sexgp", "agegp", 
+  "edugp", "empgp" #, backpain" 
+)
+conVars = c("AGE","satisfaction")
+
+tab1 = kwcsTabf(dat1=dat1, stratas = stratas, catVars = catVars, conVars = conVars)
+tab1 %>% 
+  setNames(c("", "", "None", "Disturbance", "P value")) %>%
+  htmlTable(
+    cgroup = c("",  "Sleep disturbance", ""), 
+    n.cgroup = c(2, 2, 1), 
+    tfoot = "P value calculated by Chisq-Test and T-Test", 
+    rnames = FALSE, 
+    caption = "Basic Characteristics according to Sleep disturbance"
+  ) 
+```
+
+## Quiz
+### Quiz1
+
+> Quiz.1 아래의 표와 같은 결과가 나타나도록, sleepgp 대신 요통을 중심으로 표를 만들어 보세요. R script를 업로드 해주세요.  
+
+```{r, echo=FALSE}
+stratas  = c("backpain")
+catVars = c(
+  # interesting
+  #"wbalancegp",
+  #"wwa1gp", "wwa2gp","wwa3gp",
+  "wwa4gp","wwa5gp",
+  # confounder
+  #"whgp", 
+  "shortReturn","shiftWork" , #"njob", 
+  # demograhpics
+  "sexgp", #"agegp", 
+  "edugp", "empgp" #, backpain" 
+)
+conVars = c("AGE"#,"satisfaction"
+            )
+
+tab1 = kwcsTabf(dat1=dat1, stratas = stratas, catVars = catVars, conVars = conVars)
+tab1 %>% 
+  setNames(c("", "", "No", "Pain", "P value")) %>%
+  htmlTable(
+    cgroup = c("",  "Back PAin", ""), 
+    n.cgroup = c(2, 2, 1), 
+    tfoot = "P value calculated by Chisq-Test and T-Test", 
+    rnames = FALSE, 
+    caption = "Basic Characteristics according to Back Pain"
+  ) 
+```

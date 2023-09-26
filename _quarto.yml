@@ -17,6 +17,7 @@ book:
     - part: "II. 데이터 시각화"
       chapters:
         - 245_datamanipulation_for_table.qmd
+        - 247_datamanipulation_for_table_2.qmd
     - summary.qmd
     - references.qmd
 
@@ -28,10 +29,7 @@ format:
     theme:
       light: flatly
       dark: darkly
-  
   pdf:
     documentclass: scrreprt
 
 editor: visual
-
-
