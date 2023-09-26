@@ -1,0 +1,562 @@
+# Data Manipulation for table (1)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vMKWFnp5qI0?si=eoalcXhk9p6beuJT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+</iframe>
+
+R 기초에서 기본 Data manipulation 을 실습했습니다. 여기서는 표를 만들기 위해 필요한 몇몇 Data manipulation을 실습합니다.
+
+## tidyverse
+
+데이터를 모으는 입장과 데이터를 분석하는 입장은 매우 다릅니다. 데이터를 모을 때는 모으는 연구자의 입장에서 하게되고, 이를 분석하는 연구자에 맞도록 변형하는 과정이 필요합니다. 또한 표를 만들거나 도표를 만드는 과정에서 데이터의 모양을 우리가 원하는 데로 변형할 필요가 있습니다. R에서 이과정을 쉽게 하기 위해 가장 많이 사용되는 것이 tidyverse 입니다. 이를 이용해서 실습해 보겠습니다
+
+```{r tfph1, message = FALSE}
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("htmlTable")) install.packages("htmlTable")
+if(!require("haven")) install.packages("haven")
+if(!require("DT")) install.packages("DT")
+```
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## 실습 데이터 준비
+
+데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다.. 데이터를 불러오겠습니다. 안전보건공단 홈페이에서 자료를 다운 받는게 원칙입니다. 다만 실습을 빠르게 진행하기 위해서, dspubs.org 페이지에 있는 파일을 이용하겠습니다. <br> <a href="https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"> kwcsData6th.rds </a> <br> 자신의 folder에 data 라는 folder가 있는지 확인하십시오. data라는 폴더에 다운로드하고, 불러오도록 하겠습니다.
+
+```{r}
+url <- "https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"
+download.file(url, "data/tutorKWCS.rds")
+kwcs = readRDS("data/tutorKWCS.rds")
+```
+
+> unicode chart
+
+표를 만들다 보면 크다, 작다, 같다 등은 표시가 쉬운 반면, 크거나 같다, 작거나 같다 등은 표시가 어렵습니다. 이 때 사용해야할 것이 **unicode** 입니다. 보건학에서 필요한 대표적 유니코드는 사실 2개입니다. 크거나 같다, 작거나 같다. 나머지는 키보드에 이미 있으니 이것을 사용하면 됩니다. 추가적인 unicode는 아래의 항목을 통해 살펴 볼수 있습니다. <br> <a href="https://unicode.org/charts/PDF/U2200.pdf"> Unicode Chart </a>
+
+
+
+```{r}
+tibble(
+  "symbole    " = c("\u2264", "\u2265", "\u00b1"), 
+  "unicode    " = c("u2264", "u2265", "u00b1")
+) %>% 
+  #addHtmlTableStyle(css.cell = c("width: 100;","width: 100;")) %>%
+  htmlTable(caption ="Simple unicode and symbols")
+```
+
+다음과 같이 사용할 수 있습니다. 여기사 `\`는 "escape character"로 뒤에 오는 것이 문자가 아니라 약솓된 결과를 나타내 달라는 뜻입니다.
+
+```{r}
+print("x \u2264 10")
+```
+
+그럼 어떻게 문자를 사용할까요? print 명령을 위와 같이 사용하는 것도 좋지만, 변수를 생성하기에는 좋은 방법이 따로 있습니다. 좋은 방법이란 처음에는 어렵지만, 알고나면 엄청난 것들을 말합니다. paste와 sprintf 입니다. 어떤 것이 좋은가요?. 우리의 목표가 데이터 표현을 자동화 하는 것인데, 자동화를 위해서는 구조를 만들고 거기에 값을 대입 시키는 것이 기본입니다. 그러니, sprintf 를 더 자주 사용하게 됩니다. paste는 모두 붙여 주는 것이니, 쉽게 이해될 것이고, sprintf는 \`%s\` 마다 무언가를 넣어 붙여 주는 방식입니다. paste와 sprintf는 정말 자주 사용되는 함수이니 꼭 익숙해 지시기 바랍니다.
+
+```{r}
+xp1 = paste("x", "\u2264", "10")
+xp2 = sprintf("x %s 10", "\u2264")
+xp1
+xp2
+```
+
+> 데이터 확인
+
+데이터의 변수를 확인하는 방법은 `colnames()` , `names()` 또는 `head()`를 하용하는 것입니다. 약 400개의 변수가 있으므로, 처음부터 10번째까지 `\[1:10\]` 변수를 찾아 보겠습니다.
+
+```{r}
+colnames(kwcs)[1:10]
+```
+
+그럼 45번째 변수 부터 50번째 변수까지 찾아 보겠습니다. `[]`안을 채워보세요.
+
+```{r, eval=FALSE}
+colnames(kwcs)[     ]
+```
+
+```{r, echo=FALSE}
+colnames(kwcs)[45:50]
+```
+
+연령인 `AGE`가 있네요, 성별에 대한 `AGE`도 있습니다. 그럼 이것을 이용해서 실습을 해보겠습니다. 
+변수를 하나 선택하는 것은 데이터에 $ 표시를 하고 이후에 변수를 넣는 방식입니다. "데이터$변수" 입니다. 10개만 보겠습니다. 숫자 처럼 보이네요, 확인하겠습니다. `class(kwcs$AGE)`를 이용해봅니다. numberic 으로 숫자입니다. 숫자여야 평균 표준편차 등의 계산이 가능합니다. 
+```{r}
+kwcs$AGE[1:10]
+class(kwcs$AGE)
+```
+ 이번에는 `SEX` 변수(variable)의 변수값(value)를 살펴 보겠습니다. class 가 무엇일까요? double 또는 interger 라고 나올 텐데요, R에서는 numberic 값에 interger와 double 속성을 사용한다고 생각하시면 됩니다. 다만 label을 붙여 놓아서 알기 쉽게 되어 있네요. 
+ 
+```{r}
+kwcs$TSEX[1:10]
+class(kwcs$TSEX)
+```
+
+ 국적에 대해서도 알아보겠습니다. character 이네요. 한국에서 시행한 조사라, 한국 국적은 빈칸으로, 이외에는 국적을 적었습니다. `kwcs$country_etc`를 해보면, 대부분 빈칸입니다. 빈칸인 경 `==""`, 빈칸이 아닌 경우 `!=""`을 이용해서 어떤 국적이 있는지 살펴 보겠습니다. 
+```{r}
+class(kwcs$country_etc)
+kwcs$country_etc[kwcs$country_etc != ""][1:10]
+```
+ 
+ 근로자의 지위를 알아 보겠습니다. 근로자 지위는 emp_stat 입니다. 1은 상용근로자, 2는 임시근로자, 3은 일용근로자 입니다. 
+
+```{r, eval=FALSE}
+kwcs$emp_stat 
+```
+
+```{r}
+kwcs$emp_stat %>% head()
+```
+
+매우 중요한 개념이 나옵니다. 빈칸과 NA 입니다. 모두 값에 대한 정보가 없다는 것입니다. 값에 대한 정보가 없으면 어떻게 해야 할지는 매우 중요한 개념입니다. 우선 여기서는 값에 대한 정보가 없는 것을 제외하고 분석해 보겠습니다. 
+값에 대한 정보가 없는 데이터는 제거하여, 새로운 데이터를 만들겠습니다. 이때 filter 라는 것을 이용합니다. is.na라는 것은 `NA`라는 것을 의미하고, 앞에 `!`는 그 반대를 말합니다. 
+
+```{r}
+kwcs %>%
+  filter(!is.na(emp_stat))
+```
+
+
+ 요통에 대한 변수는 heal_prob1 입니다. 이 변수를 확인해 보겠습니다. 1번은 있다, 2번은 업다, 8번은 무응답, 9번은 거절입니다. 이제 빈칸과 NA가 아니더라도 필요없는 정보가 있습니다. 모르거나/무응답했거나, 거절한 사람입니다. 이를 제거해 보겠습니다. 
+```{r, eval=FALSE}
+kwcs %>% 
+  filter(!is.na(emp_stat)) %>%
+  filter(!is.na(heal_prob1)) %>%
+  filter(heal_prob1 !=8) %>%
+  filter(heal_prob1 !=9)
+```
+이번에는 heal_prob1 에 1, 2 인 사람만 포함시켜 보겠습니다. 어떤 것이 더 편한가요? 
+```{r, eval=FALSE}
+kwcs %>% 
+  filter(!is.na(emp_stat)) %>%
+  filter(!is.na(heal_prob1)) %>%
+  filter(heal_prob1 %in% c(1, 2))
+```
+
+이번에는 sleep1이라는 변수를 살펴 보겠습니다. sleep1이라는 변수는 잠들기 어려운 것이 매일(1), 한주에 여러번 (2), 한달에 여러번(3), 드물게(5), 전혀 없음(5) 의 5점 척도 입니다. 이데 모름과 거절, 그리고 NA 값을 제거해 보겠습니다. 
+
+그리고 dat라는 새로운 data를 만들고 kwcs를 제거 하겠습니다. 
+dat를 이용해서 분석을 해보겠습니다. 지금까지 사용했던, TSEX, AGE, emp_stat, heal_prob1, sleep1 의 변수를 사용하겠습니다. 
+
+```{r}
+dat <- kwcs %>% 
+  filter(!is.na(emp_stat)) %>%
+  filter(!is.na(heal_prob1)) %>%
+  filter(heal_prob1 %in% c(1, 2)) %>%
+  filter(sleep1 %in% c(1:5)) %>%
+  select(TSEX, AGE, emp_stat, heal_prob1, sleep1, sleep2, sleep3)
+```
+
+```{r, eval=FALSE}
+rm(kwcs)
+```
+
+dat를 살펴보겠습니다. 
+```{r}
+head(dat)
+```
+
+
+## Central Tendency (mean, median, mode)
+ 대표값중 가장 많이 사용하는 것은 mean 과 median 입니다. 이것을 나타내는 표를 만들어 봅시다.
+  이것의 평균과 표준 편차를 을 구해 보겠습니다. 
+```{r}
+mean(dat$AGE)
+sd(dat$AGE)
+```
+ 
+ 이번에는 "tidyverse"를 통해 pipe 코드를 짜 보겠습니다. 데이터를 변형하는 것은 다른 시간에 수행하겠지만, 여기서는 select와 filter, mutate, group_by를 사용하겠습니다. kwcs$TSEX 는 kwcs에서 TSEX를 select하라는 것으로 다름과 같이 사용할 수 있습니다. 
+
+```{r}
+dat %>% select(AGE) 
+
+```
+
+### 하나씩 반복
+
+이후 이것을 가지고 나와서 (pull), 이어 받고 (.) 평균을 구해보겠습니다. 이후 이것을 mean 과 sd 라는 변수에 assign 하겠습니다. 
+
+```{r}
+dat %>% select(AGE) %>% pull(.) %>% mean(.)
+dat %>% select(AGE) %>% pull(.) %>% sd(.)
+dat %>% select(AGE) %>% pull(.) %>% mean(.) -> mean
+dat %>% select(AGE) %>% pull(.) %>% sd(.)   -> sd
+```
+
+그럼 표현해 볼까요?
+
+```{r}
+mean
+sd
+paste("평균은 ", mean, "표준편차는 ", sd)
+```
+보기 불편하네요, 소숫점 2째 자리까지 표현하겠습니다. round를 이용합니다. 더 자세한것은 구글에게 물어 보세요. 
+
+```{r}
+mean <- dat %>% select(AGE) %>% pull(.) %>% mean(.) %>% round(., 2) 
+sd   <- dat %>% select(AGE) %>% pull(.) %>% sd(.)   %>% round(., 2)
+paste("평균은", mean, ", 표준편차는", sd)
+sprintf("평균은 %s, 표준편차는 %s", mean, sd)
+```
+
+
+unicode를 이용해서 약속된 표현을 사용해 보겠습니다. 
+
+```{r}
+paste(mean, "\u00b1", sd)
+sprintf("%s \u00b1 %s", mean, sd)
+```
+sprintf 에서 %s 대신에 %.2f 를 사용할 텐데요, 어떤지 살펴 봅시다. 네 %2.f 라는 것은 소수 2째 자리까지 살려서 표현하는 방식입니다. %.2f 는 어떨까요? 공부하는 방법입니다. 무언가를 더 해보는 것!
+```{r}
+sprintf("%.2f \u00b1 %.2f", mean, sd)
+```
+
+그럼 median 을 구해볼까요? 해보세요. 무언가를 해보는 것!
+```{r}
+dat %>% pull(AGE) %>% median(.)
+dat %>% pull(AGE) %>% quantile(., c(0.5))
+```
+그럼 quantile을 구해볼까요?
+```{r}
+dat %>% pull(AGE) %>% quantile(., c(0.25, 0.5, 0.75)) 
+p50 = dat %>% pull(AGE) %>% quantile(., c(0.50))
+p25 = dat %>% pull(AGE) %>% quantile(., c(0.25)) 
+p75 = dat %>% pull(AGE) %>% quantile(., c(0.75)) 
+sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)
+```
+
+이것을 남녀를 나누어서 해보겠습니다. filter 명령문을 써보겠습니다. `filter(TSEX==1)`이라는 것은 TSEX==1 인 남자만을 고르라는 것입니다. 평균은 아래와 같이 구합니다. sd도 구해봅시다. 
+```{r}
+dat %>% filter(TSEX==1) %>% pull(AGE) %>% mean(.)
+dat %>% filter(TSEX==2) %>% pull(AGE) %>% mean(.)
+```
+
+
+### Group_by summary and Table 1
+
+> Group_by 
+
+남녀를 나누어서 평균을 구하는 다른 방법을 사용해 봅니다. 
+
+```{r}
+dat %>%
+  group_by(TSEX) %>%
+  summarise(avg = mean(AGE), 
+            std = sd(AGE))
+  
+```
+
+동일한 결과가 나오나요. 네 굉장합니다. 남녀를 나누어서 계산했네요. 지금은 2개의 집단을 나누지만, 만약 100개의 집단이라면 filter를 반복하면 어떻게 해야하나요ㅠㅠ. group_by 는 정말 대단한 명령어 입니다. group_by로 코드 파이프 안에서 다음과 같은 결과를 얻었습니다. 
+
+```{r}
+dat %>%
+  group_by(TSEX) %>%
+  summarise(avg = mean(AGE), 
+            std = sd(AGE)) %>%
+  mutate(smry = sprintf("%.2f \u00b1 %.2f", avg, std))
+```
+ 그럼 중간값과 p25-p75를 표현해 봅시다. 
+
+```{r}
+dat %>%
+  group_by(TSEX) %>%
+  summarise(avg = mean(AGE), 
+            std = sd(AGE), 
+            p25 = quantile(AGE, prob=c(0.25)), 
+            p50 = quantile(AGE, prob=c(0.50)), 
+            p75 = quantile(AGE, prob=c(0.75)), 
+            ) %>%
+  mutate(smry1 = sprintf("%.1f \u00b1 %.1f", avg, std)) %>%
+  mutate(smry2 = sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)) 
+```
+
+ 이제 필요한 것만 남겨 보겠습니다. 
+ 
+```{r}
+dat %>%
+  group_by(TSEX) %>%
+  summarise(avg = mean(AGE), 
+            std = sd(AGE), 
+            p25 = quantile(AGE, prob=c(0.25)), 
+            p50 = quantile(AGE, prob=c(0.50)), 
+            p75 = quantile(AGE, prob=c(0.75)), 
+            ) %>%
+  mutate(smry1 = sprintf("%.1f \u00b1 %.1f", avg, std)) %>%
+  mutate(smry2 = sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)) %>%
+  select(TSEX, smry1, smry2)
+```
+ 이번에는 같은 내용을 수면에 대해서 해보겠습니다. 수면 점수가 높다믄 것은 잠들기 어렵다는 것이 전혀 없음(5점)에 가깝다는 것입니다. 그러니 역의 점수를 만들겠습니다. 1, 2, 3, 4, 5로 기록된 것을 5, 4, 3, 2, 1로 바꾸고 싶은 것입니다. 아래를 이용할 것입니다. 
+```{r}
+x= 1:5
+y= 6-x
+y
+```
+ 
+
+```{r}
+dat %>%
+  mutate(sleep1in = 6-sleep1)
+
+```
+
+이번에는 mutate을 이용해 새로운 변수를 생성해 보겠습니다. 변형된 dat는 dat1에 할당합니다. 
+```{r}
+dat1<-dat %>%
+  mutate(sleep1in = 6-sleep1, 
+         sleep2in = 6-sleep2, 
+         sleep3in = 6-sleep3 
+         ) %>%
+  mutate(sexgp = case_when(
+    TSEX ==1 ~ "Men", 
+    TRUE ~ "Women"
+  ))
+```
+
+
+ 이번에는 sexgp를 group으로 하여 성별, 연령의 대표값을 나나타내 봅시다. 
+
+```{r}
+dat1 %>%
+  group_by(sexgp) %>%
+  summarise(
+            avg = mean(AGE), 
+            std = sd(AGE), 
+            p50 = quantile(AGE, prob=c(0.50)), 
+            p25 = quantile(AGE, prob=c(0.25)), 
+            p75 = quantile(AGE, prob=c(0.75))
+            ) %>%
+  mutate(smry1= sprintf("%.1f \u00b1 %.1f", avg, std),
+         smry2= sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)
+         ) %>%
+    select(sexgp,smry1, smry2)
+```
+
+html Table로 만들면 복사해서 붙여 넣기 매우 편리합니다. 
+ 
+```{r}
+dat1 %>%
+  group_by(TSEX) %>%
+  summarise(
+            avg = mean(AGE), 
+            std = sd(AGE), 
+            p50 = quantile(AGE, prob=c(0.50)), 
+            p25 = quantile(AGE, prob=c(0.25)), 
+            p75 = quantile(AGE, prob=c(0.75))
+            ) %>%
+  mutate(smry1= sprintf("%.1f \u00b1 %.1f", avg, std),
+         smry2= sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)
+         ) %>%
+    select(TSEX,smry1, smry2) %>%
+  htmlTable(caption ="descritive statistics of study population")
+```
+ 
+ 그렇다면, sleep1 에 대해서도 만들어 보십시오. 
+ 
+
+연령과 sleep1 에 대한 대표값을 함께 볼 수 있을까요? 지금까지 배운 방법으로 해보도록 하겠습니다. 
+
+```{r}
+tab1 = dat1 %>%
+  group_by(TSEX) %>%
+  summarise(
+            avg = mean(AGE), 
+            std = sd(AGE), 
+            p50 = quantile(AGE, prob=c(0.50)), 
+            p25 = quantile(AGE, prob=c(0.25)), 
+            p75 = quantile(AGE, prob=c(0.75))
+            ) %>%
+  mutate(smry1= sprintf("%.1f \u00b1 %.1f", avg, std),
+         smry2= sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)
+         ) %>%
+    select(TSEX,smry1, smry2) %>%
+  mutate(variable = "AGE")
+```
+
+```{r}
+tab2 = dat1 %>%
+  group_by(TSEX) %>%
+  summarise(
+            avg = mean(sleep1), 
+            std = sd(sleep1), 
+            p50 = quantile(sleep1, prob=c(0.50)), 
+            p25 = quantile(sleep1, prob=c(0.25)), 
+            p75 = quantile(sleep1, prob=c(0.75))
+            ) %>%
+  mutate(smry1= sprintf("%.1f \u00b1 %.1f", avg, std),
+         smry2= sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)
+         ) %>%
+    select(TSEX,smry1, smry2) %>%
+  mutate(variable = "sleep1")
+```
+
+이 둘을 합쳐 보겠습니다. 
+```{r}
+rbind(tab1, tab2)
+```
+
+sleep1까지 했는데요, sleep2, sleep3 까지 하려면 어떻게 해야 하나요? 이것을 2번더 반복해야 합니다. 만약에 변수가 100개라면 어떻게 해야할까요, 네 1000번 하면됩니다.  좀 익숙한 표를 만들기 위해서 반복하는 것이 가장 기본이 됩니다. 그래도 이제는 이 방법을 응용해서, 컴퓨터가 쉽게 작동하는 방식으로 생각해 보겠습니다. 
+
+### Long File and Table 1
+
+> long file
+
+이제 group 대신에 group이 될 파일을 선택해서 long file로 만들어 보겠습니다. 원하는 파일만 골라 봅니다. 성에 따른 연령, sleep1, 2, 3를 정리해 보겠습니다. 
+
+
+```{r}
+dat1 %>% select(sexgp, AGE, sleep1in, sleep2in, sleep3in)
+```
+
+이러한 파일을 wide라고 부릅니다. 이제 우리는 TSEX별, AGE와 Sleep1의 값을 얻고자 합니다. 그러면 TSEX와 AGE, TSEX와 Sleep이 하나의 group이 됩니다. group을 반복한것과 같습니다. 즉 group의 기본은 -로 제외하고, 이와 상관되는 변수는 모두 포함하여 variables라는 이름으로 만들고, 값은 values라는 변수로 변환시키는 것입니다. 
+
+```{r}
+dat1 %>% select(sexgp, AGE, sleep1in, sleep2in, sleep3in) %>%
+  pivot_longer(-c(sexgp), names_to ="variables", values_to = "values")
+```
+평균에 대해서만 먼저 해보겠습니다. 
+
+```{r}
+dat1%>% select(sexgp, AGE, sleep1, sleep2, sleep3) %>%
+  pivot_longer(-c(sexgp), names_to ="variables", values_to = "values") %>%
+  group_by(sexgp, variables) %>%
+  summarise(avg = mean(values, na.rm =TRUE), 
+            std = sd(values, na.rm =TRUE), 
+            p50 = quantile(values, prob = 0.50, na.rm =TRUE),
+            p25 = quantile(values, prob = 0.25, na.rm =TRUE), 
+            p75 = quantile(values, prob = 0.75, na.rm =TRUE) 
+            ) %>%
+  mutate(mean_std  = sprintf("%.1f\u00b1%.1f", avg, std), 
+         median_IQR= sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)) %>%
+  select(sexgp, variables, mean_std)
+```
+ 무언가 복잡하지만 쉬워졌죠? 이말에 고개를 끄덕이셨다면 여러분은 이제 R coding에 빠져 들고 있는 것입니다. <br>
+ 
+ 이제 이것을 사람이 보기 편한 상태인 wide로 바꾸겠습니다. pivot_wider를 사용하고 우리가 원하는 가로로 필요한 정보를 names로 하고 원하는 값을 values로 하겠습니다. 이것을 tab1으로 정의하겠습니다. 
+ 
+```{r}
+dat1 %>% select(sexgp, AGE, sleep1, sleep2, sleep3) %>%
+  pivot_longer(-c(sexgp), names_to ="variables", values_to = "values") %>%
+  group_by(sexgp, variables) %>%
+  summarise(avg = mean(values, na.rm =TRUE), 
+            std = sd(values, na.rm =TRUE)
+            ) %>%
+  mutate(mean_std  = sprintf("%.1f\u00b1%.1f", avg, std), 
+         median_IQR= sprintf("%.0f (%.0f-%.0f)", p50, p25, p75)) %>%
+  select(sexgp, variables, mean_std) %>%
+  pivot_wider(names_from = sexgp, values_from = c(mean_std)) -> tab1
+tab1 %>% htmlTable(caption = "Table 1. Basic Characteristics of study population")
+```
+ 
+
+## Count and Distribution
+ heal_prob1 이 요통 변수라고 했었는데요, 1이 요통이 있다. 2가 요통이 없다 입니다. 이것을 표로 만들어 보겠습니다. 
+### 하나씩 반복
+ 하나씩 반복하는게 가장 기본입니다. count를 사용하겠습니다. 요통이 몇몇 있나요?
+```{r}
+dat1 %>% count(heal_prob1)
+```
+ 분율, 비율, 유병률을 나타내면 어떻게 될까요. 전체 합을 sum으로 만들고 이때 비율을 만들어야 합니다. 
+```{r}
+dat1 %>% count(heal_prob1) %>%
+  mutate(total = sum(n)) %>%
+  mutate(prob = n/total)
+```
+남자만 해보겠습니다. 
+
+```{r}
+dat1 %>% 
+  filter(TSEX==1) %>%
+  count(heal_prob1) %>%
+  mutate(prob= n/sum(n)) 
+```
+ 여자만 해보세요. 
+
+### Group_by summary and Table 1
+group_by를 이용해 보겠습니다. 이면 위에서 연령을 이용한 방법을 실습했는데, 그것과 동일합니다
+
+```{r}
+dat1 %>%
+  group_by(TSEX) %>%
+  count(heal_prob1) %>%
+  mutate(prob = n/sum(n))
+```
+ 익숙한 형태로 표시해 보겠습니다. 그리고 필요한 것만 남겨 보겠습니다 .
+```{r}
+dat1 %>%
+  group_by(TSEX) %>%
+  count(heal_prob1) %>%
+  mutate(prob = n/sum(n)) %>%
+  mutate(smry1 = sprintf("%s (%.1f%%)", n, prob*100)) %>%
+  select(TSEX, heal_prob1, smry1)
+```
+이번에는 연령을 5세단위로 바꾸로 각 연령의 분포를 확인해 보겠습니다. 
+```{r}
+dat1 <-dat1 %>% 
+  mutate(agegp = case_when(
+    AGE <25 ~ "<25",
+    AGE <30 ~ "<30", 
+    AGE <35 ~ "<35", 
+    AGE <40 ~ "<40", 
+    AGE <45 ~ "<45", 
+    AGE <50 ~ "<50",
+    AGE <55 ~ "<55", 
+    AGE <60 ~ "<60",
+    TRUE ~ "\u226560" # 나머지는 모두 >65 (\u2265는 크거나 같다는 symbol)
+  )) 
+
+dat1 %>%
+  group_by(TSEX) %>%
+  count(agegp) %>%
+  mutate(prob = n/sum(n)) %>%
+  mutate(smry1 = sprintf("%s (%.1f%%)", n, prob*100)) %>%
+  select(TSEX, agegp, smry1) %>%
+  arrange(TSEX, agegp)
+```
+### Long File and Table 1
+
+ 그럼 이번에는 요통과 연령집단을 동시에 바꾸어 보겠습니다. 
+
+```{r}
+dat1 %>%
+  mutate(backpain= case_when(heal_prob1==1 ~ "pain", 
+                             TRUE ~ "no-pain")) %>%
+  select(sexgp, agegp, backpain) %>%
+  pivot_longer(-c(sexgp), names_to ="variables", values_to = "values")  %>%
+  group_by(sexgp, variables) %>%
+  count(values) %>%
+  mutate(prob = n/sum(n)) %>%
+  mutate(smry1 = sprintf("%s (%.1f%%)", n, prob*100)) %>%
+  select(-n, -prob) %>%
+  pivot_wider(names_from = sexgp, values_from = smry1) -> tab2
+```
+ html 테이블로 살펴 보겠습니다. 
+```{r}
+tab2 %>% htmlTable()
+```
+ 무슨 생각이 드시죠? tab1과 tab2를 합치면 좋겠다는 생각이 드시죠, tab1에는 values 라는 변수가 없습니다 .그래서 합치기 어렵습니다. values 라는 변수를 생성하고 합쳐 보겠습니다. 
+
+```{r}
+tab1 = tab1 %>% mutate(values = "") %>% select(variables, values, Men, Women) 
+
+rbind(tab1, tab2) %>%
+  htmlTable()
+
+```
+
+
+
+## 정리 1
+
+* 원하는 데이터를 불러옴
+* 원하는 변수를 선정
+  + 관심 변수 (종속, 독립)
+* 변수 값을 살펴 보기
+  + 숫자 인지 아닌지
+  + missing value 가 얼마 인지
+  + 제외할 변수가 얼마인지
+* 대표값 생성
+  + count 함수 사용, prob 변수 생성
+* 표 생성
+  + 반복
+  + group_by
+  + long file

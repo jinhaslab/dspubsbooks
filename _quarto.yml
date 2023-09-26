@@ -14,6 +14,9 @@ book:
         - 221_Rbasic1.qmd
         - 231_dataimportsave.qmd
         - 241_datamanipulation.qmd
+    - part: "II. 데이터 시각화"
+      chapters:
+        - 245_datamanipulation_for_table.qmd
     - summary.qmd
     - references.qmd
 
