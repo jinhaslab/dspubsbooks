@@ -252,10 +252,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#htmltable-visulaization" id="toc-htmltable-visulaization" class="nav-link" data-scroll-target="#htmltable-visulaization"><span class="toc-section-number">6.4.1</span>  htmlTable visulaization</a></li>
   </ul></li>
   <li><a href="#kwcsfunction" id="toc-kwcsfunction" class="nav-link" data-scroll-target="#kwcsfunction"><span class="toc-section-number">6.5</span>  함수만들기</a></li>
-  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz"><span class="toc-section-number">6.6</span>  Quiz</a>
-  <ul class="collapse">
-  <li><a href="#quiz1" id="toc-quiz1" class="nav-link" data-scroll-target="#quiz1"><span class="toc-section-number">6.6.1</span>  Quiz1</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -279,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qhuoLuZLLSQ?si=5ICIPokgLZMXxJ6j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rIp8NNoiq24?si=1KqhaWqTo21a2wzU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
 </iframe>
 <section id="데이터-준비" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="데이터-준비"><span class="header-section-number">6.1</span> 데이터 준비</h2>
@@ -645,13 +641,13 @@ X-squared = 10.821, df = 1, p-value = 0.001003</code></pre>
     One Sample t-test
 
 data:  tab
-t = 1.7951, df = 199, p-value = 0.07415
+t = 1.9231, df = 199, p-value = 0.0559
 alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
- -0.01238298  0.26382128
+ -0.003545998  0.282425841
 sample estimates:
 mean of x 
-0.1257191 </code></pre>
+0.1394399 </code></pre>
 </div>
 </div>
 <p>이것을 이용해서 카이검정과 T검정을 수행해보겠습니다. <br> 가장 정확하면서 쉬운 방식은 반복하는 것입니다. 우리가 이미 변수 값을 long file을 통해 정리하는 것을 실습하였기 때문에, 이 방식도 long file을 이용하겠습니다. <br></p>
@@ -707,13 +703,13 @@ $b
     One Sample t-test
 
 data:  .
-t = -0.21089, df = 39, p-value = 0.8341
+t = -0.34844, df = 39, p-value = 0.7294
 alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
- -0.3032877  0.2460174
+ -0.4317298  0.3048426
 sample estimates:
   mean of x 
--0.02863518 </code></pre>
+-0.06344356 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(test[test<span class="sc">$</span>Variables<span class="sc">==</span><span class="st">"Size"</span>, ]<span class="sc">$</span>G1, </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  test[test<span class="sc">$</span>Variables<span class="sc">==</span><span class="st">"Size"</span>, ]<span class="sc">$</span>G2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -722,13 +718,13 @@ sample estimates:
     Welch Two Sample t-test
 
 data:  test[test$Variables == "Size", ]$G1 and test[test$Variables == "Size", ]$G2
-t = 0.085819, df = 37.995, p-value = 0.9321
+t = 1.388, df = 37.619, p-value = 0.1733
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- -0.5332946  0.5805112
+ -0.2292866  1.2283757
 sample estimates:
-  mean of x   mean of y 
--0.01683102 -0.04043934 </code></pre>
+ mean of x  mean of y 
+ 0.1863287 -0.3132158 </code></pre>
 </div>
 </div>
 <p>이에 이것을 반복 수행하기 위해, data를 slice 하여 하나의 list로 만드는과정을 하겠습니다. nest의 과정입니다. 이후 각 데이터에 map을 이용해서 반복 수행을 하겠습니다. 그리고 그 값을 정리하여 unnest하는 과정이 필요합니다. 필요한 값인 p.&nbsp;value만 남겨 정리합니다.</p>
@@ -743,8 +739,8 @@ sample estimates:
 <pre><code># A tibble: 2 × 2
   Variables p.value
   &lt;chr&gt;       &lt;dbl&gt;
-1 Size        0.834
-2 Power       0.188</code></pre>
+1 Size        0.729
+2 Power       0.135</code></pre>
 </div>
 </div>
 <p>지금까지 사용한 것을 가지고, 명목변수에서는 Chisq-Test, 연속변수에서 t.test 를 수행하여 정리하겠습니다.</p>
@@ -2112,262 +2108,8 @@ P value calculated by Chisq-Test and T-Test</td></tr></tfoot>
 </table>
 </div>
 </div>
-</section>
-<section id="quiz" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="quiz"><span class="header-section-number">6.6</span> Quiz</h2>
-<section id="quiz1" class="level3" data-number="6.6.1">
-<h3 data-number="6.6.1" class="anchored" data-anchor-id="quiz1"><span class="header-section-number">6.6.1</span> Quiz1</h3>
-<blockquote class="blockquote">
-<p>Quiz.1 아래의 표와 같은 결과가 나타나도록, sleepgp 대신 요통을 중심으로 표를 만들어 보세요. R script를 업로드 해주세요.</p>
-</blockquote>
-<div class="cell">
-<div class="cell-output-display">
-
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
-<thead>
-<tr><td colspan="7" style="text-align: left;">
-Basic Characteristics according to Back Pain</td></tr>
-<tr>
-<th colspan="2" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
-<th colspan="2" style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">Back PAin</th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
-<th colspan="1" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th>
-</tr>
-<tr>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;"></th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;"></th> 
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">No</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">Pain</th> 
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">P value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;">wwa4gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">14966 (75.3%)</td>
-<td style="text-align: center;">4911 (24.7%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">&lt;0.001</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">11430 (70.7%)</td>
-<td style="text-align: center;">4731 (29.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">2435 (61.8%)</td>
-<td style="text-align: center;">1505 (38.2%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">565 (56.6%)</td>
-<td style="text-align: center;">433 (43.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">70 (53.0%)</td>
-<td style="text-align: center;">62 (47.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;">wwa5gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">15248 (75.1%)</td>
-<td style="text-align: center;">5058 (24.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">&lt;0.001</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">11436 (70.9%)</td>
-<td style="text-align: center;">4683 (29.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">2246 (60.2%)</td>
-<td style="text-align: center;">1484 (39.8%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">489 (57.2%)</td>
-<td style="text-align: center;">366 (42.8%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">47 (48.0%)</td>
-<td style="text-align: center;">51 (52.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;">shortReturn</td>
-<td style="text-align: center;">non short return</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">28389 (72.6%)</td>
-<td style="text-align: center;">10721 (27.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">&lt;0.001</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">short return</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">1077 (53.9%)</td>
-<td style="text-align: center;">921 (46.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;">shiftWork</td>
-<td style="text-align: center;">non shift work</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">27320 (71.7%)</td>
-<td style="text-align: center;">10809 (28.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">0.668</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">shift work</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">2146 (72.0%)</td>
-<td style="text-align: center;">833 (28.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;">sexgp</td>
-<td style="text-align: center;">Men</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">14348 (74.7%)</td>
-<td style="text-align: center;">4871 (25.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">&lt;0.001</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Women</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">15118 (69.1%)</td>
-<td style="text-align: center;">6771 (30.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;">edugp</td>
-<td style="text-align: center;">university or more</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">16953 (80.3%)</td>
-<td style="text-align: center;">4146 (19.7%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">&lt;0.001</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">high school</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">10835 (66.6%)</td>
-<td style="text-align: center;">5426 (33.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">middle school or below</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">1678 (44.8%)</td>
-<td style="text-align: center;">2070 (55.2%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;">empgp</td>
-<td style="text-align: center;">paid-worker</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">20969 (75.1%)</td>
-<td style="text-align: center;">6939 (24.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">&lt;0.001</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">employer/self-employer</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">1961 (70.8%)</td>
-<td style="text-align: center;">807 (29.2%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">own-account worker</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">5927 (64.2%)</td>
-<td style="text-align: center;">3312 (35.8%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">unpaind family work</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;">609 (51.0%)</td>
-<td style="text-align: center;">584 (49.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: center;">AGE</td>
-<td style="border-bottom: 2px solid grey; text-align: center;"></td> 
-<td style="border-bottom: 2px solid grey; text-align: center;" colspan="1">&nbsp;</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">45.2±12.3</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">51.5±11.4</td> 
-<td style="border-bottom: 2px solid grey; text-align: center;" colspan="1">&nbsp;</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">&lt;0.001</td>
-</tr>
-</tbody>
-<tfoot><tr><td colspan="7">
-P value calculated by Chisq-Test and T-Test</td></tr></tfoot>
-</table>
-</div>
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

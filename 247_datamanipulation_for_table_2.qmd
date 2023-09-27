@@ -1,6 +1,6 @@
 # Manipulation for table_2
  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qhuoLuZLLSQ?si=5ICIPokgLZMXxJ6j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rIp8NNoiq24?si=1KqhaWqTo21a2wzU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## 데이터 준비
  데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다.. 
@@ -599,36 +599,3 @@ tab1 %>%
   ) 
 ```
 
-## Quiz
-### Quiz1
-
-> Quiz.1 아래의 표와 같은 결과가 나타나도록, sleepgp 대신 요통을 중심으로 표를 만들어 보세요. R script를 업로드 해주세요.  
-
-```{r, echo=FALSE}
-stratas  = c("backpain")
-catVars = c(
-  # interesting
-  #"wbalancegp",
-  #"wwa1gp", "wwa2gp","wwa3gp",
-  "wwa4gp","wwa5gp",
-  # confounder
-  #"whgp", 
-  "shortReturn","shiftWork" , #"njob", 
-  # demograhpics
-  "sexgp", #"agegp", 
-  "edugp", "empgp" #, backpain" 
-)
-conVars = c("AGE"#,"satisfaction"
-            )
-
-tab1 = kwcsTabf(dat1=dat1, stratas = stratas, catVars = catVars, conVars = conVars)
-tab1 %>% 
-  setNames(c("", "", "No", "Pain", "P value")) %>%
-  htmlTable(
-    cgroup = c("",  "Back PAin", ""), 
-    n.cgroup = c(2, 2, 1), 
-    tfoot = "P value calculated by Chisq-Test and T-Test", 
-    rnames = FALSE, 
-    caption = "Basic Characteristics according to Back Pain"
-  ) 
-```
