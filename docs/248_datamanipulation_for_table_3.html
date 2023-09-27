@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>datamanipulation_for_table_3</title>
+<title>보건학데이터과학 실습 - 7&nbsp; Manipulation for table_3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,34 +86,204 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="248_datamanipulation_for_table_3_files/libs/clipboard/clipboard.min.js"></script>
-<script src="248_datamanipulation_for_table_3_files/libs/quarto-html/quarto.js"></script>
-<script src="248_datamanipulation_for_table_3_files/libs/quarto-html/popper.min.js"></script>
-<script src="248_datamanipulation_for_table_3_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="248_datamanipulation_for_table_3_files/libs/quarto-html/anchor.min.js"></script>
-<link href="248_datamanipulation_for_table_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="248_datamanipulation_for_table_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="248_datamanipulation_for_table_3_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="248_datamanipulation_for_table_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="248_datamanipulation_for_table_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./250_smry_for_table.html" rel="next">
+<link href="./247_datamanipulation_for_table_2.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Manipulation for table_3</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">보건학데이터과학 실습</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">소개</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">I. R 기본</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_randrstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./221_Rbasic1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R 속성</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./231_dataimportsave.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">데이터 불러오기</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./241_datamanipulation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">II. 데이터 시각화</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Manipulation for table_1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Manipulation for table_2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Manipulation for table_3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./250_smry_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">참고문헌</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#데이터-준비" id="toc-데이터-준비" class="nav-link active" data-scroll-target="#데이터-준비"><span class="toc-section-number">7.1</span>  데이터 준비</a>
+  <ul class="collapse">
+  <li><a href="#근로환경조사-기본-변수-생성-선택" id="toc-근로환경조사-기본-변수-생성-선택" class="nav-link" data-scroll-target="#근로환경조사-기본-변수-생성-선택"><span class="toc-section-number">7.1.1</span>  근로환경조사 기본 변수 생성 (선택)</a></li>
+  <li><a href="#함수를-source-file-로-저장하기" id="toc-함수를-source-file-로-저장하기" class="nav-link" data-scroll-target="#함수를-source-file-로-저장하기"><span class="toc-section-number">7.1.2</span>  함수를 source file 로 저장하기</a></li>
+  </ul></li>
+  <li><a href="#logistic-regression-table" id="toc-logistic-regression-table" class="nav-link" data-scroll-target="#logistic-regression-table"><span class="toc-section-number">7.2</span>  Logistic Regression Table</a>
+  <ul class="collapse">
+  <li><a href="#로지스틱회귀분석-표-함수-1" id="toc-로지스틱회귀분석-표-함수-1" class="nav-link" data-scroll-target="#로지스틱회귀분석-표-함수-1"><span class="toc-section-number">7.2.1</span>  로지스틱회귀분석 표 함수 1</a></li>
+  <li><a href="#로지스틱-회귀분석-표-2" id="toc-로지스틱-회귀분석-표-2" class="nav-link" data-scroll-target="#로지스틱-회귀분석-표-2"><span class="toc-section-number">7.2.2</span>  로지스틱 회귀분석 표 2</a></li>
+  <li><a href="#로지스틱-회귀분석-3" id="toc-로지스틱-회귀분석-3" class="nav-link" data-scroll-target="#로지스틱-회귀분석-3"><span class="toc-section-number">7.2.3</span>  로지스틱 회귀분석 3</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Manipulation for table_3</span></h1>
+</div>
 
 
-<section id="manipulation-for-table_3" class="level1">
-<h1>Manipulation for table_3</h1>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/sM2F_5fh9Ks?si=BmYkqNK-UtsXBI7x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
 </iframe>
-<section id="데이터-준비" class="level2">
-<h2 class="anchored" data-anchor-id="데이터-준비">데이터 준비</h2>
+<section id="데이터-준비" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="데이터-준비"><span class="header-section-number">7.1</span> 데이터 준비</h2>
 <p>데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다..</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
@@ -128,10 +298,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"data/tutorKWCS.rds"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>kwcs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/tutorKWCS.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="근로환경조사-기본-변수-생성-선택" class="level3">
-<h3 class="anchored" data-anchor-id="근로환경조사-기본-변수-생성-선택">근로환경조사 기본 변수 생성 (선택)</h3>
+<section id="근로환경조사-기본-변수-생성-선택" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="근로환경조사-기본-변수-생성-선택"><span class="header-section-number">7.1.1</span> 근로환경조사 기본 변수 생성 (선택)</h3>
 <p>data manipulation에서 실습한 내용을 통해 변수를 실습을 위한 변수를 생성해 보겠습니다. 이에 대한 자세한 과정은 이전 챔터에 있습니다. <br></p>
-<p><a href="#Tables2">Table 1 변수 생성과정 챕터</a></p>
+<p><a href="#tables2">Table 1 변수 생성과정 챕터</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manip function</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Likert5f <span class="ot">=</span> <span class="cf">function</span>(x){dplyr<span class="sc">::</span><span class="fu">recode</span>(<span class="fu">as.numeric</span>(x), </span>
@@ -232,8 +402,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(dat1, <span class="st">"data/kwcsData1.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="함수를-source-file-로-저장하기" class="level3">
-<h3 class="anchored" data-anchor-id="함수를-source-file-로-저장하기">함수를 source file 로 저장하기</h3>
+<section id="함수를-source-file-로-저장하기" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="함수를-source-file-로-저장하기"><span class="header-section-number">7.1.2</span> 함수를 source file 로 저장하기</h3>
 <p>이전에 만들었던 함수 kwcsTabf.R 이라는 파일로 저장하겠습니다. <br> 이전에 만들었던 함수는 <a href="#kwcsfunction">kwcs table 1 함수 만들기</a>에 있습니다. 그 함수를 source 파일로 저장하겠습니다.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2QhSmNjjwgQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
 </iframe>
@@ -773,8 +943,8 @@ P value calculated by Chisq-Test and T-Test</td></tr></tfoot>
 </div>
 </section>
 </section>
-<section id="logistic-regression-table" class="level2">
-<h2 class="anchored" data-anchor-id="logistic-regression-table">Logistic Regression Table</h2>
+<section id="logistic-regression-table" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="logistic-regression-table"><span class="header-section-number">7.2</span> Logistic Regression Table</h2>
 <p>일과 삶의 균형이 수면장애와 관련이 있는지 Logistic regression 을 수행해보고 이를 표로 만들어 보겠습니다. <br></p>
 <p>R 로 로지스틱회귀분석을 수행하는 것은, 3가지 파트로 구성됩니다.</p>
 <ul>
@@ -853,8 +1023,8 @@ wwa1gp4.Always    6.52209339 9.01041165</code></pre>
 </div>
 </div>
 <p>각각을 엑셀등에 붙여 넣기 하여 표를 만들면 됩니다.</p>
-<section id="로지스틱회귀분석-표-함수-1" class="level3">
-<h3 class="anchored" data-anchor-id="로지스틱회귀분석-표-함수-1">로지스틱회귀분석 표 함수 1</h3>
+<section id="로지스틱회귀분석-표-함수-1" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="로지스틱회귀분석-표-함수-1"><span class="header-section-number">7.2.1</span> 로지스틱회귀분석 표 함수 1</h3>
 <p>반복해서 만드는 것도 좋지만, 함수를 만들어 사용하는 것이 편리할 때도 있습니다. 만약 여러 데이터를 탐색적으로 분석할 때, 어떠한 변수가 유의한지 반복적으로 보고서를 만들때, 실수와 시간을 줄이려면 함수를 만들 필요가 있습니다. <br> 앞서서 만들 Odds Ratio, 95% CI, p value 를 합쳐 보겠습니다. 이것을 합치면, 우리가 원하는 표의 기본이 형성되었습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(mod1<span class="sc">$</span>coefficients<span class="sc">%&gt;%</span> <span class="fu">exp</span>(), <span class="fu">confint.default</span>(mod1)<span class="sc">%&gt;%</span> <span class="fu">exp</span>(), mod1 <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(p.value)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -964,8 +1134,8 @@ njob1.njob             4.899856e-03</code></pre>
 </div>
 <p>이제 모델1, 2, 3가 만들어 졌습니다. 이걸 반복해서 만들고, 엑셀등에 붙여 넣기 하여 표를 만들면 됩니다.</p>
 </section>
-<section id="로지스틱-회귀분석-표-2" class="level3">
-<h3 class="anchored" data-anchor-id="로지스틱-회귀분석-표-2">로지스틱 회귀분석 표 2</h3>
+<section id="로지스틱-회귀분석-표-2" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="로지스틱-회귀분석-표-2"><span class="header-section-number">7.2.2</span> 로지스틱 회귀분석 표 2</h3>
 <p>앞선 함수를 조금더 업데이트 하겠습니다. 보통 보기편한 방식은 OR (95%CI) 로 표시하는 것입니다. 또한, 기준이되는 변수 값에는 “1.00 (reference)”로 표시하는 것이 필요합니다. 그럴려면, 사용된 변수의 모든 변수값의 종류는 표에 나타내어야 하는 basic matrix 가 필요합니다. 따라서 <br></p>
 <ul>
 <li>로지스틱 회귀분석 함수
@@ -1484,8 +1654,8 @@ $njob
 </div>
 </div>
 </section>
-<section id="로지스틱-회귀분석-3" class="level3">
-<h3 class="anchored" data-anchor-id="로지스틱-회귀분석-3">로지스틱 회귀분석 3</h3>
+<section id="로지스틱-회귀분석-3" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="로지스틱-회귀분석-3"><span class="header-section-number">7.2.3</span> 로지스틱 회귀분석 3</h3>
 <p>그런데 만약 model을 여러개를 한번에 나타내려면 어떻게 하면될까요? 네 반복문을 사용해서 list를 만들고, 옆으로 붙이면 됩니다. <code>reduce해서 cbind하면됩니다.</code> <br></p>
 <ul>
 <li>여러 모델 표 구성하기
@@ -1753,12 +1923,12 @@ Table. OR(95%CI) for sleepgp being reference of 1.sleep disturbance</td></tr>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"source/oddsTabf.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>수고하셨습니다.</p>
-</section>
+
+
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1779,6 +1949,121 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1892,6 +2177,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./247_datamanipulation_for_table_2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Manipulation for table_2</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./250_smry_for_table.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

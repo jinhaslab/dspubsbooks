@@ -30,7 +30,7 @@ kwcs = readRDS("data/tutorKWCS.rds")
 
  data manipulation에서 실습한 내용을 통해 변수를 실습을 위한 변수를 생성해 보겠습니다. 이에 대한 자세한 과정은 이전 챔터에 있습니다. <br>
 
-[Table 1 변수 생성과정 챕터](#Tables2)
+[Table 1 변수 생성과정 챕터](#tables2)
 
 ```{r, }
 # data manip function
