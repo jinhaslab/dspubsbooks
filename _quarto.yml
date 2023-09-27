@@ -31,5 +31,6 @@ format:
       dark: darkly
   pdf:
     documentclass: scrreprt
+    prefer-html: true
 
 editor: visual

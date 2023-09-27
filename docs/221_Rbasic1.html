@@ -705,26 +705,26 @@ Levels: group1 group2
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>)<span class="sc">*</span><span class="dv">10</span>)</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] -2 19  3 14  6 10  6  7  3 19</code></pre>
+<pre><code> [1] -9  0  6 -2  2 -3 -4 -4 18  4</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(a<span class="sc">&gt;</span><span class="dv">0</span>, <span class="st">'양수'</span>, <span class="st">'음수'</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "음수" "양수" "양수" "양수" "양수" "양수" "양수" "양수" "양수" "양수"</code></pre>
+<pre><code> [1] "음수" "음수" "양수" "음수" "양수" "음수" "음수" "음수" "양수" "양수"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(a, tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    a  tab
-1  -2 음수
-2  19 양수
-3   3 양수
-4  14 양수
-5   6 양수
-6  10 양수
-7   6 양수
-8   7 양수
-9   3 양수
-10 19 양수</code></pre>
+1  -9 음수
+2   0 음수
+3   6 양수
+4  -2 음수
+5   2 양수
+6  -3 음수
+7  -4 음수
+8  -4 음수
+9  18 양수
+10  4 양수</code></pre>
 </div>
 </div>
 <p>데이터 클리닝에서 자주 사용하는 두개의 조건문 <code>any()</code>와 <code>all()</code>이 있다. <code>any()</code>는 하나라도 <code>TRUE</code>값이 있으면 <code>TRUE</code>를 변환해주고, <code>all()</code>은 모두 <code>TRUE</code>여야 <code>TRUE</code>를 돌려준다.</p>
