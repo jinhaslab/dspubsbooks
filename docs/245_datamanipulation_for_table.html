@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>보건학데이터과학 실습 - 5&nbsp; Manipulation for table_1</title>
+<title>보건학데이터과학 실습 - 5&nbsp; 보건학표_1</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Manipulation for table_1</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -208,17 +208,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Manipulation for table_1</span></a>
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Manipulation for table_2</span></a>
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Manipulation for table_3</span></a>
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -269,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Manipulation for table_1</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></h1>
 </div>
 
 
@@ -303,20 +303,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다.. 데이터를 불러오겠습니다. 안전보건공단 홈페이에서 자료를 다운 받는게 원칙입니다. 다만 실습을 빠르게 진행하기 위해서, dspubs.org 페이지에 있는 파일을 이용하겠습니다. <br> <a href="https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"> kwcsData6th.rds </a> <br> 자신의 folder에 data 라는 folder가 있는지 확인하십시오. data라는 폴더에 다운로드하고, 불러오도록 하겠습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"data/tutorKWCS.rds"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>kwcs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/tutorKWCS.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"data/tutorKWCS.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<blockquote class="blockquote">
-<p>unicode chart</p>
-</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kwcs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/tutorKWCS.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>unicode chart</strong></p>
 <p>표를 만들다 보면 크다, 작다, 같다 등은 표시가 쉬운 반면, 크거나 같다, 작거나 같다 등은 표시가 어렵습니다. 이 때 사용해야할 것이 <strong>unicode</strong> 입니다. 보건학에서 필요한 대표적 유니코드는 사실 2개입니다. 크거나 같다, 작거나 같다. 나머지는 키보드에 이미 있으니 이것을 사용하면 됩니다. 추가적인 unicode는 아래의 항목을 통해 살펴 볼수 있습니다. <br> <a href="https://unicode.org/charts/PDF/U2200.pdf"> Unicode Chart </a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"symbole    "</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"\u2264"</span>, <span class="st">"\u2265"</span>, <span class="st">"\u00b1"</span>), </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"unicode    "</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"u2264"</span>, <span class="st">"u2265"</span>, <span class="st">"u00b1"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#addHtmlTableStyle(css.cell = c("width: 100;","width: 100;")) %&gt;%</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(<span class="at">caption =</span><span class="st">"Simple unicode and symbols"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"symbole    "</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"\u2264"</span>, <span class="st">"\u2265"</span>, <span class="st">"\u00b1"</span>), </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"unicode    "</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"u2264"</span>, <span class="st">"u2265"</span>, <span class="st">"u00b1"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#addHtmlTableStyle(css.cell = c("width: 100;","width: 100;")) %&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(<span class="at">caption =</span><span class="st">"Simple unicode and symbols"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
@@ -350,20 +350,20 @@ Simple unicode and symbols</td></tr>
 </div>
 <p>다음과 같이 사용할 수 있습니다. 여기사 <code>\</code>는 “escape character”로 뒤에 오는 것이 문자가 아니라 약솓된 결과를 나타내 달라는 뜻입니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"x \u2264 10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"x \u2264 10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "x ≤ 10"</code></pre>
 </div>
 </div>
 <p>그럼 어떻게 문자를 사용할까요? print 명령을 위와 같이 사용하는 것도 좋지만, 변수를 생성하기에는 좋은 방법이 따로 있습니다. 좋은 방법이란 처음에는 어렵지만, 알고나면 엄청난 것들을 말합니다. paste와 sprintf 입니다. 어떤 것이 좋은가요?. 우리의 목표가 데이터 표현을 자동화 하는 것인데, 자동화를 위해서는 구조를 만들고 거기에 값을 대입 시키는 것이 기본입니다. 그러니, sprintf 를 더 자주 사용하게 됩니다. paste는 모두 붙여 주는 것이니, 쉽게 이해될 것이고, sprintf는 `%s` 마다 무언가를 넣어 붙여 주는 방식입니다. paste와 sprintf는 정말 자주 사용되는 함수이니 꼭 익숙해 지시기 바랍니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>xp1 <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"x"</span>, <span class="st">"\u2264"</span>, <span class="st">"10"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>xp2 <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"x %s 10"</span>, <span class="st">"\u2264"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>xp1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>xp1 <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"x"</span>, <span class="st">"\u2264"</span>, <span class="st">"10"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>xp2 <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"x %s 10"</span>, <span class="st">"\u2264"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>xp1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "x ≤ 10"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>xp2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>xp2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "x ≤ 10"</code></pre>
 </div>
@@ -373,7 +373,7 @@ Simple unicode and symbols</td></tr>
 </blockquote>
 <p>데이터의 변수를 확인하는 방법은 <code>colnames()</code> , <code>names()</code> 또는 <code>head()</code>를 하용하는 것입니다. 약 400개의 변수가 있으므로, 처음부터 10번째까지 <code>\[1:10\]</code> 변수를 찾아 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(kwcs)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(kwcs)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id"           "wt"           "area"         "hh_num"       "hm_01_gender"
  [6] "hm_01_year"   "hm_01_estat"  "hm_01_rel_t"  "hm_02_gender" "hm_02_year"  </code></pre>
@@ -381,7 +381,7 @@ Simple unicode and symbols</td></tr>
 </div>
 <p>그럼 45번째 변수 부터 50번째 변수까지 찾아 보겠습니다. <code>[]</code>안을 채워보세요.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(kwcs)[     ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(kwcs)[     ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -391,18 +391,18 @@ Simple unicode and symbols</td></tr>
 </div>
 <p>연령인 <code>AGE</code>가 있네요, 성별에 대한 <code>AGE</code>도 있습니다. 그럼 이것을 이용해서 실습을 해보겠습니다. 변수를 하나 선택하는 것은 데이터에 $ 표시를 하고 이후에 변수를 넣는 방식입니다. “데이터<span class="math inline">\(변수" 입니다. 10개만 보겠습니다. 숫자 처럼 보이네요, 확인하겠습니다. `class(kwcs\)</span>AGE)`를 이용해봅니다. numberic 으로 숫자입니다. 숫자여야 평균 표준편차 등의 계산이 가능합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>AGE[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>AGE[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 54 64 65 57 38 47 54 35 68 69</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kwcs<span class="sc">$</span>AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kwcs<span class="sc">$</span>AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
 </div>
 <p>이번에는 <code>SEX</code> 변수(variable)의 변수값(value)를 살펴 보겠습니다. class 가 무엇일까요? double 또는 interger 라고 나올 텐데요, R에서는 numberic 값에 interger와 double 속성을 사용한다고 생각하시면 됩니다. 다만 label을 붙여 놓아서 알기 쉽게 되어 있네요.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>TSEX[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>TSEX[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;labelled&lt;double&gt;[10]&gt;
  [1] 2 2 2 2 1 2 2 2 2 2
@@ -412,18 +412,18 @@ Labels:
      1  남성
      2  여성</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kwcs<span class="sc">$</span>TSEX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kwcs<span class="sc">$</span>TSEX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "haven_labelled" "vctrs_vctr"     "double"        </code></pre>
 </div>
 </div>
 <p>국적에 대해서도 알아보겠습니다. character 이네요. 한국에서 시행한 조사라, 한국 국적은 빈칸으로, 이외에는 국적을 적었습니다. <code>kwcs$country_etc</code>를 해보면, 대부분 빈칸입니다. 빈칸인 경 <code>==""</code>, 빈칸이 아닌 경우 <code>!=""</code>을 이용해서 어떤 국적이 있는지 살펴 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kwcs<span class="sc">$</span>country_etc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kwcs<span class="sc">$</span>country_etc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>country_etc[kwcs<span class="sc">$</span>country_etc <span class="sc">!=</span> <span class="st">""</span>][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>country_etc[kwcs<span class="sc">$</span>country_etc <span class="sc">!=</span> <span class="st">""</span>][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "베트남"   "중국"     "캐나다"   "중국"     "중국"     "중국"    
  [7] "중국"     "파키스탄" "중국"     "중국"    </code></pre>
@@ -431,10 +431,10 @@ Labels:
 </div>
 <p>근로자의 지위를 알아 보겠습니다. 근로자 지위는 emp_stat 입니다. 1은 상용근로자, 2는 임시근로자, 3은 일용근로자 입니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>emp_stat </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>emp_stat </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>emp_stat <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>kwcs<span class="sc">$</span>emp_stat <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;labelled&lt;double&gt;[6]&gt;
 [1]  1  3  1 NA  1  1
@@ -448,62 +448,62 @@ Labels:
 </div>
 <p>매우 중요한 개념이 나옵니다. 빈칸과 NA 입니다. 모두 값에 대한 정보가 없다는 것입니다. 값에 대한 정보가 없으면 어떻게 해야 할지는 매우 중요한 개념입니다. 우선 여기서는 값에 대한 정보가 없는 것을 제외하고 분석해 보겠습니다. 값에 대한 정보가 없는 데이터는 제거하여, 새로운 데이터를 만들겠습니다. 이때 filter 라는 것을 이용합니다. is.na라는 것은 <code>NA</code>라는 것을 의미하고, 앞에 <code>!</code>는 그 반대를 말합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>kwcs <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_stat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>kwcs <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_stat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27,908 × 459
-      id    wt area      hh_num hm_01…¹ hm_01…² hm_01…³ hm_01…⁴ hm_02_…⁵ hm_02…⁶
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl+l&gt;   &lt;dbl&gt; &lt;dbl+l&gt; &lt;dbl+l&gt; &lt;dbl+lb&gt;   &lt;dbl&gt;
- 1     2 0.137 3 [대구]       1 2 [여…    1966 1 [임… 0 [응… NA     …      NA
- 2     3 0.350 3 [대구]       1 2 [여…    1956 1 [임… 0 [응… NA     …      NA
- 3     6 0.156 7 [울산]       1 2 [여…    1955 2 [일… 0 [응… NA     …      NA
- 4     9 0.168 7 [울산]       1 1 [남…    1982 1 [임… 0 [응… NA     …      NA
- 5    10 0.675 6 [대전]       4 2 [여…    1973 1 [임… 0 [응…  1 [남…    1969
- 6    18 2.71  6 [대전]       4 1 [남…    1972 1 [임… 0 [응…  2 [여…    1976
- 7    19 3.83  3 [대구]       5 1 [남…    1969 1 [임… 3 [부…  2 [여…    1971
- 8    20 2.90  3 [대구]       4 1 [남…    1960 1 [임… 3 [부…  2 [여…    1964
- 9    22 2.37  3 [대구]       4 1 [남…    1984 1 [임… 0 [응…  2 [여…    1984
-10    23 2.26  3 [대구]       3 1 [남…    1964 1 [임… 3 [부…  2 [여…    1966
-# … with 27,898 more rows, 449 more variables: hm_02_estat &lt;dbl+lbl&gt;,
-#   hm_02_rel_t &lt;dbl+lbl&gt;, hm_03_gender &lt;dbl+lbl&gt;, hm_03_year &lt;dbl&gt;,
-#   hm_03_estat &lt;dbl+lbl&gt;, hm_03_rel_t &lt;dbl+lbl&gt;, hm_04_gender &lt;dbl+lbl&gt;,
-#   hm_04_year &lt;dbl&gt;, hm_04_estat &lt;dbl+lbl&gt;, hm_04_rel_t &lt;dbl+lbl&gt;,
-#   hm_05_gender &lt;dbl+lbl&gt;, hm_05_year &lt;dbl&gt;, hm_05_estat &lt;dbl+lbl&gt;,
-#   hm_05_rel_t &lt;dbl+lbl&gt;, hm_06_gender &lt;dbl+lbl&gt;, hm_06_year &lt;dbl&gt;,
-#   hm_06_estat &lt;dbl+lbl&gt;, hm_06_rel_t &lt;dbl+lbl&gt;, hm_07_gender &lt;dbl+lbl&gt;, …</code></pre>
+      id    wt area      hh_num hm_01_gender hm_01_year hm_01_estat  hm_01_rel_t
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl+lbl&gt;         &lt;dbl&gt; &lt;dbl+lbl&gt;    &lt;dbl+lbl&gt;  
+ 1     2 0.137 3 [대구]       1 2 [여성]           1966 1 [임금 근… 0 [응답자 …
+ 2     3 0.350 3 [대구]       1 2 [여성]           1956 1 [임금 근… 0 [응답자 …
+ 3     6 0.156 7 [울산]       1 2 [여성]           1955 2 [일이 있… 0 [응답자 …
+ 4     9 0.168 7 [울산]       1 1 [남성]           1982 1 [임금 근… 0 [응답자 …
+ 5    10 0.675 6 [대전]       4 2 [여성]           1973 1 [임금 근… 0 [응답자 …
+ 6    18 2.71  6 [대전]       4 1 [남성]           1972 1 [임금 근… 0 [응답자 …
+ 7    19 3.83  3 [대구]       5 1 [남성]           1969 1 [임금 근… 3 [부모]  …
+ 8    20 2.90  3 [대구]       4 1 [남성]           1960 1 [임금 근… 3 [부모]  …
+ 9    22 2.37  3 [대구]       4 1 [남성]           1984 1 [임금 근… 0 [응답자 …
+10    23 2.26  3 [대구]       3 1 [남성]           1964 1 [임금 근… 3 [부모]  …
+# ℹ 27,898 more rows
+# ℹ 451 more variables: hm_02_gender &lt;dbl+lbl&gt;, hm_02_year &lt;dbl&gt;,
+#   hm_02_estat &lt;dbl+lbl&gt;, hm_02_rel_t &lt;dbl+lbl&gt;, hm_03_gender &lt;dbl+lbl&gt;,
+#   hm_03_year &lt;dbl&gt;, hm_03_estat &lt;dbl+lbl&gt;, hm_03_rel_t &lt;dbl+lbl&gt;,
+#   hm_04_gender &lt;dbl+lbl&gt;, hm_04_year &lt;dbl&gt;, hm_04_estat &lt;dbl+lbl&gt;,
+#   hm_04_rel_t &lt;dbl+lbl&gt;, hm_05_gender &lt;dbl+lbl&gt;, hm_05_year &lt;dbl&gt;,
+#   hm_05_estat &lt;dbl+lbl&gt;, hm_05_rel_t &lt;dbl+lbl&gt;, hm_06_gender &lt;dbl+lbl&gt;, …</code></pre>
 </div>
 </div>
 <p>요통에 대한 변수는 heal_prob1 입니다. 이 변수를 확인해 보겠습니다. 1번은 있다, 2번은 업다, 8번은 무응답, 9번은 거절입니다. 이제 빈칸과 NA가 아니더라도 필요없는 정보가 있습니다. 모르거나/무응답했거나, 거절한 사람입니다. 이를 제거해 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>kwcs <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_stat)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(heal_prob1)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">!=</span><span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">!=</span><span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>이번에는 heal_prob1 에 1, 2 인 사람만 포함시켜 보겠습니다. 어떤 것이 더 편한가요?</p>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>kwcs <span class="sc">%&gt;%</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_stat)) <span class="sc">%&gt;%</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(heal_prob1)) <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">!=</span><span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">!=</span><span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>이번에는 heal_prob1 에 1, 2 인 사람만 포함시켜 보겠습니다. 어떤 것이 더 편한가요?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kwcs <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_stat)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(heal_prob1)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이번에는 sleep1이라는 변수를 살펴 보겠습니다. sleep1이라는 변수는 잠들기 어려운 것이 매일(1), 한주에 여러번 (2), 한달에 여러번(3), 드물게(5), 전혀 없음(5) 의 5점 척도 입니다. 이데 모름과 거절, 그리고 NA 값을 제거해 보겠습니다.</p>
 <p>그리고 dat라는 새로운 data를 만들고 kwcs를 제거 하겠습니다. dat를 이용해서 분석을 해보겠습니다. 지금까지 사용했던, TSEX, AGE, emp_stat, heal_prob1, sleep1 의 변수를 사용하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> kwcs <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_stat)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(heal_prob1)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sleep1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, AGE, emp_stat, heal_prob1, sleep1, sleep2, sleep3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> kwcs <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_stat)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(heal_prob1)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(heal_prob1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sleep1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, AGE, emp_stat, heal_prob1, sleep1, sleep2, sleep3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(kwcs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(kwcs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>dat를 살펴보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   TSEX        AGE emp_stat       heal_prob1 sleep1              sleep2   sleep3 
@@ -521,18 +521,18 @@ Labels:
 <h2 data-number="5.3" class="anchored" data-anchor-id="central-tendency-mean-median-mode"><span class="header-section-number">5.3</span> Central Tendency (mean, median, mode)</h2>
 <p>대표값중 가장 많이 사용하는 것은 mean 과 median 입니다. 이것을 나타내는 표를 만들어 봅시다. 이것의 평균과 표준 편차를 을 구해 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dat<span class="sc">$</span>AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dat<span class="sc">$</span>AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 44.42325</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dat<span class="sc">$</span>AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dat<span class="sc">$</span>AGE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.25356</code></pre>
 </div>
 </div>
 <p>이번에는 “tidyverse”를 통해 pipe 코드를 짜 보겠습니다. 데이터를 변형하는 것은 다른 시간에 수행하겠지만, 여기서는 select와 filter, mutate, group_by를 사용하겠습니다. kwcs$TSEX 는 kwcs에서 TSEX를 select하라는 것으로 다름과 같이 사용할 수 있습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27,891 × 1
      AGE
@@ -547,77 +547,77 @@ Labels:
  8    28
  9    36
 10    22
-# … with 27,881 more rows</code></pre>
+# ℹ 27,881 more rows</code></pre>
 </div>
 </div>
 <section id="하나씩-반복" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="하나씩-반복"><span class="header-section-number">5.3.1</span> 하나씩 반복</h3>
 <p>이후 이것을 가지고 나와서 (pull), 이어 받고 (.) 평균을 구해보겠습니다. 이후 이것을 mean 과 sd 라는 변수에 assign 하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 44.42325</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sd</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sd</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.25356</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.) <span class="ot">-&gt;</span> mean</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sd</span>(.)   <span class="ot">-&gt;</span> sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.) <span class="ot">-&gt;</span> mean</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sd</span>(.)   <span class="ot">-&gt;</span> sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>그럼 표현해 볼까요?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 44.42325</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.25356</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"평균은 "</span>, mean, <span class="st">"표준편차는 "</span>, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"평균은 "</span>, mean, <span class="st">"표준편차는 "</span>, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "평균은  44.4232548133807 표준편차는  12.2535577069047"</code></pre>
 </div>
 </div>
 <p>보기 불편하네요, 소숫점 2째 자리까지 표현하겠습니다. round를 이용합니다. 더 자세한것은 구글에게 물어 보세요.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.) <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>) </span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>sd   <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sd</span>(.)   <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"평균은"</span>, mean, <span class="st">", 표준편차는"</span>, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.) <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>) </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>sd   <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.) <span class="sc">%&gt;%</span> <span class="fu">sd</span>(.)   <span class="sc">%&gt;%</span> <span class="fu">round</span>(., <span class="dv">2</span>)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"평균은"</span>, mean, <span class="st">", 표준편차는"</span>, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "평균은 44.42 , 표준편차는 12.25"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"평균은 %s, 표준편차는 %s"</span>, mean, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"평균은 %s, 표준편차는 %s"</span>, mean, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "평균은 44.42, 표준편차는 12.25"</code></pre>
 </div>
 </div>
 <p>unicode를 이용해서 약속된 표현을 사용해 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(mean, <span class="st">"\u00b1"</span>, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(mean, <span class="st">"\u00b1"</span>, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "44.42 ± 12.25"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"%s \u00b1 %s"</span>, mean, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"%s \u00b1 %s"</span>, mean, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "44.42 ± 12.25"</code></pre>
 </div>
 </div>
 <p>sprintf 에서 %s 대신에 %.2f 를 사용할 텐데요, 어떤지 살펴 봅시다. 네 %2.f 라는 것은 소수 2째 자리까지 살려서 표현하는 방식입니다. %.2f 는 어떨까요? 공부하는 방법입니다. 무언가를 더 해보는 것!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"%.2f \u00b1 %.2f"</span>, mean, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"%.2f \u00b1 %.2f"</span>, mean, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "44.42 ± 12.25"</code></pre>
 </div>
 </div>
 <p>그럼 median 을 구해볼까요? 해보세요. 무언가를 해보는 것!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">median</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">median</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 45</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>50% 
  45 </code></pre>
@@ -625,26 +625,26 @@ Labels:
 </div>
 <p>그럼 quantile을 구해볼까요?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>25% 50% 75% 
  35  45  54 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>p50 <span class="ot">=</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.50</span>))</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>p25 <span class="ot">=</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.25</span>)) </span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>p75 <span class="ot">=</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.75</span>)) </span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>p50 <span class="ot">=</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.50</span>))</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>p25 <span class="ot">=</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.25</span>)) </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>p75 <span class="ot">=</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(., <span class="fu">c</span>(<span class="fl">0.75</span>)) </span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "45 (35-54)"</code></pre>
 </div>
 </div>
 <p>이것을 남녀를 나누어서 해보겠습니다. filter 명령문을 써보겠습니다. <code>filter(TSEX==1)</code>이라는 것은 TSEX==1 인 남자만을 고르라는 것입니다. 평균은 아래와 같이 구합니다. sd도 구해봅시다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TSEX<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TSEX<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 43.65223</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TSEX<span class="sc">==</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TSEX<span class="sc">==</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(AGE) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 45.10761</code></pre>
 </div>
@@ -657,10 +657,10 @@ Labels:
 </blockquote>
 <p>남녀를 나누어서 평균을 구하는 다른 방법을 사용해 봅니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   TSEX        avg   std
@@ -671,11 +671,11 @@ Labels:
 </div>
 <p>동일한 결과가 나오나요. 네 굉장합니다. 남녀를 나누어서 계산했네요. 지금은 2개의 집단을 나누지만, 만약 100개의 집단이라면 filter를 반복하면 어떻게 해야하나요ㅠㅠ. group_by 는 정말 대단한 명령어 입니다. group_by로 코드 파이프 안에서 다음과 같은 결과를 얻었습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE)) <span class="sc">%&gt;%</span></span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry =</span> <span class="fu">sprintf</span>(<span class="st">"%.2f \u00b1 %.2f"</span>, avg, std))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE)) <span class="sc">%&gt;%</span></span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry =</span> <span class="fu">sprintf</span>(<span class="st">"%.2f \u00b1 %.2f"</span>, avg, std))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   TSEX        avg   std smry         
@@ -686,16 +686,16 @@ Labels:
 </div>
 <p>그럼 중간값과 p25-p75를 표현해 봅시다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
-<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
-<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
-<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>)), </span>
-<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
-<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std)) <span class="sc">%&gt;%</span></span>
-<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry2 =</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>)), </span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std)) <span class="sc">%&gt;%</span></span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry2 =</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 8
   TSEX        avg   std   p25   p50   p75 smry1       smry2     
@@ -706,17 +706,17 @@ Labels:
 </div>
 <p>이제 필요한 것만 남겨 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>)), </span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std)) <span class="sc">%&gt;%</span></span>
-<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry2 =</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) <span class="sc">%&gt;%</span></span>
-<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, smry1, smry2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>)), </span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std)) <span class="sc">%&gt;%</span></span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry2 =</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) <span class="sc">%&gt;%</span></span>
+<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, smry1, smry2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   TSEX      smry1       smry2     
@@ -727,60 +727,60 @@ Labels:
 </div>
 <p>이번에는 같은 내용을 수면에 대해서 해보겠습니다. 수면 점수가 높다믄 것은 잠들기 어렵다는 것이 전혀 없음(5점)에 가깝다는 것입니다. 그러니 역의 점수를 만들겠습니다. 1, 2, 3, 4, 5로 기록된 것을 5, 4, 3, 2, 1로 바꾸고 싶은 것입니다. 아래를 이용할 것입니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span> <span class="dv">6</span><span class="sc">-</span>x</span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span> <span class="dv">6</span><span class="sc">-</span>x</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5 4 3 2 1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep1in =</span> <span class="dv">6</span><span class="sc">-</span>sleep1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep1in =</span> <span class="dv">6</span><span class="sc">-</span>sleep1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27,891 × 8
-   TSEX        AGE emp_stat       heal_prob1 sleep1      sleep2  sleep3  sleep…¹
-   &lt;dbl+lbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;      &lt;dbl+lbl&gt;  &lt;dbl+lbl&gt;   &lt;dbl+l&gt; &lt;dbl+l&gt;   &lt;dbl&gt;
- 1 2 [여성]     54 1 [상용근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…       1
- 2 2 [여성]     64 3 [일용근로자] 2 [없다]   2 [한 주에… 2 [한 … 2 [한 …       4
- 3 2 [여성]     65 1 [상용근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…       1
- 4 1 [남성]     38 1 [상용근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…       1
- 5 2 [여성]     47 1 [상용근로자] 2 [없다]   5 [전혀없… 4 [드… 5 [전…       1
- 6 1 [남성]     48 1 [상용근로자] 1 [있다]   5 [전혀없… 5 [전… 5 [전…       1
- 7 1 [남성]     23 2 [임시근로자] 2 [없다]   4 [드물게]… 4 [드… 4 [드…       2
- 8 2 [여성]     28 1 [상용근로자] 2 [없다]   4 [드물게]… 4 [드… 4 [드…       2
- 9 1 [남성]     36 1 [상용근로자] 2 [없다]   4 [드물게]… 4 [드… 4 [드…       2
-10 2 [여성]     22 2 [임시근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…       1
-# … with 27,881 more rows, and abbreviated variable name ¹​sleep1in</code></pre>
+   TSEX        AGE emp_stat       heal_prob1 sleep1     sleep2  sleep3  sleep1in
+   &lt;dbl+lbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;      &lt;dbl+lbl&gt;  &lt;dbl+lbl&gt;  &lt;dbl+l&gt; &lt;dbl+l&gt;    &lt;dbl&gt;
+ 1 2 [여성]     54 1 [상용근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…        1
+ 2 2 [여성]     64 3 [일용근로자] 2 [없다]   2 [한 주… 2 [한 … 2 [한 …        4
+ 3 2 [여성]     65 1 [상용근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…        1
+ 4 1 [남성]     38 1 [상용근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…        1
+ 5 2 [여성]     47 1 [상용근로자] 2 [없다]   5 [전혀없… 4 [드… 5 [전…        1
+ 6 1 [남성]     48 1 [상용근로자] 1 [있다]   5 [전혀없… 5 [전… 5 [전…        1
+ 7 1 [남성]     23 2 [임시근로자] 2 [없다]   4 [드물게… 4 [드… 4 [드…        2
+ 8 2 [여성]     28 1 [상용근로자] 2 [없다]   4 [드물게… 4 [드… 4 [드…        2
+ 9 1 [남성]     36 1 [상용근로자] 2 [없다]   4 [드물게… 4 [드… 4 [드…        2
+10 2 [여성]     22 2 [임시근로자] 2 [없다]   5 [전혀없… 5 [전… 5 [전…        1
+# ℹ 27,881 more rows</code></pre>
 </div>
 </div>
 <p>이번에는 mutate을 이용해 새로운 변수를 생성해 보겠습니다. 변형된 dat는 dat1에 할당합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="ot">&lt;-</span>dat <span class="sc">%&gt;%</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep1in =</span> <span class="dv">6</span><span class="sc">-</span>sleep1, </span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep2in =</span> <span class="dv">6</span><span class="sc">-</span>sleep2, </span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep3in =</span> <span class="dv">6</span><span class="sc">-</span>sleep3 </span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexgp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>    TSEX <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"Men"</span>, </span>
-<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Women"</span></span>
-<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="ot">&lt;-</span>dat <span class="sc">%&gt;%</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep1in =</span> <span class="dv">6</span><span class="sc">-</span>sleep1, </span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep2in =</span> <span class="dv">6</span><span class="sc">-</span>sleep2, </span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep3in =</span> <span class="dv">6</span><span class="sc">-</span>sleep3 </span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexgp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>    TSEX <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"Men"</span>, </span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Women"</span></span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이번에는 sexgp를 group으로 하여 성별, 연령의 대표값을 나나타내 봅시다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp) <span class="sc">%&gt;%</span></span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
-<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
-<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
-<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
-<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
-<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1=</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std),</span>
-<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">smry2=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span>
-<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(sexgp,smry1, smry2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp) <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1=</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std),</span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">smry2=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(sexgp,smry1, smry2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   sexgp smry1       smry2     
@@ -791,20 +791,20 @@ Labels:
 </div>
 <p>html Table로 만들면 복사해서 붙여 넣기 매우 편리합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
-<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
-<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
-<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
-<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
-<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
-<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1=</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std),</span>
-<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">smry2=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span>
-<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(TSEX,smry1, smry2) <span class="sc">%&gt;%</span></span>
-<span id="cb91-14"><a href="#cb91-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(<span class="at">caption =</span><span class="st">"descritive statistics of study population"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1=</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std),</span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">smry2=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(TSEX,smry1, smry2) <span class="sc">%&gt;%</span></span>
+<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(<span class="at">caption =</span><span class="st">"descritive statistics of study population"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
@@ -837,40 +837,40 @@ descritive statistics of study population</td></tr>
 <p>그렇다면, sleep1 에 대해서도 만들어 보십시오.</p>
 <p>연령과 sleep1 에 대한 대표값을 함께 볼 수 있을까요? 지금까지 배운 방법으로 해보도록 하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
-<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
-<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
-<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
-<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
-<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
-<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1=</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std),</span>
-<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">smry2=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span>
-<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(TSEX,smry1, smry2) <span class="sc">%&gt;%</span></span>
-<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="st">"AGE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
 <span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
 <span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(sleep1), </span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(sleep1), </span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(sleep1, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
-<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(sleep1, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
-<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(sleep1, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(AGE), </span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(AGE), </span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
+<span id="cb93-8"><a href="#cb93-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(AGE, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
 <span id="cb93-9"><a href="#cb93-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
 <span id="cb93-10"><a href="#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1=</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std),</span>
 <span id="cb93-11"><a href="#cb93-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">smry2=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span>
 <span id="cb93-12"><a href="#cb93-12" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
 <span id="cb93-13"><a href="#cb93-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(TSEX,smry1, smry2) <span class="sc">%&gt;%</span></span>
-<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="st">"sleep1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="st">"AGE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(sleep1), </span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(sleep1), </span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(sleep1, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.50</span>)), </span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(sleep1, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.25</span>)), </span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(sleep1, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.75</span>))</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1=</span> <span class="fu">sprintf</span>(<span class="st">"%.1f \u00b1 %.1f"</span>, avg, std),</span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">smry2=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(TSEX,smry1, smry2) <span class="sc">%&gt;%</span></span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="st">"sleep1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이 둘을 합쳐 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(tab1, tab2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(tab1, tab2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   TSEX      smry1       smry2      variable
@@ -890,7 +890,7 @@ descritive statistics of study population</td></tr>
 </blockquote>
 <p>이제 group 대신에 group이 될 파일을 선택해서 long file로 만들어 보겠습니다. 원하는 파일만 골라 봅니다. 성에 따른 연령, sleep1, 2, 3를 정리해 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1in, sleep2in, sleep3in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1in, sleep2in, sleep3in)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27,891 × 5
    sexgp   AGE sleep1in sleep2in sleep3in
@@ -905,13 +905,13 @@ descritive statistics of study population</td></tr>
  8 Women    28        2        2        2
  9 Men      36        2        2        2
 10 Women    22        1        1        1
-# … with 27,881 more rows</code></pre>
+# ℹ 27,881 more rows</code></pre>
 </div>
 </div>
 <p>이러한 파일을 wide라고 부릅니다. 이제 우리는 TSEX별, AGE와 Sleep1의 값을 얻고자 합니다. 그러면 TSEX와 AGE, TSEX와 Sleep이 하나의 group이 됩니다. group을 반복한것과 같습니다. 즉 group의 기본은 -로 제외하고, 이와 상관되는 변수는 모두 포함하여 variables라는 이름으로 만들고, 값은 values라는 변수로 변환시키는 것입니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1in, sleep2in, sleep3in) <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1in, sleep2in, sleep3in) <span class="sc">%&gt;%</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 111,564 × 3
    sexgp variables values
@@ -926,23 +926,23 @@ descritive statistics of study population</td></tr>
  8 Women sleep3in       4
  9 Women AGE           65
 10 Women sleep1in       1
-# … with 111,554 more rows</code></pre>
+# ℹ 111,554 more rows</code></pre>
 </div>
 </div>
 <p>평균에 대해서만 먼저 해보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1, sleep2, sleep3) <span class="sc">%&gt;%</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp, variables) <span class="sc">%&gt;%</span></span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
-<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
-<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(values, <span class="at">prob =</span> <span class="fl">0.50</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>),</span>
-<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(values, <span class="at">prob =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
-<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(values, <span class="at">prob =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>) </span>
-<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
-<span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_std  =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f\u00b1%.1f"</span>, avg, std), </span>
-<span id="cb100-11"><a href="#cb100-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_IQR=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) <span class="sc">%&gt;%</span></span>
-<span id="cb100-12"><a href="#cb100-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexgp, variables, mean_std)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1, sleep2, sleep3) <span class="sc">%&gt;%</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp, variables) <span class="sc">%&gt;%</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">p50 =</span> <span class="fu">quantile</span>(values, <span class="at">prob =</span> <span class="fl">0.50</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>),</span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(values, <span class="at">prob =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(values, <span class="at">prob =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span><span class="cn">TRUE</span>) </span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_std  =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f\u00b1%.1f"</span>, avg, std), </span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_IQR=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) <span class="sc">%&gt;%</span></span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexgp, variables, mean_std)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 3
 # Groups:   sexgp [2]
@@ -961,17 +961,17 @@ descritive statistics of study population</td></tr>
 <p>무언가 복잡하지만 쉬워졌죠? 이말에 고개를 끄덕이셨다면 여러분은 이제 R coding에 빠져 들고 있는 것입니다. <br></p>
 <p>이제 이것을 사람이 보기 편한 상태인 wide로 바꾸겠습니다. pivot_wider를 사용하고 우리가 원하는 가로로 필요한 정보를 names로 하고 원하는 값을 values로 하겠습니다. 이것을 tab1으로 정의하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1, sleep2, sleep3) <span class="sc">%&gt;%</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp, variables) <span class="sc">%&gt;%</span></span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
-<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_std  =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f\u00b1%.1f"</span>, avg, std), </span>
-<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_IQR=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) <span class="sc">%&gt;%</span></span>
-<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexgp, variables, mean_std) <span class="sc">%&gt;%</span></span>
-<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sexgp, <span class="at">values_from =</span> <span class="fu">c</span>(mean_std)) <span class="ot">-&gt;</span> tab1</span>
-<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>tab1 <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>(<span class="at">caption =</span> <span class="st">"Table 1. Basic Characteristics of study population"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexgp, AGE, sleep1, sleep2, sleep3) <span class="sc">%&gt;%</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp, variables) <span class="sc">%&gt;%</span></span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg =</span> <span class="fu">mean</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>), </span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(values, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_std  =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f\u00b1%.1f"</span>, avg, std), </span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_IQR=</span> <span class="fu">sprintf</span>(<span class="st">"%.0f (%.0f-%.0f)"</span>, p50, p25, p75)) <span class="sc">%&gt;%</span></span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexgp, variables, mean_std) <span class="sc">%&gt;%</span></span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sexgp, <span class="at">values_from =</span> <span class="fu">c</span>(mean_std)) <span class="ot">-&gt;</span> tab1</span>
+<span id="cb103-11"><a href="#cb103-11" aria-hidden="true" tabindex="-1"></a>tab1 <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>(<span class="at">caption =</span> <span class="st">"Table 1. Basic Characteristics of study population"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
@@ -1019,7 +1019,7 @@ Table 1. Basic Characteristics of study population</td></tr>
 <h2 data-number="5.4" class="anchored" data-anchor-id="count-and-distribution"><span class="header-section-number">5.4</span> Count and Distribution</h2>
 <p>heal_prob1 이 요통 변수라고 했었는데요, 1이 요통이 있다. 2가 요통이 없다 입니다. 이것을 표로 만들어 보겠습니다. ### 하나씩 반복 하나씩 반복하는게 가장 기본입니다. count를 사용하겠습니다. 요통이 몇몇 있나요?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">count</span>(heal_prob1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">count</span>(heal_prob1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   heal_prob1     n
@@ -1030,9 +1030,9 @@ Table 1. Basic Characteristics of study population</td></tr>
 </div>
 <p>분율, 비율, 유병률을 나타내면 어떻게 될까요. 전체 합을 sum으로 만들고 이때 비율을 만들어야 합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span>total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span>total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   heal_prob1     n total  prob
@@ -1043,10 +1043,10 @@ Table 1. Basic Characteristics of study population</td></tr>
 </div>
 <p>남자만 해보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> </span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TSEX<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
-<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob=</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TSEX<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob=</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   heal_prob1     n  prob
@@ -1060,10 +1060,10 @@ Table 1. Basic Characteristics of study population</td></tr>
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="group_by-summary-and-table-1-1"><span class="header-section-number">5.4.1</span> Group_by summary and Table 1</h3>
 <p>group_by를 이용해 보겠습니다. 이면 위에서 연령을 이용한 방법을 실습했는데, 그것과 동일합니다</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
 # Groups:   TSEX [2]
@@ -1077,12 +1077,12 @@ Table 1. Basic Characteristics of study population</td></tr>
 </div>
 <p>익숙한 형태로 표시해 보겠습니다. 그리고 필요한 것만 남겨 보겠습니다 .</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
-<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%s (%.1f%%)"</span>, n, prob<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, heal_prob1, smry1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(heal_prob1) <span class="sc">%&gt;%</span></span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%s (%.1f%%)"</span>, n, prob<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, heal_prob1, smry1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
 # Groups:   TSEX [2]
@@ -1096,26 +1096,26 @@ Table 1. Basic Characteristics of study population</td></tr>
 </div>
 <p>이번에는 연령을 5세단위로 바꾸로 각 연령의 분포를 확인해 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span>dat1 <span class="sc">%&gt;%</span> </span>
-<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agegp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">25</span> <span class="sc">~</span> <span class="st">"&lt;25"</span>,</span>
-<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">30</span> <span class="sc">~</span> <span class="st">"&lt;30"</span>, </span>
-<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">35</span> <span class="sc">~</span> <span class="st">"&lt;35"</span>, </span>
-<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">40</span> <span class="sc">~</span> <span class="st">"&lt;40"</span>, </span>
-<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">45</span> <span class="sc">~</span> <span class="st">"&lt;45"</span>, </span>
-<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">50</span> <span class="sc">~</span> <span class="st">"&lt;50"</span>,</span>
-<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">55</span> <span class="sc">~</span> <span class="st">"&lt;55"</span>, </span>
-<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">60</span> <span class="sc">~</span> <span class="st">"&lt;60"</span>,</span>
-<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226560"</span> <span class="co"># 나머지는 모두 &gt;65 (\u2265는 크거나 같다는 symbol)</span></span>
-<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a>  )) </span>
-<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
-<span id="cb113-16"><a href="#cb113-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(agegp) <span class="sc">%&gt;%</span></span>
-<span id="cb113-17"><a href="#cb113-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb113-18"><a href="#cb113-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%s (%.1f%%)"</span>, n, prob<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb113-19"><a href="#cb113-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, agegp, smry1) <span class="sc">%&gt;%</span></span>
-<span id="cb113-20"><a href="#cb113-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(TSEX, agegp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span>dat1 <span class="sc">%&gt;%</span> </span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agegp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">25</span> <span class="sc">~</span> <span class="st">"&lt;25"</span>,</span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">30</span> <span class="sc">~</span> <span class="st">"&lt;30"</span>, </span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">35</span> <span class="sc">~</span> <span class="st">"&lt;35"</span>, </span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">40</span> <span class="sc">~</span> <span class="st">"&lt;40"</span>, </span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">45</span> <span class="sc">~</span> <span class="st">"&lt;45"</span>, </span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">50</span> <span class="sc">~</span> <span class="st">"&lt;50"</span>,</span>
+<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">55</span> <span class="sc">~</span> <span class="st">"&lt;55"</span>, </span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">60</span> <span class="sc">~</span> <span class="st">"&lt;60"</span>,</span>
+<span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226560"</span> <span class="co"># 나머지는 모두 &gt;65 (\u2265는 크거나 같다는 symbol)</span></span>
+<span id="cb114-12"><a href="#cb114-12" aria-hidden="true" tabindex="-1"></a>  )) </span>
+<span id="cb114-13"><a href="#cb114-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-14"><a href="#cb114-14" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb114-15"><a href="#cb114-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TSEX) <span class="sc">%&gt;%</span></span>
+<span id="cb114-16"><a href="#cb114-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(agegp) <span class="sc">%&gt;%</span></span>
+<span id="cb114-17"><a href="#cb114-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb114-18"><a href="#cb114-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%s (%.1f%%)"</span>, n, prob<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb114-19"><a href="#cb114-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TSEX, agegp, smry1) <span class="sc">%&gt;%</span></span>
+<span id="cb114-20"><a href="#cb114-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(TSEX, agegp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 18 × 3
 # Groups:   TSEX [2]
@@ -1146,21 +1146,21 @@ Table 1. Basic Characteristics of study population</td></tr>
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="long-file-and-table-1-1"><span class="header-section-number">5.4.2</span> Long File and Table 1</h3>
 <p>그럼 이번에는 요통과 연령집단을 동시에 바꾸어 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">backpain=</span> <span class="fu">case_when</span>(heal_prob1<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"pain"</span>, </span>
-<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>                             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"no-pain"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexgp, agegp, backpain) <span class="sc">%&gt;%</span></span>
-<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp, variables) <span class="sc">%&gt;%</span></span>
-<span id="cb115-7"><a href="#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(values) <span class="sc">%&gt;%</span></span>
-<span id="cb115-8"><a href="#cb115-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb115-9"><a href="#cb115-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%s (%.1f%%)"</span>, n, prob<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb115-10"><a href="#cb115-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n, <span class="sc">-</span>prob) <span class="sc">%&gt;%</span></span>
-<span id="cb115-11"><a href="#cb115-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sexgp, <span class="at">values_from =</span> smry1) <span class="ot">-&gt;</span> tab2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">backpain=</span> <span class="fu">case_when</span>(heal_prob1<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"pain"</span>, </span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>                             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"no-pain"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexgp, agegp, backpain) <span class="sc">%&gt;%</span></span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(sexgp), <span class="at">names_to =</span><span class="st">"variables"</span>, <span class="at">values_to =</span> <span class="st">"values"</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sexgp, variables) <span class="sc">%&gt;%</span></span>
+<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(values) <span class="sc">%&gt;%</span></span>
+<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">smry1 =</span> <span class="fu">sprintf</span>(<span class="st">"%s (%.1f%%)"</span>, n, prob<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n, <span class="sc">-</span>prob) <span class="sc">%&gt;%</span></span>
+<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sexgp, <span class="at">values_from =</span> smry1) <span class="ot">-&gt;</span> tab2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>html 테이블로 살펴 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
@@ -1256,10 +1256,10 @@ Table 1. Basic Characteristics of study population</td></tr>
 </div>
 <p>무슨 생각이 드시죠? tab1과 tab2를 합치면 좋겠다는 생각이 드시죠, tab1에는 values 라는 변수가 없습니다 .그래서 합치기 어렵습니다. values 라는 변수를 생성하고 합쳐 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">=</span> tab1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">values =</span> <span class="st">""</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(variables, values, Men, Women) </span>
-<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(tab1, tab2) <span class="sc">%&gt;%</span></span>
-<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">=</span> tab1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">values =</span> <span class="st">""</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(variables, values, Men, Women) </span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(tab1, tab2) <span class="sc">%&gt;%</span></span>
+<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
@@ -1670,7 +1670,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./247_datamanipulation_for_table_2.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Manipulation for table_2</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

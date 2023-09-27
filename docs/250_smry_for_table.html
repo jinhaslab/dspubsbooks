@@ -207,17 +207,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Manipulation for table_1</span></a>
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Manipulation for table_2</span></a>
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Manipulation for table_3</span></a>
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -290,22 +290,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># packages from github</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"devtools"</span>)) <span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"jinhaslab/tabf"</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>── R CMD build ─────────────────────────────────────────────────────────────────
-* checking for file ‘/tmp/RtmpBwWi0C/remotesd7a76343ef760/jinhaslab-tabf-3fe0418/DESCRIPTION’ ... OK
-* preparing ‘tabf’:
-* checking DESCRIPTION meta-information ... OK
-* checking for LF line-endings in source and make files and shell scripts
-* checking for empty or unneeded directories
-  NB: this package now depends on R (&gt;= 3.5.0)
-  WARNING: Added dependency on R &gt;= 3.5.0 because serialized objects in
-  serialize/load version 3 cannot be read in older versions of R.
-  File(s) containing such objects:
-    ‘tabf/tutorKWCS.rds’
-* building ‘tabf_0.0.0.9000.tar.gz’</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tabf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"jinhaslab/tabf"</span>, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tabf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="데이터-준비" class="level2" data-number="8.2">
@@ -313,115 +299,115 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다..</p>
 <p>데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다.. 데이터를 불러오겠습니다. 안전보건공단 홈페이에서 자료를 다운 받는게 원칙입니다. 다만 실습을 빠르게 진행하기 위해서, dspubs.org 페이지에 있는 파일을 이용하겠습니다. <br> <a href="https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"> kwcsData6th.rds </a> <br> 자신의 folder에 data 라는 folder가 있는지 확인하십시오. data라는 폴더에 다운로드하고, 불러오도록 하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"data/tutorKWCS.rds"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>kwcs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/tutorKWCS.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"data/tutorKWCS.rds"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>kwcs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/tutorKWCS.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="근로환경조사-기본-변수-생성-선택" class="level3" data-number="8.2.1">
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="근로환경조사-기본-변수-생성-선택"><span class="header-section-number">8.2.1</span> 근로환경조사 기본 변수 생성 (선택)</h3>
 <p>data manipulation에서 실습한 내용을 통해 변수를 실습을 위한 변수를 생성해 보겠습니다. 이에 대한 자세한 과정은 이전 챔터에 있습니다. <br></p>
-<p><a href="#tables2">Table 1 변수 생성과정 챕터</a></p>
+<p><a href="247_datamanipulation_for_table_2.html">Table 1 변수 생성과정 챕터</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manip function</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Likert5f <span class="ot">=</span> <span class="cf">function</span>(x){dplyr<span class="sc">::</span><span class="fu">recode</span>(<span class="fu">as.numeric</span>(x), </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"4.Always"</span>,<span class="st">"3.Often"</span>,<span class="st">"2.Sometimes"</span>, <span class="st">"1.Rarely"</span>,<span class="st">"0.Never"</span> )}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data step start ----------</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">=</span> kwcs <span class="sc">%&gt;%</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&lt;</span><span class="dv">70</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;</span><span class="dv">18</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sleep --------</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sleep1)<span class="sc">&amp;!</span><span class="fu">is.na</span>(sleep2)<span class="sc">&amp;!</span><span class="fu">is.na</span>(sleep3)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sleep1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>         sleep2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>         sleep3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep1in =</span> <span class="dv">5</span><span class="sc">-</span>sleep1, </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep2in =</span> <span class="dv">5</span><span class="sc">-</span>sleep2,</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep3in =</span> <span class="dv">5</span><span class="sc">-</span>sleep3</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleepgp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    sleep1in <span class="sc">+</span> sleep2in<span class="sc">+</span> sleep3in <span class="sc">&gt;=</span><span class="dv">6</span> <span class="sc">~</span> <span class="st">"1.sleep disturbance"</span>, </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.non distrubance"</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># work live balances -------------</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wbalance), <span class="sc">!</span><span class="fu">is.na</span>(wwa1), <span class="sc">!</span><span class="fu">is.na</span>(wwa2), <span class="sc">!</span><span class="fu">is.na</span>(wwa3), <span class="sc">!</span><span class="fu">is.na</span>(wwa4), <span class="sc">!</span><span class="fu">is.na</span>(wwa5)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wbalance)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wbalancegp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    wbalance <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">~</span> <span class="st">"0.balance"</span>, </span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"1.non balance"</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wwa1gp=</span><span class="fu">Likert5f</span>(wwa1), <span class="at">wwa2gp=</span><span class="fu">Likert5f</span>(wwa2),  <span class="at">wwa3gp=</span><span class="fu">Likert5f</span>(wwa3), </span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">wwa4gp=</span><span class="fu">Likert5f</span>(wwa4), <span class="at">wwa5gp=</span><span class="fu">Likert5f</span>(wwa5), </span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># job and sex, agegp  ----------</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(job1))<span class="sc">%&gt;%</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(job1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexgp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    TSEX <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"Men"</span>, </span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Women"</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agegp =</span> <span class="fu">case_when</span>(AGE <span class="sc">&lt;</span><span class="dv">25</span> <span class="sc">~</span> <span class="st">"&lt;25"</span>, AGE <span class="sc">&lt;</span><span class="dv">30</span> <span class="sc">~</span> <span class="st">"&lt;30"</span>,  AGE <span class="sc">&lt;</span><span class="dv">35</span> <span class="sc">~</span> <span class="st">"&lt;35"</span>, </span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">40</span> <span class="sc">~</span> <span class="st">"&lt;40"</span>, AGE <span class="sc">&lt;</span><span class="dv">45</span> <span class="sc">~</span> <span class="st">"&lt;45"</span>, AGE <span class="sc">&lt;</span><span class="dv">50</span> <span class="sc">~</span> <span class="st">"&lt;50"</span>,AGE <span class="sc">&lt;</span><span class="dv">55</span> <span class="sc">~</span> <span class="st">"&lt;55"</span>, AGE <span class="sc">&lt;</span><span class="dv">60</span> <span class="sc">~</span> <span class="st">"&lt;60"</span>,</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226560"</span> <span class="co"># 나머지는 모두 &gt;65 (\u2265는 크거나 같다는 symbol)</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(edu)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edugp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">~</span>    <span class="st">"2.middle school or below"</span>,</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>  ) <span class="sc">~</span>    <span class="st">"1.high school"</span>,</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>)   <span class="sc">~</span>  <span class="st">"0.university or more"</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">njob=</span><span class="fu">case_when</span>(</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    job1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">~</span> <span class="st">"1.njob"</span>, </span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.one-job"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># pains back -----------</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">backpain=</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    heal_prob1<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"pain"</span>, </span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"no-pain"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># emp_type,working hours, shiftwork, work life balance -------</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_type)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(emp_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">empgp =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"2.own-account worker"</span>, </span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="st">"1.employer/self-employer"</span>, </span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">3</span> <span class="sc">~</span> <span class="st">"0.paid-worker"</span>, </span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">4</span> <span class="sc">~</span> <span class="st">"3.unpaind family work"</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wtime_week)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">whgp=</span><span class="fu">case_when</span>(</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">35</span> <span class="sc">~</span> <span class="st">"&lt;35"</span>, </span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">~</span> <span class="st">"&lt;40"</span>, </span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">52</span> <span class="sc">~</span> <span class="st">"&lt;52"</span>, </span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"&lt;60"</span>, </span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226560"</span>, </span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wtime_length5)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wtime_length5 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shiftWork =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    wtime_length5 <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"1.shift work"</span>, </span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.non shift work"</span></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wtime_resilience)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shortReturn =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    wtime_resilience <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"1.short return"</span>, </span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.non short return"</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(satisfaction)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(satisfaction <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">satisInv =</span> <span class="dv">5</span><span class="sc">-</span>satisfaction) <span class="sc">%&gt;%</span></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shiftShort=</span><span class="fu">case_when</span>(</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">==</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">==</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"3.shift work with short return"</span>, </span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">==</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">!=</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"2.shift work"</span>, </span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">!=</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">==</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"1.day work with short return"</span>, </span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">!=</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">!=</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"0.day work"</span>, </span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>  )) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manip function</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Likert5f <span class="ot">=</span> <span class="cf">function</span>(x){dplyr<span class="sc">::</span><span class="fu">recode</span>(<span class="fu">as.numeric</span>(x), </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"4.Always"</span>,<span class="st">"3.Often"</span>,<span class="st">"2.Sometimes"</span>, <span class="st">"1.Rarely"</span>,<span class="st">"0.Never"</span> )}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data step start ----------</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">=</span> kwcs <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&lt;</span><span class="dv">70</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(AGE <span class="sc">&gt;</span><span class="dv">18</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sleep --------</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sleep1)<span class="sc">&amp;!</span><span class="fu">is.na</span>(sleep2)<span class="sc">&amp;!</span><span class="fu">is.na</span>(sleep3)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sleep1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>         sleep2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>         sleep3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep1in =</span> <span class="dv">5</span><span class="sc">-</span>sleep1, </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep2in =</span> <span class="dv">5</span><span class="sc">-</span>sleep2,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">sleep3in =</span> <span class="dv">5</span><span class="sc">-</span>sleep3</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleepgp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    sleep1in <span class="sc">+</span> sleep2in<span class="sc">+</span> sleep3in <span class="sc">&gt;=</span><span class="dv">6</span> <span class="sc">~</span> <span class="st">"1.sleep disturbance"</span>, </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.non distrubance"</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># work live balances -------------</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wbalance), <span class="sc">!</span><span class="fu">is.na</span>(wwa1), <span class="sc">!</span><span class="fu">is.na</span>(wwa2), <span class="sc">!</span><span class="fu">is.na</span>(wwa3), <span class="sc">!</span><span class="fu">is.na</span>(wwa4), <span class="sc">!</span><span class="fu">is.na</span>(wwa5)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wbalance)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wbalancegp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    wbalance <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">~</span> <span class="st">"0.balance"</span>, </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"1.non balance"</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wwa1gp=</span><span class="fu">Likert5f</span>(wwa1), <span class="at">wwa2gp=</span><span class="fu">Likert5f</span>(wwa2),  <span class="at">wwa3gp=</span><span class="fu">Likert5f</span>(wwa3), </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">wwa4gp=</span><span class="fu">Likert5f</span>(wwa4), <span class="at">wwa5gp=</span><span class="fu">Likert5f</span>(wwa5), </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># job and sex, agegp  ----------</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(job1))<span class="sc">%&gt;%</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(job1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexgp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    TSEX <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"Men"</span>, </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Women"</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agegp =</span> <span class="fu">case_when</span>(AGE <span class="sc">&lt;</span><span class="dv">25</span> <span class="sc">~</span> <span class="st">"&lt;25"</span>, AGE <span class="sc">&lt;</span><span class="dv">30</span> <span class="sc">~</span> <span class="st">"&lt;30"</span>,  AGE <span class="sc">&lt;</span><span class="dv">35</span> <span class="sc">~</span> <span class="st">"&lt;35"</span>, </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    AGE <span class="sc">&lt;</span><span class="dv">40</span> <span class="sc">~</span> <span class="st">"&lt;40"</span>, AGE <span class="sc">&lt;</span><span class="dv">45</span> <span class="sc">~</span> <span class="st">"&lt;45"</span>, AGE <span class="sc">&lt;</span><span class="dv">50</span> <span class="sc">~</span> <span class="st">"&lt;50"</span>,AGE <span class="sc">&lt;</span><span class="dv">55</span> <span class="sc">~</span> <span class="st">"&lt;55"</span>, AGE <span class="sc">&lt;</span><span class="dv">60</span> <span class="sc">~</span> <span class="st">"&lt;60"</span>,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226560"</span> <span class="co"># 나머지는 모두 &gt;65 (\u2265는 크거나 같다는 symbol)</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(edu)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edugp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">~</span>    <span class="st">"2.middle school or below"</span>,</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>  ) <span class="sc">~</span>    <span class="st">"1.high school"</span>,</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    edu <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>)   <span class="sc">~</span>  <span class="st">"0.university or more"</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">njob=</span><span class="fu">case_when</span>(</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    job1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">~</span> <span class="st">"1.njob"</span>, </span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.one-job"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># pains back -----------</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">backpain=</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    heal_prob1<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"pain"</span>, </span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"no-pain"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># emp_type,working hours, shiftwork, work life balance -------</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(emp_type)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(emp_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">empgp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"2.own-account worker"</span>, </span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="st">"1.employer/self-employer"</span>, </span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">3</span> <span class="sc">~</span> <span class="st">"0.paid-worker"</span>, </span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    emp_type <span class="sc">==</span><span class="dv">4</span> <span class="sc">~</span> <span class="st">"3.unpaind family work"</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wtime_week)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">whgp=</span><span class="fu">case_when</span>(</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">35</span> <span class="sc">~</span> <span class="st">"&lt;35"</span>, </span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">40</span> <span class="sc">~</span> <span class="st">"&lt;40"</span>, </span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">52</span> <span class="sc">~</span> <span class="st">"&lt;52"</span>, </span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>    wtime_week <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"&lt;60"</span>, </span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226560"</span>, </span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wtime_length5)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wtime_length5 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shiftWork =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>    wtime_length5 <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"1.shift work"</span>, </span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.non shift work"</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(wtime_resilience)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shortReturn =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>    wtime_resilience <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"1.short return"</span>, </span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"0.non short return"</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(satisfaction)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(satisfaction <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">satisInv =</span> <span class="dv">5</span><span class="sc">-</span>satisfaction) <span class="sc">%&gt;%</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">shiftShort=</span><span class="fu">case_when</span>(</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">==</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">==</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"3.shift work with short return"</span>, </span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">==</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">!=</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"2.shift work"</span>, </span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">!=</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">==</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"1.day work with short return"</span>, </span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>    shiftWork <span class="sc">!=</span> <span class="st">"1.shift work"</span> <span class="sc">&amp;</span> shortReturn <span class="sc">!=</span> <span class="st">"1.short return"</span> <span class="sc">~</span> <span class="st">"0.day work"</span>, </span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>  )) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>코드를 간단히 하기 위해 <code>dat1</code>을 저장하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(dat1, <span class="st">"data/kwcsData1.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(dat1, <span class="st">"data/kwcsData1.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/kwcsData1.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/kwcsData1.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -429,14 +415,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="8.3" class="anchored" data-anchor-id="변수-선정-그리고-표-1"><span class="header-section-number">8.3</span> 변수 선정 그리고 표 1</h2>
 <p>변수는 종속변수, 독립변수로 나눌수 있고, 독립변수는 성격에 따라 연속변수와 명목변수로 나눌 수 있습니다. 그렇게 구별해 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stratas  <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"sleepgp"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>catVars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"wwa1gp"</span>, <span class="st">"shortReturn"</span>,<span class="st">"shiftWork"</span> , <span class="st">"njob"</span>, <span class="st">"sexgp"</span>,  <span class="st">"edugp"</span>, <span class="st">"empgp"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>conVars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AGE"</span>,<span class="st">"satisfaction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stratas  <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"sleepgp"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>catVars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"wwa1gp"</span>, <span class="st">"shortReturn"</span>,<span class="st">"shiftWork"</span> , <span class="st">"njob"</span>, <span class="st">"sexgp"</span>,  <span class="st">"edugp"</span>, <span class="st">"empgp"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>conVars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AGE"</span>,<span class="st">"satisfaction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>tabf()</code> 은 우리가 설정한 것에 따라 표1을 만들어 줍니다. <code>htmlTable()</code>은 붙여 넣기 좋게 화면에 출력해 줍니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">=</span> <span class="fu">tabf</span>(<span class="at">dat1=</span>dat1, <span class="at">stratas =</span> stratas, <span class="at">catVars =</span> catVars, <span class="at">conVars =</span> conVars)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tab1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">=</span> <span class="fu">tabf</span>(<span class="at">dat1=</span>dat1, <span class="at">stratas =</span> stratas, <span class="at">catVars =</span> catVars, <span class="at">conVars =</span> conVars)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tab1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 22 × 5
    variables      values       `0.non distrubance` `1.sleep disturbance` p.value
@@ -456,15 +442,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>htmlTable()을 이용해서 보기 좋게 만들어 보겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">""</span>, <span class="st">""</span>, <span class="st">"None"</span>, <span class="st">"Disturbance"</span>, <span class="st">"P value"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cgroup =</span> <span class="fu">c</span>(<span class="st">""</span>,  <span class="st">"Sleep disturbance"</span>, <span class="st">""</span>), </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.cgroup =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">tfoot =</span> <span class="st">"P value calculated by Chisq-Test and T-Test"</span>, </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">rnames =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Basic Characteristics according to Sleep disturbance"</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">""</span>, <span class="st">""</span>, <span class="st">"None"</span>, <span class="st">"Disturbance"</span>, <span class="st">"P value"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cgroup =</span> <span class="fu">c</span>(<span class="st">""</span>,  <span class="st">"Sleep disturbance"</span>, <span class="st">""</span>), </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.cgroup =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">tfoot =</span> <span class="st">"P value calculated by Chisq-Test and T-Test"</span>, </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">rnames =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Basic Characteristics according to Sleep disturbance"</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
@@ -696,19 +682,19 @@ P value calculated by Chisq-Test and T-Test</td></tr></tfoot>
 <h2 data-number="8.4" class="anchored" data-anchor-id="로지스틱-회귀-분석"><span class="header-section-number">8.4</span> 로지스틱 회귀 분석</h2>
 <p>로지스틱 회귀 분석은 오즈비와 95% 신뢰구간을 구하는데 사용합니다. 여기서는 수면장애의 오즈를 “일을 하지 않을 때에도 걱정하는” 정도에 따라 분석해 보겠습니다. 첫번째 모델을 걱정 변수만 넣어서, 두번째 모델은 연령, 성별, 근무 만족도를 넣어서, 3번째는 교대 근무와, n-job 여부를 넣어서 분석하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">data=</span>.,<span class="at">family=</span><span class="st">"binomial"</span>,<span class="at">formula =</span> sleepgp <span class="sc">==</span> <span class="st">"1.sleep disturbance"</span>  </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> wwa1gp)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">data=</span>.,<span class="at">family=</span><span class="st">"binomial"</span>,<span class="at">formula =</span> sleepgp <span class="sc">==</span> <span class="st">"1.sleep disturbance"</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> wwa1gp <span class="sc">+</span> AGE <span class="sc">+</span> sexgp <span class="sc">+</span>satisfaction)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">data=</span>.,<span class="at">family=</span><span class="st">"binomial"</span>,<span class="at">formula =</span> sleepgp <span class="sc">==</span> <span class="st">"1.sleep disturbance"</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> wwa1gp <span class="sc">+</span> AGE <span class="sc">+</span> sexgp <span class="sc">+</span>satisfaction <span class="sc">+</span> shiftWork <span class="sc">+</span> njob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">data=</span>.,<span class="at">family=</span><span class="st">"binomial"</span>,<span class="at">formula =</span> sleepgp <span class="sc">==</span> <span class="st">"1.sleep disturbance"</span>  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> wwa1gp)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">data=</span>.,<span class="at">family=</span><span class="st">"binomial"</span>,<span class="at">formula =</span> sleepgp <span class="sc">==</span> <span class="st">"1.sleep disturbance"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> wwa1gp <span class="sc">+</span> AGE <span class="sc">+</span> sexgp <span class="sc">+</span>satisfaction)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">data=</span>.,<span class="at">family=</span><span class="st">"binomial"</span>,<span class="at">formula =</span> sleepgp <span class="sc">==</span> <span class="st">"1.sleep disturbance"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> wwa1gp <span class="sc">+</span> AGE <span class="sc">+</span> sexgp <span class="sc">+</span>satisfaction <span class="sc">+</span> shiftWork <span class="sc">+</span> njob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>각 모델이 잘 이루어졌는지 확인해 봅니다 . 로지스틱 회귀분서의 자세한 내용은 통계학 강의를 꼭 참고해 주세요!.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -740,7 +726,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <p><code>oddsf()</code> 라는 함수로 결과를 확인해 보겠습니다 .</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oddsf</span>(mod1, mod2, mod3) <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oddsf</span>(mod1, mod2, mod3) <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
@@ -864,7 +850,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <p>예상한대로 결과가 나왔다면 <code>oddsTabf()</code>를 이용해서 복사 붙여 넣기를 하겠습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oddsTabf</span>(mod1, mod2, mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oddsTabf</span>(mod1, mod2, mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="img/logisticTable1.png"></p>
 
@@ -1124,7 +1110,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./248_datamanipulation_for_table_3.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Manipulation for table_3</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

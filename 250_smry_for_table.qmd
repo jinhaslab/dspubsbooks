@@ -1,15 +1,15 @@
 # 보건학표 만들기 요약
 
- 데이터가 수집되었습니다. 이제 공중보건을 위한 두 종류의 표 만들기를 소개하겠습니다. 하나는 기본 크로스 테이블이고 다른 하나는 로지스틱 회귀 모델용 테이블입니다. 
- 
+데이터가 수집되었습니다. 이제 공중보건을 위한 두 종류의 표 만들기를 소개하겠습니다. 하나는 기본 크로스 테이블이고 다른 하나는 로지스틱 회귀 모델용 테이블입니다.
+
 ```{r , include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 ## install package from github
- 
- `tidyvere and htmlTable, and broom` 가 데이터를 변환하고 표시하는데 자주 사용됩니다.  `devtools` 은  "github"에 있는 함수를 불러오는데 사용됩니다. <br>
- `install_github` 을 통해 패키지를 설치하겠습니다.  
+
+`tidyvere and htmlTable, and broom` 가 데이터를 변환하고 표시하는데 자주 사용됩니다. `devtools` 은 "github"에 있는 함수를 불러오는데 사용됩니다. <br> `install_github` 을 통해 패키지를 설치하겠습니다.
+
 ```{r, warning=F, message=F}
 rm(list=ls())
 #basic requirment
@@ -20,14 +20,13 @@ if(!require("labelled")) install.packages("labelled")
 # packages from github
 if(!require("devtools")) install.packages("devtools")
 library(devtools)
-install_github("jinhaslab/tabf", force = TRUE)
+install_github("jinhaslab/tabf", force = TRUE, quiet = TRUE)
 library(tabf)
 ```
+
 ## 데이터 준비
 
 데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다..
-
-
 
 데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다.. 데이터를 불러오겠습니다. 안전보건공단 홈페이에서 자료를 다운 받는게 원칙입니다. 다만 실습을 빠르게 진행하기 위해서, dspubs.org 페이지에 있는 파일을 이용하겠습니다. <br> <a href="https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData6th.rds"> kwcsData6th.rds </a> <br> 자신의 folder에 data 라는 folder가 있는지 확인하십시오. data라는 폴더에 다운로드하고, 불러오도록 하겠습니다.
 
@@ -145,28 +144,31 @@ dat1 = kwcs %>%
 ```{r, eval=FALSE}
 saveRDS(dat1, "data/kwcsData1.rds")
 
-``` 
+```
+
 ```{r}
 dat1 = readRDS("data/kwcsData1.rds")
 ```
 
-
 ## 변수 선정 그리고 표 1
- 변수는 종속변수, 독립변수로 나눌수 있고, 독립변수는 성격에 따라 연속변수와 명목변수로 나눌 수 있습니다. 그렇게 구별해 보겠습니다.  
- 
+
+변수는 종속변수, 독립변수로 나눌수 있고, 독립변수는 성격에 따라 연속변수와 명목변수로 나눌 수 있습니다. 그렇게 구별해 보겠습니다.
+
 ```{r}
 stratas  = c("sleepgp")
 catVars = c("wwa1gp", "shortReturn","shiftWork" , "njob", "sexgp",  "edugp", "empgp")
 conVars = c("AGE","satisfaction")
 ```
- `tabf()` 은 우리가 설정한 것에 따라 표1을 만들어 줍니다.  `htmlTable()`은 붙여 넣기 좋게 화면에 출력해 줍니다.  
- 
+
+`tabf()` 은 우리가 설정한 것에 따라 표1을 만들어 줍니다. `htmlTable()`은 붙여 넣기 좋게 화면에 출력해 줍니다.
+
 ```{r}
 tab1 = tabf(dat1=dat1, stratas = stratas, catVars = catVars, conVars = conVars)
 tab1
 ```
- htmlTable()을 이용해서 보기 좋게 만들어 보겠습니다.  
- 
+
+htmlTable()을 이용해서 보기 좋게 만들어 보겠습니다.
+
 ```{r}
 tab1 %>% 
   setNames(c("", "", "None", "Disturbance", "P value")) %>%
@@ -181,8 +183,8 @@ tab1 %>%
 
 ## 로지스틱 회귀 분석
 
-  로지스틱 회귀 분석은 오즈비와 95% 신뢰구간을 구하는데 사용합니다. 여기서는 수면장애의 오즈를 "일을 하지 않을 때에도 걱정하는" 정도에 따라 분석해 보겠습니다. 첫번째 모델을 걱정 변수만 넣어서, 두번째 모델은 연령, 성별, 근무 만족도를 넣어서, 3번째는 교대 근무와, n-job 여부를 넣어서 분석하겠습니다. 
-  
+로지스틱 회귀 분석은 오즈비와 95% 신뢰구간을 구하는데 사용합니다. 여기서는 수면장애의 오즈를 "일을 하지 않을 때에도 걱정하는" 정도에 따라 분석해 보겠습니다. 첫번째 모델을 걱정 변수만 넣어서, 두번째 모델은 연령, 성별, 근무 만족도를 넣어서, 3번째는 교대 근무와, n-job 여부를 넣어서 분석하겠습니다.
+
 ```{r}
 mod1 = dat1 %>%
   glm(data=.,family="binomial",formula = sleepgp == "1.sleep disturbance"  
@@ -194,22 +196,23 @@ mod3 = dat1 %>%
   glm(data=.,family="binomial",formula = sleepgp == "1.sleep disturbance"
       ~ wwa1gp + AGE + sexgp +satisfaction + shiftWork + njob)
 ```
+
 각 모델이 잘 이루어졌는지 확인해 봅니다 . 로지스틱 회귀분서의 자세한 내용은 통계학 강의를 꼭 참고해 주세요!.
+
 ```{r}
 summary(mod1)
 ```
 
- `oddsf()` 라는 함수로   결과를 확인해 보겠습니다 .
+`oddsf()` 라는 함수로 결과를 확인해 보겠습니다 .
+
 ```{r}
 oddsf(mod1, mod2, mod3) %>% htmlTable()
 ```
-예상한대로 결과가 나왔다면 `oddsTabf()`를 이용해서 복사 붙여 넣기를 하겠습니다. 
+
+예상한대로 결과가 나왔다면 `oddsTabf()`를 이용해서 복사 붙여 넣기를 하겠습니다.
+
 ```{r, eval=FALSE}
 oddsTabf(mod1, mod2, mod3)
 ```
 
-<img src="img/logisticTable1.png">
-
-
-
-
+<img src="img/logisticTable1.png"/>
