@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.8.9)  27 SEP 2023 09:29
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.27)  27 SEP 2023 09:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **index.tex
 (./index.tex
 LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-08-03>
+L3 programming layer <2023-08-29>
 (/home/dspub/.TinyTeX/texmf-dist/tex/latex/koma-script/scrreprt.cls
 Document Class: scrreprt 2023/07/07 v3.41 KOMA-Script document class (report)
 (/home/dspub/.TinyTeX/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -230,7 +230,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 ) (/home/dspub/.TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 ) (/home/dspub/.TinyTeX/texmf-dist/tex/latex/unicode-math/unicode-math.sty (/home/dspub/.TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2023-08-03 L3 programming layer (loader) 
+Package: expl3 2023-08-29 L3 programming layer (loader) 
 (/home/dspub/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2023-04-19 L3 backend support: XeTeX
 \g__graphics_track_int=\count269
@@ -239,13 +239,13 @@ File: l3backend-xetex.def 2023-04-19 L3 backend support: XeTeX
 \g__pdf_backend_annotation_int=\count271
 \g__pdf_backend_link_int=\count272
 ))
-Package: unicode-math 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLaTeX
+Package: unicode-math 2023/08/13 v0.8r Unicode maths in XeLaTeX and LuaLaTeX
 (/home/dspub/.TinyTeX/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.sty
-Package: unicode-math-xetex 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLaTeX
+Package: unicode-math-xetex 2023/08/13 v0.8r Unicode maths in XeLaTeX and LuaLaTeX
 (/home/dspub/.TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2023-02-02 L3 Experimental document command parser
+Package: xparse 2023-08-29 L3 Experimental document command parser
 ) (/home/dspub/.TinyTeX/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
-Package: l3keys2e 2023-02-02 LaTeX2e option processing using LaTeX3 keys
+Package: l3keys2e 2023-08-29 LaTeX2e option processing using LaTeX3 keys
 ) (/home/dspub/.TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.sty
 Package: fontspec 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTeX
 (/home/dspub/.TinyTeX/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
@@ -433,10 +433,10 @@ Type  H <return>  for immediate help.
 l.141 <
        script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script> 
 Here is how much of TeX's memory you used:
- 14581 strings out of 477824
- 297439 string characters out of 5821821
- 1911885 words of memory out of 5000000
- 35454 multiletter control sequences out of 15000+600000
+ 14577 strings out of 477570
+ 297376 string characters out of 5817830
+ 1913422 words of memory out of 5000000
+ 35704 multiletter control sequences out of 15000+600000
  558085 words of font info for 38 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,1n,107p,10900b,271s stack positions out of 10000i,1000n,20000p,200000b,200000s
