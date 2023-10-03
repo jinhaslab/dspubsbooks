@@ -1,5 +1,7 @@
 # 보건학표 만들기 요약
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1wesP5MpKUo?si=NeeOhPYb1xrSMjhP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 데이터가 수집되었습니다. 이제 공중보건을 위한 두 종류의 표 만들기를 소개하겠습니다. 하나는 기본 크로스 테이블이고 다른 하나는 로지스틱 회귀 모델용 테이블입니다.
 
 ```{r , include=FALSE}
@@ -41,6 +43,7 @@ kwcs = readRDS("data/tutorKWCS.rds")
 data manipulation에서 실습한 내용을 통해 변수를 실습을 위한 변수를 생성해 보겠습니다. 이에 대한 자세한 과정은 이전 챔터에 있습니다. <br>
 
 [Table 1 변수 생성과정 챕터](#tables2)
+
 
 ```{r, eval=FALSE}
 # data manip function

@@ -151,6 +151,15 @@ saveRDS(dat1, "data/kwcsData1.rds")
     -   source file 불러오기 (source("source/kwcsTabf.R"))
     -   함수 사용하기.
 
+```{r, eval=FALSE}
+url1 <-"https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsTabf.R"
+download.file(url1, "source/kwcsTabf.R")
+
+url2 <-"https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/oddsTabf.R"
+download.file(url2, "source/oddsTabf.R")
+```
+
+
 ```{r}
 source("source/kwcsTabf.R")
 ```
