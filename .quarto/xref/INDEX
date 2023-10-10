@@ -37,5 +37,11 @@
   },
   "250_smry_for_table.qmd": {
     "250_smry_for_table.html": "f15bcf01"
+  },
+  "310_ggplot_basic.qmd": {
+    "310_ggplot_basic.html": "bc66d79f"
+  },
+  "320_kwcs_tutor_plot.qmd": {
+    "320_kwcs_tutor_plot.html": "7f05b0f9"
   }
 }

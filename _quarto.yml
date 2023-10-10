@@ -14,12 +14,16 @@ book:
         - 221_Rbasic1.qmd
         - 231_dataimportsave.qmd
         - 241_datamanipulation.qmd
-    - part: "II. 데이터 시각화"
+    - part: "II. 데이터 표현 표"
       chapters:
         - 245_datamanipulation_for_table.qmd
         - 247_datamanipulation_for_table_2.qmd
         - 248_datamanipulation_for_table_3.qmd
         - 250_smry_for_table.qmd
+    - part: "III. 데이터 표현 플랏"
+      chapters:
+        - 310_ggplot_basic.qmd
+        - 320_kwcs_tutor_plot.qmd
     - summary.qmd
     - references.qmd
 
