@@ -21,7 +21,7 @@ if(!require("devtools")) install.packages("devtools")
 if(!require("ggplot2")) install.packages("ggplot2")
 if(!require("plot3D")) install.packages("plot3D")
 library(devtools)
-install_github("jinhaslab/tabf", force = TRUE, quiet = TRUE)
+if(!require("tabf")) install_github("jinhaslab/tabf", force = TRUE, quiet = TRUE)
 library(tabf)
 ```
 
@@ -222,5 +222,91 @@ a2 %>% group_by(oncall3, Statusw, lwhf) %>%
 ```
 
 
+## 시각화 과제 1
 
+ 이번에는 고객 대면 근로자가 화난 고객을 상대함에 있어서, 상사와 동료의 지지가 어떠한 보호 효과를 보이는지 그래프를 그려보도록 하겠습니다.  저번 실습자료에 이번 과제에서 사용될 변수인 `감정노동, 동료의지지, 상사의지지`를 추가하겠습니다. 
+
+|변수|설명|
+|---|---|
+|Q26_7 | 서비스직, 대면 근로자|
+|Q26_9 | 화난 고객 대응 근로자|
+|Q49_15| 일하면서 감정숨김    |
+|Q49_2 | 상사의 지지적 문화   |
+|Q49_1 | 동료의 지지적 문화   |
+
+ 
+```{r, cash =TRUE, message = FALSE}
+em <- a %>%
+   select(Q35, AGE, TSEX, TEF1, Q22_1, Q05, Q06, EF11, EF12, Q69,Q62_1_8, Q35, # 기존 실습
+           Q16_1, Q26_7, Q26_8, Q49_15, Q49_2, Q49_1, KQ50) %>%
+   filter(Q16_1 >=1, Q26_7 <7, Q26_8 <=7, Q49_15 <=3,  
+    KQ50<9, Q49_2 <7, Q49_1<7)  %>%               # 새로 추가된 실습 과제 변수
+   mutate(agegp     = ifelse(AGE <30, '<30', 
+                             ifelse(AGE <40, '30-49', 
+                                    ifelse(AGE <50, '40-49', 
+                                           ifelse(AGE < 60, '50-59', '≥60'))))) %>%
+   mutate(Wh=cut(Q22_1, breaks=Wh_breaks, include.lowest=TRUE, right=FALSE, 
+                        labels=Wh_labels)) %>% 
+   mutate(Wh=structure(Wh, label='Working hours')) %>%
+   mutate(Gender=factor(TSEX, levels=c(1,2), labels=c('Men', 'Women') )) %>%
+   mutate(Education=factor(TEF1, levels=c(1,2,3,4), 
+                        labels=(c('Primary', 'Middle', 'High', 'University')))) %>%
+   mutate(Statusw=ifelse(Q05 %in% c(1,2), 'Self employer', 
+                         ifelse(Q05 %in% c(3), 'Paid worker', 
+                                'Family workers and others'))) %>%
+   mutate(inc1=ifelse(EF11 <10000, EF11, ifelse(EF12<10, EF12*100-50, NA) )) %>%
+   mutate(inc=cut(inc1, breaks=inc_break, labels=inc_label)) %>%
+   mutate(job_st = factor(Q69, levels = c(1:4), 
+                  labels = c("Very satisfied", "Satisfied", "Unsatisfied", "Very unsatisfied"))) %>%
+   mutate(job_st = structure(job_st, label = 'Job Satisfaction')) %>%
+   mutate(depression = Q62_1_8)%>%
+   mutate(depression = structure(factor(depression, levels=c(1, 2), 
+                                     labels=c("Depression", "Non depression")))) %>%
+  mutate(servieworker=Q26_7) %>%
+  
+  mutate(angergp=ifelse(Q26_8 %in% c(1,2,3), 3, 
+                        ifelse(Q26_8 %in% c(4, 5), 2, 1))) %>%
+  mutate(angergp2=ifelse(Q26_8 %in% c(1,2,3), 'always', 
+                         ifelse(Q26_8 %in% c(4, 5), 'sometimes', 'rarely'))) %>%
+  mutate(angergp2 = factor (angergp2, levels = c('rarely', 'sometimes', 'always'))) %>%
+  mutate(suppressiongp=ifelse(Q49_15 %in% c(1,2,3), 1, 0)) %>%
+  mutate(suppressiongp2=ifelse(Q49_15 %in% c(1,2), 'always',
+                               ifelse(Q49_15 %in% c(3), 'sometimes', 'rarely'))) %>%
+  mutate(support_sup=ifelse(Q49_2 %in% c(1,2), 'always', 
+                            ifelse(Q49_2 %in% c(3), 'sometimes', 'rarely')), 
+         support_col=ifelse(Q49_1 %in% c(1,2), 'always', 
+                            ifelse(Q49_1 %in% c(3),'sometimes', 'rarely')))%>%
+  mutate(support_sup=factor(support_sup, levels=c('always', 'sometimes', 'rarely')), 
+         support_col=factor(support_col, levels=c('always', 'sometimes', 'rarely'))) %>%
+  mutate(support_sup2=ifelse(Q49_2 %in% c(1,2, 3), '> sometimes', 'rarely'), 
+         support_col2=ifelse(Q49_1 %in% c(1,2, 3), '> sometimes', 'rarely')) %>%
+  mutate(support_sup2=factor(support_sup2, levels=c('> sometimes', 'rarely')), 
+         support_col2=factor(support_col2, levels=c('> sometimes', 'rarely'))) %>%
+  filter(!is.na(depression))
+   
+```
+ 
+
+ 상기 자료를 통해 아래의 그래프를 그리시오
+ 
+```{r 620v6, echo =FALSE}
+em %>% group_by(Gender,angergp, support_sup) %>% 
+  count(depression) %>%
+  mutate(prob=n/sum(n)*100)  %>%
+  filter(depression=='Depression') %>%
+  ggplot(aes(x=angergp, y=prob, color=support_sup)) +
+  geom_point(aes(shape = support_sup),size=3) +
+  geom_line(aes(linetype = support_sup))+
+  scale_x_continuous(breaks=c(1, 2, 3), 
+                     labels=c('1'='rarely', '2'='sometimes', '3'='always' )) +
+  xlab('Engaging complain customers by Your Name') +
+  ylab('Prevalance of depressive symptoms') +
+  labs(color    = 'Support from \nSupervisor', 
+       shape    = 'Support from \nSupervisor', 
+       linetype = 'Support from \nSupervisor') + 
+  scale_y_continuous(labels = function(x) paste0(x, "%"))+
+  theme_minimal()+
+  facet_wrap(Gender~.)+
+  theme(panel.spacing = unit(2, "lines")) 
+```
  

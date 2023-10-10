@@ -269,6 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#install-package-from-github" id="toc-install-package-from-github" class="nav-link active" data-scroll-target="#install-package-from-github"><span class="toc-section-number">10.1</span>  install package from github</a></li>
   <li><a href="#데이터-준비" id="toc-데이터-준비" class="nav-link" data-scroll-target="#데이터-준비"><span class="toc-section-number">10.2</span>  데이터 준비</a></li>
   <li><a href="#실습-자료-시각화" id="toc-실습-자료-시각화" class="nav-link" data-scroll-target="#실습-자료-시각화"><span class="toc-section-number">10.3</span>  실습 자료 시각화</a></li>
+  <li><a href="#시각화-과제-1" id="toc-시각화-과제-1" class="nav-link" data-scroll-target="#시각화-과제-1"><span class="toc-section-number">10.4</span>  시각화 과제 1</a></li>
   </ul>
 </nav>
     </div>
@@ -307,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"ggplot2"</span>)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"plot3D"</span>)) <span class="fu">install.packages</span>(<span class="st">"plot3D"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"jinhaslab/tabf"</span>, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tabf"</span>)) <span class="fu">install_github</span>(<span class="st">"jinhaslab/tabf"</span>, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tabf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -528,6 +529,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="320_kwcs_tutor_plot_files/figure-html/620v4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="시각화-과제-1" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="시각화-과제-1"><span class="header-section-number">10.4</span> 시각화 과제 1</h2>
+<p>이번에는 고객 대면 근로자가 화난 고객을 상대함에 있어서, 상사와 동료의 지지가 어떠한 보호 효과를 보이는지 그래프를 그려보도록 하겠습니다. 저번 실습자료에 이번 과제에서 사용될 변수인 <code>감정노동, 동료의지지, 상사의지지</code>를 추가하겠습니다.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>변수</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Q26_7</td>
+<td>서비스직, 대면 근로자</td>
+</tr>
+<tr class="even">
+<td>Q26_9</td>
+<td>화난 고객 대응 근로자</td>
+</tr>
+<tr class="odd">
+<td>Q49_15</td>
+<td>일하면서 감정숨김</td>
+</tr>
+<tr class="even">
+<td>Q49_2</td>
+<td>상사의 지지적 문화</td>
+</tr>
+<tr class="odd">
+<td>Q49_1</td>
+<td>동료의 지지적 문화</td>
+</tr>
+</tbody>
+</table>
+<div class="cell" data-cash="true">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>em <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">select</span>(Q35, AGE, TSEX, TEF1, Q22_1, Q05, Q06, EF11, EF12, Q69,Q62_1_8, Q35, <span class="co"># 기존 실습</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>           Q16_1, Q26_7, Q26_8, Q49_15, Q49_2, Q49_1, KQ50) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(Q16_1 <span class="sc">&gt;=</span><span class="dv">1</span>, Q26_7 <span class="sc">&lt;</span><span class="dv">7</span>, Q26_8 <span class="sc">&lt;=</span><span class="dv">7</span>, Q49_15 <span class="sc">&lt;=</span><span class="dv">3</span>,  </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    KQ50<span class="sc">&lt;</span><span class="dv">9</span>, Q49_2 <span class="sc">&lt;</span><span class="dv">7</span>, Q49_1<span class="sc">&lt;</span><span class="dv">7</span>)  <span class="sc">%&gt;%</span>               <span class="co"># 새로 추가된 실습 과제 변수</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">agegp     =</span> <span class="fu">ifelse</span>(AGE <span class="sc">&lt;</span><span class="dv">30</span>, <span class="st">'&lt;30'</span>, </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">ifelse</span>(AGE <span class="sc">&lt;</span><span class="dv">40</span>, <span class="st">'30-49'</span>, </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">ifelse</span>(AGE <span class="sc">&lt;</span><span class="dv">50</span>, <span class="st">'40-49'</span>, </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                                           <span class="fu">ifelse</span>(AGE <span class="sc">&lt;</span> <span class="dv">60</span>, <span class="st">'50-59'</span>, <span class="st">'≥60'</span>))))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Wh=</span><span class="fu">cut</span>(Q22_1, <span class="at">breaks=</span>Wh_breaks, <span class="at">include.lowest=</span><span class="cn">TRUE</span>, <span class="at">right=</span><span class="cn">FALSE</span>, </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels=</span>Wh_labels)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Wh=</span><span class="fu">structure</span>(Wh, <span class="at">label=</span><span class="st">'Working hours'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Gender=</span><span class="fu">factor</span>(TSEX, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">'Men'</span>, <span class="st">'Women'</span>) )) <span class="sc">%&gt;%</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Education=</span><span class="fu">factor</span>(TEF1, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), </span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels=</span>(<span class="fu">c</span>(<span class="st">'Primary'</span>, <span class="st">'Middle'</span>, <span class="st">'High'</span>, <span class="st">'University'</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Statusw=</span><span class="fu">ifelse</span>(Q05 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'Self employer'</span>, </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(Q05 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>), <span class="st">'Paid worker'</span>, </span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>                                <span class="st">'Family workers and others'</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">inc1=</span><span class="fu">ifelse</span>(EF11 <span class="sc">&lt;</span><span class="dv">10000</span>, EF11, <span class="fu">ifelse</span>(EF12<span class="sc">&lt;</span><span class="dv">10</span>, EF12<span class="sc">*</span><span class="dv">100-50</span>, <span class="cn">NA</span>) )) <span class="sc">%&gt;%</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">inc=</span><span class="fu">cut</span>(inc1, <span class="at">breaks=</span>inc_break, <span class="at">labels=</span>inc_label)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">job_st =</span> <span class="fu">factor</span>(Q69, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), </span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Very satisfied"</span>, <span class="st">"Satisfied"</span>, <span class="st">"Unsatisfied"</span>, <span class="st">"Very unsatisfied"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">job_st =</span> <span class="fu">structure</span>(job_st, <span class="at">label =</span> <span class="st">'Job Satisfaction'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">depression =</span> Q62_1_8)<span class="sc">%&gt;%</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">depression =</span> <span class="fu">structure</span>(<span class="fu">factor</span>(depression, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Depression"</span>, <span class="st">"Non depression"</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">servieworker=</span>Q26_7) <span class="sc">%&gt;%</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">angergp=</span><span class="fu">ifelse</span>(Q26_8 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dv">3</span>, </span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">ifelse</span>(Q26_8 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="dv">2</span>, <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">angergp2=</span><span class="fu">ifelse</span>(Q26_8 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="st">'always'</span>, </span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(Q26_8 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="st">'sometimes'</span>, <span class="st">'rarely'</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">angergp2 =</span> <span class="fu">factor</span> (angergp2, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'rarely'</span>, <span class="st">'sometimes'</span>, <span class="st">'always'</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">suppressiongp=</span><span class="fu">ifelse</span>(Q49_15 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">suppressiongp2=</span><span class="fu">ifelse</span>(Q49_15 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'always'</span>,</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">ifelse</span>(Q49_15 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>), <span class="st">'sometimes'</span>, <span class="st">'rarely'</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">support_sup=</span><span class="fu">ifelse</span>(Q49_2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'always'</span>, </span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">ifelse</span>(Q49_2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>), <span class="st">'sometimes'</span>, <span class="st">'rarely'</span>)), </span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>         <span class="at">support_col=</span><span class="fu">ifelse</span>(Q49_1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">'always'</span>, </span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">ifelse</span>(Q49_1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>),<span class="st">'sometimes'</span>, <span class="st">'rarely'</span>)))<span class="sc">%&gt;%</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">support_sup=</span><span class="fu">factor</span>(support_sup, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">'always'</span>, <span class="st">'sometimes'</span>, <span class="st">'rarely'</span>)), </span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>         <span class="at">support_col=</span><span class="fu">factor</span>(support_col, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">'always'</span>, <span class="st">'sometimes'</span>, <span class="st">'rarely'</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">support_sup2=</span><span class="fu">ifelse</span>(Q49_2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">3</span>), <span class="st">'&gt; sometimes'</span>, <span class="st">'rarely'</span>), </span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>         <span class="at">support_col2=</span><span class="fu">ifelse</span>(Q49_1 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">3</span>), <span class="st">'&gt; sometimes'</span>, <span class="st">'rarely'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">support_sup2=</span><span class="fu">factor</span>(support_sup2, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">'&gt; sometimes'</span>, <span class="st">'rarely'</span>)), </span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>         <span class="at">support_col2=</span><span class="fu">factor</span>(support_col2, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">'&gt; sometimes'</span>, <span class="st">'rarely'</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(depression))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>상기 자료를 통해 아래의 그래프를 그리시오</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="320_kwcs_tutor_plot_files/figure-html/620v6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
