@@ -1,4 +1,4 @@
-# Multilevel and Labelled Data {#Labeled}
+# 다차원 라벨자료 {#Labeled}
 
 ```{r , include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)

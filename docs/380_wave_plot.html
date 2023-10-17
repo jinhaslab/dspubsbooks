@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>보건학데이터과학 실습 - 13&nbsp; 웨이브 형테의 시각화</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./370_labelled_plot.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="table {
+  font-family: 'Times New Roman', serif;
+}">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">보건학데이터과학 실습</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">소개</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">I. R 기본</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_randrstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./221_Rbasic1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R 속성</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./231_dataimportsave.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">데이터 불러오기</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./241_datamanipulation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">II. 데이터 표현 표</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./250_smry_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">III. 데이터 표현 플랏</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_ggplot_basic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">기본 플롯 시각화 (ggplot2)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_kwcs_tutor_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">근로환경조사를 이용한 시각화 실습</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./350_statistical_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T검정, 로지스틱 회귀분석 플랏</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./370_labelled_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">다차원 라벨자료</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./380_wave_plot.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">참고문헌</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-visualization-example-eeg-data" id="toc-data-visualization-example-eeg-data" class="nav-link active" data-scroll-target="#data-visualization-example-eeg-data"><span class="toc-section-number">13.0.1</span>  Data Visualization example (EEG data)</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">13.0.2</span>  Introduction</a></li>
+  <li><a href="#dataset-and-data-step" id="toc-dataset-and-data-step" class="nav-link" data-scroll-target="#dataset-and-data-step"><span class="toc-section-number">13.0.3</span>  Dataset and Data step</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ldKvKrwHvdY?si=Nrp3-aefxeNaL-Fr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+<section id="data-visualization-example-eeg-data" class="level3" data-number="13.0.1">
+<h3 data-number="13.0.1" class="anchored" data-anchor-id="data-visualization-example-eeg-data"><span class="header-section-number">13.0.1</span> Data Visualization example (EEG data)</h3>
+<p>In public health, another most common used data is bio-signal data. Bio-signal data usually used in medical research, but recently bio-log signals are widely used in public health beyond medical setting. Now I present some example of data visualization using bio-signal data from EEG.</p>
+</section>
+<section id="introduction" class="level3" data-number="13.0.2">
+<h3 data-number="13.0.2" class="anchored" data-anchor-id="introduction"><span class="header-section-number">13.0.2</span> Introduction</h3>
+<p>EEG refers to the signal of the brain’s electrical activty. Electrodes are placed on the scalp, and each electrodes recorded brain’s activity. EEG is one of the most common methods to support diagnosis of brain diseases such as epilepsy, sleep disorder and even brain death. Furthermore, we can get usufull understand how brain activity correlated to various neurological activity. So, I tried to anaysis EEG signal and hope to predict eye opening status.</p>
+<p>The data include information of <code>row_n</code>, <code>AF3</code>, <code>F7</code>, <code>F3</code>, <code>FC5</code>, <code>T7</code>,<code>P7</code>, <code>O1</code>, <code>O2</code>, <code>P8</code>, <code>T8</code>, <code>FC6</code>, <code>F4</code>, <code>F8</code>, <code>AF4</code>, and <code>eyeDetection</code>. Eye Detection is outcome variable data <code>Open</code> or <code>Closed</code>. Others numeric variable about activity of each electrodes. Each electro-nodes place on scalp, and represent area of particular location on brain, as below.</p>
+<div class="cell" data-cash="true">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/21_electrodes_of_International_10-20_system_for_EEG.svg/1024px-21_electrodes_of_International_10-20_system_for_EEG.svg.png"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">'img/eegpng.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/eegpng.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">eeg electrodes from wiki</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="dataset-and-data-step" class="level3" data-number="13.0.3">
+<h3 data-number="13.0.3" class="anchored" data-anchor-id="dataset-and-data-step"><span class="header-section-number">13.0.3</span> Dataset and Data step</h3>
+<section id="data-download-and-handling" class="level4" data-number="13.0.3.1">
+<h4 data-number="13.0.3.1" class="anchored" data-anchor-id="data-download-and-handling"><span class="header-section-number">13.0.3.1</span> Data download and handling</h4>
+<p>The data set locate here, <code>https://archive.ics.uci.edu/ml/machine-learning-databases/00264/EEG%20Eye%20State.arff</code>. The data was stored into my computer, as name of ‘dl_eeg.txt’ in `data’ folder.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span><span class="st">'https://archive.ics.uci.edu/ml/machine-learning-databases/00264/EEG%20Eye%20State.arff'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">'data/dl_eeg.txt'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To start the data step, some packages should be loaded.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tidyverse"</span>)) <span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"htmlTable"</span>)) <span class="fu">install.packages</span>(<span class="st">"htmlTable"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"broom"</span>)) <span class="fu">install.packages</span>(<span class="st">"broom"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"ggthemes"</span>)) <span class="fu">install.packages</span>(<span class="st">"ggthemes"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># packages from github</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"devtools"</span>)) <span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#install_github("jinhaslab/tabf", force = TRUE)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tabf)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#library(caret)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#library(doMC)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>scan the data and create DB for analysis</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">'data/dl_eeg.txt'</span>, <span class="at">what=</span><span class="st">""</span>, <span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(mm <span class="sc">==</span> <span class="st">'@DATA'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat<span class="ot">&lt;-</span>mm[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">48</span>)]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>book <span class="ot">&lt;-</span> mm[<span class="dv">1</span><span class="sc">:</span><span class="dv">48</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>book[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">48</span>)] <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(., <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  .[,<span class="dv">2</span>] <span class="ot">-&gt;</span> col_names</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>col_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "AF3"          "F7"           "F3"           "FC5"          "T7"          
+ [6] "P7"           "O1"           "O2"           "P8"           "T8"          
+[11] "FC6"          "F4"           "F8"           "AF4"          "eyeDetection"</code></pre>
+</div>
+</div>
+<p>the tibble form is easy to hand or transforming. So, I change the data form to tibble style.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">wave =</span>dat) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">val =</span> <span class="fu">strsplit</span>(wave, <span class="st">","</span>), <span class="at">row_n=</span><span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span> (<span class="at">cols=</span><span class="fu">c</span>(val)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (<span class="sc">-</span>wave) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">val =</span> <span class="fu">as.numeric</span>(val)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(row_n)  <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span> (<span class="at">wave_colname =</span> col_names) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> wave_colname, <span class="at">values_from =</span> val)<span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (row_n, <span class="fu">all_of</span>(col_names)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span> (row_n) <span class="ot">-&gt;</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  eeg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I check the class of all variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(eeg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "row_n"        "AF3"          "F7"           "F3"           "FC5"         
+ [6] "T7"           "P7"           "O1"           "O2"           "P8"          
+[11] "T8"           "FC6"          "F4"           "F8"           "AF4"         
+[16] "eyeDetection"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(eeg, mode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       row_n          AF3           F7           F3          FC5           T7 
+   "numeric"    "numeric"    "numeric"    "numeric"    "numeric"    "numeric" 
+          P7           O1           O2           P8           T8          FC6 
+   "numeric"    "numeric"    "numeric"    "numeric"    "numeric"    "numeric" 
+          F4           F8          AF4 eyeDetection 
+   "numeric"    "numeric"    "numeric"    "numeric" </code></pre>
+</div>
+</div>
+<p>This data were measure for 117 seconds, I create <code>sec</code> variable to represent measurement time. I create facotor variable for eye opening status `Eye’, as below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>eeg <span class="ot">&lt;-</span> eeg <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Eye =</span> <span class="fu">ifelse</span>(eyeDetection <span class="sc">==</span><span class="dv">1</span>, <span class="st">'open'</span>, <span class="st">'closed'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sec =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">117</span>, <span class="at">length.out =</span> <span class="fu">nrow</span>(.)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For data step, the long form data were created via <code>pivot_longer</code> function. the key represent each electrode, and the activity were stored into <code>activity</code> variable. EyeDetection, row_n, sec, Eye will be indentical variable for each electrode activity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>eeg <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(eyeDetection, row_n, sec, Eye),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">'electrode'</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to=</span> <span class="st">'activity'</span>) <span class="ot">-&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  eegl</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>eegl <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  row_n eyeDetection Eye      sec electrode activity
+  &lt;int&gt;        &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+1     1            0 closed     0 AF3          4329.
+2     1            0 closed     0 F7           4009.
+3     1            0 closed     0 F3           4289.
+4     1            0 closed     0 FC5          4148.
+5     1            0 closed     0 T7           4350.
+6     1            0 closed     0 P7           4586.</code></pre>
+</div>
+</div>
+</section>
+<section id="data-explorer" class="level4" data-number="13.0.3.2">
+<h4 data-number="13.0.3.2" class="anchored" data-anchor-id="data-explorer"><span class="header-section-number">13.0.3.2</span> data explorer</h4>
+<section id="heatmap" class="level5" data-number="13.0.3.2.1">
+<h5 data-number="13.0.3.2.1" class="anchored" data-anchor-id="heatmap"><span class="header-section-number">13.0.3.2.1</span> heatmap</h5>
+<p>The heatmap can show overview the time course about eye opening status. Dark blue indicate closed status, and light blue indicate eye open status.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>eegl <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sec, <span class="at">y =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> eyeDetection)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">name =</span> <span class="st">"Eye status"</span>, </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'closed'</span>,<span class="st">'open'</span>), </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,  <span class="dv">1</span>), <span class="st">'Eye status'</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">90</span>, <span class="dv">117</span>)) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="380_wave_plot_files/figure-html/heatmap wave form 1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="waveform" class="level5" data-number="13.0.3.2.2">
+<h5 data-number="13.0.3.2.2" class="anchored" data-anchor-id="waveform"><span class="header-section-number">13.0.3.2.2</span> waveform</h5>
+<p>The activity waves are plotting for data explorer.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>eegl <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> row_n, <span class="at">y =</span> activity, <span class="at">color =</span> Eye)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fu">c</span>(<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(electrode <span class="sc">~</span>. ) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="380_wave_plot_files/figure-html/wave form time series without cleaning-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There are much of outlier, so the fluctuation of each node’s activity atteunted. So We needed to exclude outlier. To ensure the outlier status, I plot the boxplot, as below. The boxplot also suggested that there were much of outlier effect.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>eegl <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> electrode, <span class="at">y =</span> activity, <span class="at">color =</span> Eye)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">trans=</span><span class="st">'log2'</span>) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="380_wave_plot_files/figure-html/outlier exploer boxplot waveform-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Althoug there are outlier effect on data, but I just want to check the <code>t-test</code> results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ttest<span class="ot">&lt;-</span> eegl <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>eyeDetection, <span class="sc">-</span>row_n) <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(electrode)  <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stats     =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">t.test</span>(activity <span class="sc">~</span> Eye, <span class="at">data=</span>.x)), </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">summarise =</span> <span class="fu">map</span>(stats, broom<span class="sc">::</span>glance))  <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(electrode, summarise) <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(summarise) </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>ttest <span class="sc">%&gt;%</span> </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, round, <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p.values =</span> <span class="fu">ifelse</span>(p.value <span class="sc">&lt;</span><span class="fl">0.01</span>, <span class="st">'&lt;0.01'</span>, <span class="fu">as.character</span>(p.value))) <span class="sc">%&gt;%</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(electrode,<span class="st">`</span><span class="at">difference</span><span class="st">`</span> <span class="ot">=</span> estimate, <span class="st">'open'</span> <span class="ot">=</span> estimate1, <span class="st">'closed'</span> <span class="ot">=</span>  estimate2, p.values) <span class="sc">%&gt;%</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">cgroup=</span><span class="fu">c</span>(<span class="st">""</span>, <span class="st">"Eye status"</span>, <span class="st">""</span>), </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">n.cgroup=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>), </span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Table1. t-test result without outlier cleaning"</span>, </span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">'llrc'</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr><td colspan="8" style="text-align: left;">
+Table1. t-test result without outlier cleaning</td></tr>
+<tr>
+<th style="border-top: 2px solid grey;"></th>
+<th colspan="2" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
+<th colspan="2" style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">Eye status</th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
+<th colspan="1" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th>
+</tr>
+<tr><th style="border-bottom: 1px solid grey;"></th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">electrode</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">difference</th> 
+<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">open</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">closed</th> 
+<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">p.values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">AF3</td>
+<td style="text-align: left;">-52.4</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4298.4</td>
+<td style="text-align: center;">4350.8</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">0.25</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">F7</td>
+<td style="text-align: left;">7.39</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4013.08</td>
+<td style="text-align: center;">4005.69</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;0.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">F3</td>
+<td style="text-align: left;">-3.47</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4262.46</td>
+<td style="text-align: center;">4265.94</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;0.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">FC5</td>
+<td style="text-align: left;">78.98</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4200.39</td>
+<td style="text-align: center;">4121.41</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">0.31</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">T7</td>
+<td style="text-align: left;">0.03</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4341.75</td>
+<td style="text-align: center;">4341.73</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">0.96</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">P7</td>
+<td style="text-align: left;">46.13</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4664.73</td>
+<td style="text-align: center;">4618.59</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">0.29</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">O1</td>
+<td style="text-align: left;">66.82</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4140.39</td>
+<td style="text-align: center;">4073.57</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">0.33</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">O2</td>
+<td style="text-align: left;">-1.48</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4615.39</td>
+<td style="text-align: center;">4616.87</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;0.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">P8</td>
+<td style="text-align: left;">-41.13</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4200.37</td>
+<td style="text-align: center;">4241.5</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">0.29</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">T8</td>
+<td style="text-align: left;">-3.61</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4229.7</td>
+<td style="text-align: center;">4233.31</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;0.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">FC6</td>
+<td style="text-align: left;">-4.88</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4200.26</td>
+<td style="text-align: center;">4205.15</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;0.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">F4</td>
+<td style="text-align: left;">-4.01</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4277.43</td>
+<td style="text-align: center;">4281.44</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;0.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">F8</td>
+<td style="text-align: left;">-31.88</td> 
+<td style="text-align: left;" colspan="1">&nbsp;</td>
+<td style="text-align: right;">4600.9</td>
+<td style="text-align: center;">4632.77</td> 
+<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">0.15</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: left;">14</td>
+<td style="border-bottom: 2px solid grey; text-align: left;">AF4</td>
+<td style="border-bottom: 2px solid grey; text-align: left;">89.42</td> 
+<td style="border-bottom: 2px solid grey; text-align: left;" colspan="1">&nbsp;</td>
+<td style="border-bottom: 2px solid grey; text-align: right;">4456.57</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">4367.15</td> 
+<td style="border-bottom: 2px solid grey; text-align: center;" colspan="1">&nbsp;</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">0.31</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="data-cleaning-for-outlier" class="level4" data-number="13.0.3.3">
+<h4 data-number="13.0.3.3" class="anchored" data-anchor-id="data-cleaning-for-outlier"><span class="header-section-number">13.0.3.3</span> data cleaning for outlier</h4>
+<p>The visualization of interquartile range is useful for detecting the presenting of outliers. Outliers are individual values that fall outside of the overall pattern of a data set. So, the outlier can be define when they are far way as several times of interquarile range from median. I made <code>scale_median</code> function to detect outlier. there are several step to make function. first, calculate the interquartile range. The differece between median and value divided by inter quartile range, and the absolute value will be Z-score. That z-score represent that how many times of interquartile range far from median. I used score of 2.5 times par form median for detect outlier.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>scale_median <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    Q1  <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, <span class="fl">0.25</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    Q3  <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, <span class="fl">0.75</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    iqr <span class="ot">&lt;-</span> <span class="fu">c</span>(Q3 <span class="sc">-</span> Q1)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="fu">median</span>(x),(x <span class="sc">-</span> Q1)<span class="sc">/</span>iqr<span class="sc">*-</span><span class="dv">1</span>,(x <span class="sc">-</span> Q3)<span class="sc">/</span>iqr<span class="sc">*</span><span class="dv">1</span> )</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>eegl1<span class="ot">&lt;-</span> </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  eegl <span class="sc">%&gt;%</span> </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(electrode) <span class="sc">%&gt;%</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Zscores =</span> <span class="fu">map</span> (data, <span class="sc">~</span><span class="fu">scale_median</span>(.<span class="sc">$</span>activity))) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> <span class="fu">c</span>(data, Zscores))  <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Zscores <span class="sc">&lt;</span> <span class="fl">2.5</span>) <span class="co">#Outlier is Zscores &gt; 2.5 or &lt;-2.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I check box-plot without outlier. That plot sounds good for me. So, I can generate wave form plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>eegl1 <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> electrode, <span class="at">y =</span> activity, <span class="at">color =</span> Eye)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="380_wave_plot_files/figure-html/eeg data waveform boxplot after outlier cleaning-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Here, I plot wave form of each electrodes’ activity. Before generate the wave plot, I want increase the working cores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'doMC'</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">getDoParWorkers</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>number_of_cores <span class="ot">&lt;-</span> <span class="fu">detectCores</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>My computer use only 1 core, so I increase number of cores working up-to 46 cores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoMC</span>(<span class="at">cores =</span> number_of_cores <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getDoParWorkers</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 46</code></pre>
+</div>
+</div>
+<p>Then, I want plot wave form.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>eegl1 <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sec, <span class="at">y =</span> activity, <span class="at">fill =</span> eyeDetection)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> eyeDetection), <span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(electrode <span class="sc">~</span>., <span class="at">scales =</span> <span class="st">"free"</span> ) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">name =</span> <span class="st">"Eye status"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'close'</span>, <span class="st">'open'</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Time series'</span>) <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">90</span>, <span class="dv">117</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="380_wave_plot_files/figure-html/wave form plot 1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./370_labelled_plot.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">다차원 라벨자료</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

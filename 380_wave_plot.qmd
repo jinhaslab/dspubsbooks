@@ -1,0 +1,222 @@
+# 웨이브 형테의 시각화
+
+```{r waveform2, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ldKvKrwHvdY?si=Nrp3-aefxeNaL-Fr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+### Data Visualization example (EEG data)
+ In public health, another most common used data is bio-signal data. Bio-signal data usually used in medical research, but recently bio-log signals are widely used in public health beyond  medical setting. Now I present some example of data visualization using bio-signal data from EEG.  
+ 
+### Introduction 
+  EEG refers to the signal of the brain's electrical activty. Electrodes are placed on the scalp, and each electrodes recorded brain's activity. EEG is one of the most common methods to support diagnosis of brain diseases such as epilepsy, sleep disorder and even brain death. Furthermore, we can get usufull understand how brain activity correlated to various neurological activity. So, I tried to anaysis EEG signal and hope to predict eye opening status. 
+ 
+ The data include information of `row_n`, `AF3`, `F7`, `F3`, `FC5`, `T7`,`P7`, `O1`, `O2`, `P8`, `T8`, `FC6`, `F4`, `F8`, `AF4`, and `eyeDetection`. Eye Detection is outcome variable data `Open` or `Closed`. Others numeric variable about activity of each electrodes. Each electro-nodes place on scalp, and represent area of particular location on brain, as below.
+ 
+ 
+
+```{r waveform3, results="hide", message = FALSE, cash = TRUE, eval=FALSE}
+rm(list=ls())
+url <- "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/21_electrodes_of_International_10-20_system_for_EEG.svg/1024px-21_electrodes_of_International_10-20_system_for_EEG.svg.png"
+download.file(url, 'img/eegpng.png')
+```
+![eeg electrodes from wiki](img/eegpng.png)
+
+
+### Dataset and Data step
+#### Data download and handling
+
+The data set locate here,  `https://archive.ics.uci.edu/ml/machine-learning-databases/00264/EEG%20Eye%20State.arff`. 
+The data was stored into my computer, as name of 'dl_eeg.txt' in `data' folder. 
+```{r eeg data download, message=F, results  = "hide", eval = FALSE}
+url ='https://archive.ics.uci.edu/ml/machine-learning-databases/00264/EEG%20Eye%20State.arff'
+download.file(url, 'data/dl_eeg.txt')
+```
+
+To start the data step, some packages should be loaded. 
+```{r eeg data waveformss, message = F}
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("htmlTable")) install.packages("htmlTable")
+if(!require("broom")) install.packages("broom")
+if(!require("ggthemes")) install.packages("ggthemes")
+# packages from github
+if(!require("devtools")) install.packages("devtools")
+library(devtools)
+#install_github("jinhaslab/tabf", force = TRUE)
+library(tabf)
+#library(caret)
+library(knitr)
+library(kableExtra)
+#library(doMC)
+```
+
+scan the data and create DB for analysis
+```{r eeg data waveform 4}
+mm <- scan('data/dl_eeg.txt', what="", sep="")
+which(mm == '@DATA')
+dat<-mm[-c(1:48)]
+book <- mm[1:48]
+book[-c(1:2, 48)] %>% 
+  matrix(., ncol=3, byrow=TRUE) %>% 
+  .[,2] -> col_names
+col_names
+```
+
+the tibble form is easy to hand or transforming. So, I change the data form to tibble style. 
+```{r eeg data waveform 5, message=F}
+tibble(wave =dat) %>%
+  mutate (val = strsplit(wave, ","), row_n=row_number()) %>% 
+  unnest (cols=c(val)) %>% 
+  select (-wave) %>%
+  mutate (val = as.numeric(val)) %>%
+  group_by(row_n)  %>%
+  mutate (wave_colname = col_names) %>% 
+  ungroup() %>%
+  pivot_wider(names_from = wave_colname, values_from = val)%>%
+  select (row_n, all_of(col_names)) %>%
+  arrange (row_n) -> 
+  eeg
+
+``` 
+I check the class of all variable. 
+```{r eeg data waveform 6}
+names(eeg)
+sapply(eeg, mode)
+```
+
+This data were measure for 117 seconds, I create `sec` variable to represent measurement time. I create facotor variable for eye opening status `Eye', as below. 
+```{r eeg data waveform 7}
+eeg <- eeg %>% 
+  mutate(Eye = ifelse(eyeDetection ==1, 'open', 'closed')) %>%
+  mutate(sec = seq(0, 117, length.out = nrow(.)))
+
+```
+
+For data step, the long form data were created via `pivot_longer` function. the key represent each electrode, and the activity were stored into `activity` variable. EyeDetection, row_n, sec, Eye will be indentical variable for each electrode activity. 
+```{r eeg data waveform 8}
+eeg %>% 
+  pivot_longer(-c(eyeDetection, row_n, sec, Eye),
+    names_to = 'electrode', 
+               values_to= 'activity') ->
+  eegl
+eegl %>% head()
+```
+#### data explorer
+##### heatmap
+
+The heatmap can show overview the time course about eye opening status. Dark blue indicate closed status, and light blue indicate eye open status. 
+
+```{r heatmap wave form 1}
+eegl %>%
+  ggplot(aes(x = sec, y = 0.5, fill = eyeDetection)) +
+  geom_tile() +
+  scale_fill_continuous(name = "Eye status", 
+                        limits = c(0, 1), 
+                        labels = c('closed','open'), 
+                        breaks = c(0, 1)) +
+  theme_classic() +
+  scale_y_continuous(breaks = c(0,  1), 'Eye status') +
+  scale_x_continuous(breaks = c(0, 30, 60, 90, 117)) +
+  theme(aspect.ratio=1/7)
+
+```
+##### waveform
+
+The activity waves are plotting for data explorer.
+
+```{r wave form time series without cleaning}
+eegl %>% 
+  ggplot(aes(x = row_n, y = activity, color = Eye)) +
+  geom_line(size = c(1)) +
+  geom_point(alpha = 1)+
+  facet_grid(electrode ~. ) +
+  theme_classic() 
+```
+There are much of outlier, so the fluctuation of each node's activity atteunted. So We needed to exclude outlier. To ensure the outlier status, I plot the boxplot, as below. The boxplot also suggested that there were much of outlier effect. 
+
+```{r outlier exploer boxplot waveform}
+eegl %>% 
+  ggplot(aes(x = electrode, y = activity, color = Eye)) +
+  geom_boxplot() +
+  scale_y_continuous(trans='log2') +
+  theme_classic()
+
+```
+Althoug there are outlier effect on data, but I just want to check the `t-test` results. 
+
+```{r tables of eeg wave form}
+ttest<- eegl %>% select(-eyeDetection, -row_n) %>%
+  group_by(electrode)  %>%
+  nest() %>% 
+  mutate(stats     = map(data, ~t.test(activity ~ Eye, data=.x)), 
+         summarise = map(stats, broom::glance))  %>%
+  select(electrode, summarise) %>%
+  unnest(summarise) 
+ttest %>% 
+  mutate_if(is.numeric, round, 2) %>% 
+  mutate(p.values = ifelse(p.value <0.01, '<0.01', as.character(p.value))) %>%
+  select(electrode,`difference` = estimate,	'open' = estimate1, 'closed' =	estimate2, p.values) %>%
+  htmlTable(
+    cgroup=c("", "Eye status", ""), 
+    n.cgroup=c(2, 2, 1), 
+    caption = "Table1. t-test result without outlier cleaning", 
+    align = 'llrc'
+  )
+```
+
+#### data cleaning for outlier
+The visualization of interquartile range is useful for detecting the presenting of outliers. Outliers are individual values that fall outside of the overall pattern of a data set. So, the outlier can be define when they are far way as several times of interquarile range from median. I made `scale_median` function to detect outlier. there are several step to make function. first, calculate the interquartile range. The differece between median and value divided by inter quartile range, and the absolute value will be Z-score. That z-score represent that how many times of interquartile range far from median. I used score of 2.5 times par form median for detect outlier. 
+
+```{r data cleaning 8, message=F, error=F}
+scale_median <- function(x){
+    Q1  <- quantile(x, 0.25)
+    Q3  <- quantile(x, 0.75)
+    iqr <- c(Q3 - Q1)
+  ifelse(x < median(x),(x - Q1)/iqr*-1,(x - Q3)/iqr*1 )
+}
+eegl1<- 
+  eegl %>% 
+  group_by(electrode) %>%
+  nest() %>%
+  mutate(Zscores = map (data, ~scale_median(.$activity))) %>% 
+  unnest(cols = c(data, Zscores))  %>%
+  filter(Zscores < 2.5) #Outlier is Zscores > 2.5 or <-2.5
+```
+
+I check box-plot without outlier. That plot sounds good for me. So, I can generate wave form plot. 
+
+```{r eeg data waveform boxplot after outlier cleaning}
+eegl1 %>%
+  ggplot(aes(x = electrode, y = activity, color = Eye)) +
+  geom_boxplot() 
+```
+Here, I plot wave form of each electrodes' activity. Before generate the wave plot, I want increase the working cores. 
+```{r eeg data waveform, message = FALSE}
+library('doMC')
+library(parallel)
+getDoParWorkers()
+number_of_cores <- detectCores()
+```
+My computer use only 1 core, so I increase number of cores working up-to 46 cores. 
+
+```{r eeg data waveform 9}
+registerDoMC(cores = number_of_cores - 2)
+getDoParWorkers()
+```
+Then, I want plot wave form. 
+
+```{r wave form plot 1}
+
+eegl1 %>% 
+  ggplot(aes(x = sec, y = activity, fill = eyeDetection)) +
+  geom_point(size = 0.1, alpha =0.5) +
+  geom_line(aes(color = eyeDetection), show.legend = F) +
+  facet_grid(electrode ~., scales = "free" ) +
+  theme_classic() +
+  scale_fill_continuous(name = "Eye status", limits = c(0, 1), 
+                        labels = c('close', 'open'), breaks = c(0, 1)) +
+  xlab('Time series') +
+  scale_x_continuous(breaks = c(0, 30, 60, 90, 117))
+```
+
