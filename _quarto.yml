@@ -24,6 +24,8 @@ book:
       chapters:
         - 310_ggplot_basic.qmd
         - 320_kwcs_tutor_plot.qmd
+        - 350_statistical_plot.qmd
+        - 370_labelled_plot.qmd
     - summary.qmd
     - references.qmd
 
@@ -35,6 +37,10 @@ format:
     theme:
       light: flatly
       dark: darkly
+    css: |
+      table {
+        font-family: 'Times New Roman', serif;
+      }
   pdf:
     documentclass: scrreprt
     prefer-html: true
