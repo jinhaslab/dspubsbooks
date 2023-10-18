@@ -34,7 +34,7 @@ data manipulation에서 실습한 내용을 통해 변수를 실습을 위한 �
 ```{r, eval=FALSE}
 url <- "https://raw.githubusercontent.com/jinhaslab/opendata/main/kwcs/kwcsData1.rds"
 download.file(url, "data/kwcsData1.rds")
-kwcs = readRDS("data/kwcsData1.rds")
+dat1 = readRDS("data/kwcsData1.rds")
 ```
 
 ```{r, echo=FALSE}
@@ -130,8 +130,8 @@ dat1 %>%
     hjust=-3, vjust=5,
     label =sprintf("P value:  %s", ttestPvalue), 
     family = "Times"
-  ) +
-  theme(text=element_text(family="Times")) 
+  ) #+
+  #theme(text=element_text(family="Times")) 
 ```
 
 > Chisq Test
@@ -159,7 +159,7 @@ dat1 %>%
          prob = round(prob, 1)) %>%
   filter(sleepgp =="1.sleep disturbance") %>%
   ggplot(aes(x=wwa1gp, y = prob)) +
-  theme(text=element_text(family="Times New Roman", face="bold", size=12)) +
+  #theme(text=element_text(family="Times New Roman", face="bold", size=12)) +
   xlab("kept worrying about work when you were not working") +
   ylab("Sleep Disturbance (proportion)") +
   ylim(0, 0.35)+
@@ -202,11 +202,11 @@ dat1 %>%
     geom ="text", -Inf, Inf, 
     hjust=-0.5, vjust=8,
     label =sprintf("P value:  %s", pChisqV), 
-    family = "Times New Roman", 
+    #family = "Times New Roman", 
     fontface = "bold"
   ) +
-  theme_minimal() +
-  theme(text=element_text(family="Times New Roman", face="bold", size=12)) 
+  theme_minimal() #+
+  #theme(text=element_text(family="Times New Roman", face="bold", size=12)) 
 ```
 
 ## Odds ratio and 95% confidence interval
@@ -237,8 +237,8 @@ oddf0(mod1) %>%
   geom_point(shape = 15, size = 2, color = "#444444")  +
   geom_vline(xintercept = 1, color = "#FF0000", linetype = "dashed", cex =0.5, alpha = 0.5) +
   ylab("kept worrying about work when you were not working") +
-  xlab("Odds Ratio and 95% Confidence Interval of Sleep Dsturbance") +
-  theme(text = element_text(family ="Times"))
+  xlab("Odds Ratio and 95% Confidence Interval of Sleep Dsturbance") #+
+  #theme(text = element_text(family ="Times"))
   
   
 ```
@@ -253,8 +253,8 @@ oddf0(mod1) %>%
   geom_point(shape = 15, size = 2.5, color = "#444444") +
   geom_hline(yintercept = 1, color = "#FF0000", linetype = "dashed", cex =0.5, alpha = 0.5) +
   xlab("Kept worrying about work when you were not working") +
-  ylab("Odds Ratio and 95% Confidence Interval of Sleep Dsturbance") +
-  theme(text = element_text(family ="Times"))
+  ylab("Odds Ratio and 95% Confidence Interval of Sleep Dsturbance")# +
+  #theme(text = element_text(family ="Times"))
   
   
 ```
