@@ -27,6 +27,10 @@ book:
         - 350_statistical_plot.qmd
         - 370_labelled_plot.qmd
         - 380_wave_plot.qmd
+    - part: "IV. 여러 형태의 변수값"
+      chapters:
+        - 410_wrangling_text_01.qmd
+        
     - part: "VI. 소통"
       chapters:
         - 815_rmarkdown02.qmd
