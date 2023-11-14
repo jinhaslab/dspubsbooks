@@ -30,6 +30,8 @@ book:
     - part: "IV. 여러 형태의 변수값"
       chapters:
         - 410_wrangling_text_01.qmd
+        - 510_webscraping_01.qmd
+        - 610_webscraping_02.qmd
         
     - part: "VI. 소통"
       chapters:

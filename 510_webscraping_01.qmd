@@ -1,33 +1,40 @@
 # 웹 스크래핑 I
-이제 우리는 URL을 사용하여 웹에서 데이터와 텍스트를 다운로드하여 시각화 하는 실습을 할 것입니다. 
+
+이제 우리는 URL을 사용하여 웹에서 데이터와 텍스트를 다운로드하여 시각화 하는 실습을 할 것입니다.
 
 ```{r waveform2, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 라이브러리 불러오기
+
 ```{r, message = FALSE}
 if(!require("tidyverse")) install.packages("tidyverse")
 if(!require("rvest")) install.packages("rvest")
 if(!require("DT")) install.packages("DT")
 if(!require("readxl")) install.packages("readxl")
+#if(!require("openxlsx")) install.packages("openxlsx")
 ```
-<iframe width="560" height="315" src="https://www.youtube.com/embed/d76VmzyhTcA?si=J_l4Aph5w3ZYkQcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/d76VmzyhTcA?si=J_l4Aph5w3ZYkQcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+
+</iframe>
 
 ## issue of COVID19 in Korea
+
 아래의 URL에서 데이터를 다운로드 받아 보려고 합니다 . https://en.wikipedia.org/wiki/COVID-19_pandemic_by_country_and_territory
- 
- 우선 위 주소로 가보겠습니다. 
- 
+
+우선 위 주소로 가보겠습니다.
+
 ![wiki covid](img/wikicovid.png)
+
 ```{r}
 url <-"https://en.wikipedia.org/wiki/COVID-19_pandemic_by_country_and_territory"
 ```
 
 "read_html()은 URL과 그 내용을 읽을 수 있게 해줍니다."
 
-```{r, eval = FALSE}
+```{r}
 h <-read_html(url)
 class(h)
 h
@@ -38,65 +45,71 @@ h
 ```
 
 크롬을 통해 웹사이트에 접속하고 F12 버튼을 클릭하세요. 아래와 같이 오른쪽 창이 나타납니다. 이제 저는 Covid-19 표를 찾고 싶습니다. ctrl + F를 사용하여 검색 탭을 엽니다. 그리고 india를 입력하여 해당 표를 찾습니다.
- 
+
 ![Find source and nodes](img/findurl.png)
 
- URL에서 table 노드를 찾으려고 합니다.
+URL에서 table 노드를 찾으려고 합니다.
 
-```{r, eval = FALSE}
+```{r}
 tab <- h %>% html_nodes("table")
 ```
 
-아래에서 보는 것 처럼 tab[[2]] 일때도 있고, tab[[13]]일 때도 있습니다. 매번 page가 바뀌면 우리도 바꿔줘야 합니다. 
-```{r, eval = FALSE}
+아래에서 보는 것 처럼 tab\[\[2\]\] 일때도 있고, tab\[\[13\]\]일 때도 있습니다. 매번 page가 바뀌면 우리도 바꿔줘야 합니다.
+
+```{r}
 tab2 <- tab[[13]] %>% html_table
 ```
 
-
-```{r, echo = FALSE, message = FALSE}
-#openxlsx::write.xlsx(tab2, file = 'data/websc/tab2.xlsx')
-library(readxl)
-tab2 <- read_xlsx('data/websc/tab2.xlsx')
+```{r, message = FALSE}
+#openxlsx::write.xlsx(tab2, 'data/websc/tab2.xlsx')
+#tab2 <- read_xlsx('data/websc/tab2.xlsx')
 tab2
 ```
 
-Cases, Death, 그리고 Recover에서 ','를 제거하고 숫자 변수로 만듭니다. 
+Cases, Death, 그리고 Recover에서 ','를 제거하고 숫자 변수로 만듭니다.
+
 ```{r,message = FALSE, warning = FALSE}
-tab3 <- tab2[ -c(1, 232:239), -c(1, 6)] %>%
-  setNames(c("Location", "Cases", 
-             "Death", "Recover")) 
-tab3 <- tab3 %>%
-  mutate_at(c('Cases', 'Death', 'Recover'), function(x)(str_replace_all(x, ",", "") %>% as.numeric())) %>%
-  mutate(Location = str_replace_all(Location, '\\[[:alpha:]]', ""))
+tab3= tab2 %>% select(2, 3, 4, 5) %>%
+  mutate(across(-Country, ~str_replace_all(., ",", "") %>% as.numeric())) %>%
+  mutate(Country = str_replace_all(Country, '\\[[:alpha:]]', "")) %>%
+  na.omit() %>%
+  rename(Mortality = `Deaths / million`)
 ```
 
-I used  `\\[[:alpha:]]`, `\\[` means "[" and [:aplpah:] means any alphabet, and last `]` means "]". So, I try to remove the all character within "[ ]". Now, Table is. 
- 
+I used `\\[[:alpha:]]`, `\\[` means "\[" and \[:aplpah:\] means any alphabet, and last `]` means "\]". So, I try to remove the all character within "\[ \]". Now, Table is.
+
 ```{r}
 tab3 %>% datatable()
 ```
- 
+
 ```{r covid figure1}
-figs<-tab3 %>%
-  mutate(mortality = Death /Cases *1000) %>% # mortality per 1 thousnd cases
-  ggplot(aes(x = Cases, y = mortality, size = Death))+
+std = sd(tab3$Cases)
+mean = mean(tab3$Cases)
+figs <-tab3 %>%
+  filter(Cases < mean + 2*std, 
+         Cases > 2000) %>%
+  ggplot(aes(x=Cases, y = Mortality, size = Deaths)) +
   geom_point() +
-  scale_x_continuous(trans = 'log') 
+  scale_x_continuous(trans="log") +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 3), se=F)
+
 figs
 ```
- 
+
 ## homework
-### download Cumulative covid19 death 
-Download data table from url. You can use `tab[[ i ]]` code to find cumulative covid19 death. The taret Table in web looks like that. 
+
+### download Cumulative covid19 death
+
+Download data table from url. You can use `tab[[ i ]]` code to find cumulative covid19 death. The taret Table in web looks like that.
 
 `hint`
+
 ```{r, eval = FALSE}
 tab4<-tab[[?]] %>% html_table(fill = TRUE) 
 ```
 
+![Cumulative Covid19 deaths on Jan 11....](img/monthlycovid.png) and the table file is
 
-![Cumulative Covid19 deaths on Jan 11....](images/monthlycovid.png)
-and the table file is
 ```{r, echo = FALSE}
 #openxlsx::write.xlsx(tab4, 'data/websc/tab4.xlsx')
 tab4 <- readxl::read_xlsx('data/websc/tab4.xlsx')
@@ -104,15 +117,16 @@ tab4 %>% datatable()
 ```
 
 ### UK, Italy, France, Spain, USA, Canada
- select countris of "UK, Italy, France, Spain, USA, Canada" and plot the trends.  and upload the final plot in dspubs.org tutor
- 
-|`Hint`||
-|---|---|
-|step1:| create Month_mortatlity data filter countries names of above|
-|step2:| chage character data to numeric data|
-|step3:| pivot data to long form|
-|step4:| plot the graph!|
- 
+
+select countris of "UK, Italy, France, Spain, USA, Canada" and plot the trends. and upload the final plot in dspubs.org tutor
+
+| `Hint` |                                                              |
+|--------|--------------------------------------------------------------|
+| step1: | create Month_mortatlity data filter countries names of above |
+| step2: | chage character data to numeric data                         |
+| step3: | pivot data to long form                                      |
+| step4: | plot the graph!                                              |
+
 ```{r, echo = FALSE}
 Month_mortality <- tab4 %>%
   rename('Country' = Date) %>%
@@ -120,13 +134,14 @@ Month_mortality <- tab4 %>%
   filter(Country %in% c("UK", "Italy", "France", "Spain", "USA", "Canada"))
 ```
 
-
 **Step 1 and 2**
+
 ```{r month_mortatlity date}
 Month_mortality %>% datatable()
 ```
 
-**step  3 **
+**step 3**
+
 ```{r pivot covid data to long, echo = FALSE}
 long_death <- Month_mortality %>%
   pivot_longer(!c(Country), 
@@ -139,7 +154,7 @@ long_death <- Month_mortality %>%
 long_death %>% datatable()
 ```
 
-**step 4 **
+**step 4**
 
 ```{r covid moraltiy ggplot month, echo = FALSE, warning = FALSE, message = FALSE}
 library(lubridate)
@@ -158,15 +173,14 @@ long_death %>%
 ## Review of title from google scholar
 
 ### googl scholar
-Search the My name of "Jin-Ha Yoon" in google scholar. 
-The url is https://scholar.google.com/citations?hl=en&user=FzE_ZWAAAAAJ&view_op=list_works&sortby=pubdate
+
+Search the My name of "Jin-Ha Yoon" in google scholar. The url is https://scholar.google.com/citations?hl=en&user=FzE_ZWAAAAAJ&view_op=list_works&sortby=pubdate
 
 ```{r}
 url <- "https://scholar.google.com/citations?hl=en&user=FzE_ZWAAAAAJ&view_op=list_works&sortby=pubdate"
 ```
 
-
- **step1 ** read the html using url address 
+**step1** read the html using url address
 
 ```{r}
 library(rvest)
@@ -174,6 +188,7 @@ gs <- read_html(url)
 ```
 
 **step2** filter title using nodes and text, and make data.frame
+
 ```{r}
 dat<-gs %>% html_nodes("tbody") %>%
   html_nodes("td") %>%
@@ -184,19 +199,19 @@ dat<-gs %>% html_nodes("tbody") %>%
 ```
 
 ```{r, message = FALSE, warning=FALSE}
-library(tm)
-library(SnowballC)
-library(wordcloud)
-library(RColorBrewer)
-library(dplyr) # for data wrangling
-library(tidytext) # for NLP
-library(stringr) # to deal with strings
-library(knitr) # for tables
-library(DT) # for dynamic tables
-library(tidyr)
+if(!require("tm")) install.packages("tm")
+if(!require("SnowballC")) install.packages("SnowballC")
+#if(!require("wordcloud")) install.packages("wordcloud")
+if(!require("RColorBrewer")) install.packages("RColorBrewer")
+if(!require("tidytext")) install.packages("tidytext")
+if(!require("stringr")) install.packages("stringr")
+if(!require("knitr")) install.packages("knitr")
+if(!require("DT")) install.packages("DT")
+#library(wordcloud)
 ```
 
-**step3** split the words (tokenizing) using packages or user own methods. 
+**step3** split the words (tokenizing) using packages or user own methods.
+
 ```{r}
 dat <- dat %>%
   setNames(c("titles"))
@@ -216,12 +231,14 @@ tokens2 <- str_split(dat$titles, " ", simplify = TRUE) %>%
 ```
 
 **step4** import lookup data for removing words
+
 ```{r}
 data("stop_words") # we should add user own words.
 stop_words %>% datatable()
 ```
 
 **step5** remove stop words and numbers
+
 ```{r}
 tokens_clean <- tokens %>%
   anti_join(stop_words, by = c("word")) %>%
@@ -231,23 +248,25 @@ tokens_clean <- tokens %>%
 
 **step6** create word cloud
 
-```{r workclaoud 6}
+```{r workclaoud 6, eval=FALSE}
 set.seed(1)
 pal <- brewer.pal(12, "Paired")
 tokens_clean %>% 
   with(wordcloud(word, n, random.order = FALSE, colors=pal))
 ```
+![wordcloud](img/wordcloud1.png)
 
 ## home work 2
- Search you own word in google scholar. for example, You can search "Suicide" or "Hypertension" in google scholar. And, upload your word cloud to google classroom. 
- 
- 
- 
+
+Search you own word in google scholar. for example, You can search "Suicide" or "Hypertension" in google scholar. And, upload your word cloud to google classroom.
+
 ## Black Report 2
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EfE2ScmDRZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EfE2ScmDRZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 
-please visit "https://www.sochealth.co.uk/national-health-service/public-health-and-wellbeing/poverty-and-inequality/the-black-report-1980/the-black-report-2-the-evidence-of-inequalities-in-health/". That is black report 2, and I need some visualization to present health inequality. Let's start!. 
+</iframe>
+
+please visit "https://www.sochealth.co.uk/national-health-service/public-health-and-wellbeing/poverty-and-inequality/the-black-report-1980/the-black-report-2-the-evidence-of-inequalities-in-health/". That is black report 2, and I need some visualization to present health inequality. Let's start!.
 
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -255,7 +274,8 @@ library(rvest)
 library(DT)
 ```
 
- Get url, save html from url and find tag of "table". Review the table 5 using `html_table()`, and `datatable()`. 
+Get url, save html from url and find tag of "table". Review the table 5 using `html_table()`, and `datatable()`.
+
 ```{r}
 url <- "https://www.sochealth.co.uk/national-health-service/public-health-and-wellbeing/poverty-and-inequality/the-black-report-1980/the-black-report-2-the-evidence-of-inequalities-in-health/"
 h <-read_html(url)
@@ -263,8 +283,7 @@ tab <- h %>% html_nodes("table")
 tab[[5]] %>% html_table() %>% DT::datatable()
 ```
 
- The source and gender share same column, hence, I want divided that into two columns. the col names are changed by `setNames`. The gender variable was reshaped when that have any word of `males` or `female`. code of `fill` fill the missing row as very next values, in other word, `fill` code make html table to data frame table. 
-
+The source and gender share same column, hence, I want divided that into two columns. the col names are changed by `setNames`. The gender variable was reshaped when that have any word of `males` or `female`. code of `fill` fill the missing row as very next values, in other word, `fill` code make html table to data frame table.
 
 ```{r black report tab5}
 tab[[5]] %>% html_table() %>%
@@ -285,8 +304,8 @@ tab[[5]] %>% html_table() %>%
 tab5 %>% DT::datatable()
 ```
 
- Plot the bar plot
- 
+Plot the bar plot
+
 ```{r equity plot bar}
 tab5 %>%
   pivot_longer(-c(source, gender), names_to = 'variables', values_to = 'value') %>% 
@@ -307,9 +326,9 @@ tab5 %>%
   
 tab5.1 <- tab5 %>% filter(str_detect(source, "Stillbirths")) %>% select(-all, -ratio)
 ```
- 
- plot the table 6 using same methods of table 5
- 
+
+plot the table 6 using same methods of table 5
+
 ```{r}
 tab[[6]] %>% html_table() %>%
   tibble() %>%
@@ -336,8 +355,9 @@ tab[[6]] %>% html_table() %>%
   select(names(tab5.1)) -> tab6
 tab6
 ```
- 
- Repeat reshaping for Table 7. 
+
+Repeat reshaping for Table 7.
+
 ```{r}
 tab[[7]] %>% html_table() %>% tibble() %>%
   setNames(c('source', paste0('class', 1:6),  'ratio')) %>%
@@ -347,8 +367,8 @@ tab[[7]] %>% html_table() %>% tibble() %>%
   select(names(tab5.1)) %>%
   slice(-3) -> tab7
 ```
- 
- The final graph for black report 2 presentation as below.
+
+The final graph for black report 2 presentation as below.
 
 ```{r}
 rbind(tab5.1, tab6, tab7) %>%
@@ -369,9 +389,6 @@ rbind(tab5.1, tab6, tab7) %>%
   guides(fill ="none", color ="none")
 ```
 
- 
 ## home work 2
 
- Black report 중에 관심있는 표를 visualization  해 주세요
- 
- 
+Black report 중에 관심있는 표를 visualization 해 주세요

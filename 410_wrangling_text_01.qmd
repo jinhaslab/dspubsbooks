@@ -1,17 +1,18 @@
 # 문자값 다루기
+
 ```{r , include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
-<iframe width="560" height="315" src="https://www.youtube.com/embed/84M5zy1a1vo?si=bR5tB_1YLDOUkAfo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/84M5zy1a1vo?si=bR5tB_1YLDOUkAfo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+
+</iframe>
 
 데이터 시각화 및 데이터 표준화를 위해서 반드시 수행되는 과정입니다. 데이터를 어떻게 사용할 것인가와 최종 사용 양상을 고려해서 이에 맞도로 데이터를 수정하는 과정입니다. 이에 자주 사용하는 방법은 gather, spread, seprate, unite, unique등이 이 있습니다 이에 대한 실습을 수행하겠습니다. 제가 어떠한 일을 한때 50%는 위의 pivot_longer, pivot_wider, seprate, unique와 str\_()를 사용하게 됩니다. 추가적 내용은 Garrett Grolemund, Hadley Wickham의 `R for Data Science`예제와 실습과제를 이용하여 살펴 보시기 바랍니다 . `stringr`을 이용해서 문자 변수를 핸들링하게 되는데 이때 알야될 부분은 `Regular Expressions`이고 이는 아래 cheat sheet을 살펴보면서 응용하시면 됩니다. 참고로 Rstudio에서 여러 cheat sheet을 제공하는데 (<https://rstudio.com/resources/cheatsheets/>) 필요에 따라 사용하시기 바랍니다. 우선 Stringr Cheat Sheet는 <https://github.com/rstudio/cheatsheets/raw/master/strings.pdf> 여기서 다운로드받으세요. <br>
 
 ```{=html}
 <iframe src="img/strings.pdf#view=FitH" style="width: 100%; height: 80vh"></iframe>
 ```
-
-
-
 ## 문제 제기
 
 아래와 같은 파일을 불러와 봅시다. 자료는 url에 있습니다.
