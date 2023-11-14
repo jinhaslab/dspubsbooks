@@ -12,7 +12,7 @@
 로 이야기 해보겠습니다. 
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FJRRgKpqsfA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9sDAnMRpzCw?si=B-P3f2HgQhc9LI5i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
  
 ## PubMed 검색 방법
 
@@ -261,7 +261,7 @@ saveRDS(dfd_dfd2, "data/summary1.rds")
 ## PDF 자동 보고서
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/NgFtlNzR8Nc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3DaeOHKfGvY?si=iKTLOav2qno5-FEx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 마크다운에서 아래의 항목을 구성합니다. 새로운 마크다운을 사용하는 것입니다. 전체 파일을 참고하시고 이미지를 보면서 따라하세요. [전체파일](rscript/loopappends_pdf.Rmd)
@@ -372,5 +372,5 @@ writexl::write_xlsx(excels, "output/excels.xlsx")
 ## 원문 PDF 찾기
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/j6oPURSM1BY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lolkJeMyoUI?si=9jAiVGonOjRjBQ24" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
  
