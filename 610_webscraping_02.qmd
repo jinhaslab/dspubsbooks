@@ -264,7 +264,7 @@ saveRDS(dfd_dfd2, "data/summary1.rds")
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3DaeOHKfGvY?si=iKTLOav2qno5-FEx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
-마크다운에서 아래의 항목을 구성합니다. 새로운 마크다운을 사용하는 것입니다. 전체 파일을 참고하시고 이미지를 보면서 따라하세요. [전체파일](rscript/loopappends_pdf.Rmd)
+마크다운에서 아래의 항목을 구성합니다. 새로운 마크다운을 사용하는 것입니다. 전체 파일을 참고하시고 이미지를 보면서 따라하세요. [전체파일](img/loopappends_pdf.Rmd)
 ![pdf format option](img/pubmedcvd3.png)
 
 
@@ -352,10 +352,10 @@ for (i in 1:889){
  cat("\\clearpage")
 }
 ```
-을 수행하면 PDF가 생성되고 이로인해, 생성된 자동보고서는 다음과 같습니다. [자동보고서](data/pubmedsummary.pdf)
+을 수행하면 PDF가 생성되고 이로인해, 생성된 자동보고서는 다음과 같습니다. [자동보고서](img/pubmedsummary.pdf)
 
 ```{r pubmed summary, out.height = "460px", out.width='800px', echo=F}
-knitr::include_graphics("./data/pubmedsummary.pdf")
+knitr::include_graphics("./img/pubmedsummary.pdf")
 ```
 
 
@@ -367,7 +367,7 @@ excels = dfd_df %>%
 writexl::write_xlsx(excels, "output/excels.xlsx")
 ```
 
-액셀저장 파일 [파일](data/excelspubmed.xlsx) 의 형식입니다. 
+액셀저장 파일 [파일](img/excelspubmed.xlsx) 의 형식입니다. 
 
 ## 원문 PDF 찾기
 
