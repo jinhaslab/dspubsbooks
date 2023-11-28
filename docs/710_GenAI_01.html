@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>보건학데이터과학 실습 - 18&nbsp; 생성형 AI 사용</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./815_rmarkdown02.html" rel="next">
+<link href="./620_TimeData_01.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="table {
+  font-family: 'Times New Roman', serif;
+}">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./710_GenAI_01.html">V. AI와 기계학습</a></li><li class="breadcrumb-item"><a href="./710_GenAI_01.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">생성형 AI 사용</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">보건학데이터과학 실습</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">소개</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">I. R 기본</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_randrstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./221_Rbasic1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R 속성</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./231_dataimportsave.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">데이터 불러오기</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./241_datamanipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">II. 데이터 표현 표</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./250_smry_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">III. 데이터 표현 플랏</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_ggplot_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">기본 플롯 시각화 (ggplot2)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_kwcs_tutor_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">근로환경조사를 이용한 시각화 실습</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./350_statistical_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T검정, 로지스틱 회귀분석 플랏</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./370_labelled_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">다차원 라벨자료</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./380_wave_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">IV. 여러 형태의 변수값</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_wrangling_text_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">문자값 다루기</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_webscraping_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">웹 스크래핑 I</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_webscraping_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PubMed 에서 R 과 EndNote</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_TimeData_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">시간관련 자료 다루기</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">V. AI와 기계학습</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./710_GenAI_01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">생성형 AI 사용</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">VI. 소통</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./815_rmarkdown02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">R markdown</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">참고문헌</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#기계는-어떻게-학습할까" id="toc-기계는-어떻게-학습할까" class="nav-link active" data-scroll-target="#기계는-어떻게-학습할까"><span class="header-section-number">18.1</span> 기계는 어떻게 학습할까?</a></li>
+  <li><a href="#chatgpt-의-간단-소개" id="toc-chatgpt-의-간단-소개" class="nav-link" data-scroll-target="#chatgpt-의-간단-소개"><span class="header-section-number">18.2</span> ChatGPT 의 간단 소개</a></li>
+  <li><a href="#생성된-방식대로-사용하기" id="toc-생성된-방식대로-사용하기" class="nav-link" data-scroll-target="#생성된-방식대로-사용하기"><span class="header-section-number">18.3</span> 생성된 방식대로 사용하기</a></li>
+  <li><a href="#생성형-ai와-이야기-하기" id="toc-생성형-ai와-이야기-하기" class="nav-link" data-scroll-target="#생성형-ai와-이야기-하기"><span class="header-section-number">18.4</span> 생성형 AI와 이야기 하기</a></li>
+  <li><a href="#실용화-예시" id="toc-실용화-예시" class="nav-link" data-scroll-target="#실용화-예시"><span class="header-section-number">18.5</span> 실용화 예시</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">생성형 AI 사용</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="기계는-어떻게-학습할까" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="기계는-어떻게-학습할까"><span class="header-section-number">18.1</span> 기계는 어떻게 학습할까?</h2>
+<p>기계는 어떻게 학습할까?</p>
+<ul>
+<li>기계가 학습을 할 때,
+<ul>
+<li>개념적으로 문제가 있고 이에 맞는 답이 있는 경우,</li>
+<li>문제는 나열되어 있고 비슷한 문제끼리 묶어야 하는 경우,</li>
+<li>해보고 뭐가 문제인지 뭐가 답인지 경험해보고 보상받는 경우로</li>
+</ul></li>
+</ul>
+<p>구분해 볼 수 있습니다. 각각 지도학습, 비지도학습, 강화학습이라고 합니다.</p>
+</section>
+<section id="chatgpt-의-간단-소개" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="chatgpt-의-간단-소개"><span class="header-section-number">18.2</span> ChatGPT 의 간단 소개</h2>
+<ul>
+<li>대형언어모델이다. (GPT는 비지도학습, 미세조정)
+<ul>
+<li>문장에서 다음에 오는 단어를 예측하는 방식</li>
+<li>많이 읽어서 확률적 분포를 예측한다. → 구조 이용</li>
+</ul></li>
+<li>인간피드백을 이용한 강화 학습이다. (강화학습)
+<ul>
+<li>인간의 피드백을 바탕으로 보상이나 벌점을 주고, 높은 점수를 받는 쪽으로 유도하는 방법</li>
+<li>이후 반복적 미세 조정을 통해 성능을 향상시킴</li>
+</ul></li>
+</ul>
+</section>
+<section id="생성된-방식대로-사용하기" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="생성된-방식대로-사용하기"><span class="header-section-number">18.3</span> 생성된 방식대로 사용하기</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/laddering.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">laddering and N-shot, asking</figcaption>
+</figure>
+</div>
+<p>ChatGPT에게 질문할 때 사용할 수 있는 ‘Laddering (N-shot)’과 ’Asking’ 접근 방식에 대한 순서도가 나타나 있습니다. 그림을 통해 정보를 얻거나 대화를 진행할 때 단계별로 어떻게 접근하는 것이 효과적인지 생각해 보세요.</p>
+<p>위 그림은 다음과 같은 단계를 포함하고 있습니다:</p>
+<ul>
+<li>질문 정의 및 분명한 질문 설정: 대화의 시작점에서, 명확하고 구체적인 질문을 통해 대화를 시작합니다.</li>
+<li>분명한 1단계 질문: 첫 번째 단계에서는 주제에 대한 기본적인 정보를 얻기 위해 직접적인 질문을 합니다.</li>
+<li>질문 군 1단계 제공: 초기 질문에 대한 답변을 바탕으로, 보다 구체적인 세부 사항을 파악하기 위한 추가 질문을 합니다.</li>
+<li>통합적 2단계 질문: 이 단계에서는 앞선 답변들을 통합하여 깊이 있는 이해를 위한 질문을 합니다.</li>
+<li>보다 깊은 논리성 요청: 답변에서 더 깊이 있는 논리나 이유를 요청함으로써, 사물의 본질이나 근본적인 원인을 탐구합니다.</li>
+<li>N shot: 위의 단계를 여러 번 반복하여 주제에 대한 포괄적인 이해를 구축합니다.</li>
+<li>이 과정은 깊이 있는 대화를 위한 좋은 가이드라인을 제공하며, 사용자가 ChatGPT와의 상호작용을 최대화하기 위한 전략적인 질문 방식을 개발하는 데 도움을 줄 수 있습니다.</li>
+</ul>
+<p>강의 자료를 통해 이야기 하겠습니다.</p>
+<iframe src="img/gptslide.pdf#view=FitH" style="width: 100%; height: 80vh"></iframe>
+</section>
+<section id="생성형-ai와-이야기-하기" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="생성형-ai와-이야기-하기"><span class="header-section-number">18.4</span> 생성형 AI와 이야기 하기</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/elYjcCCcCfg?si=pAwfZ0t4SUbKjH7q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
+</iframe>
+<p>아래 코드를 통해 기존에 논의했던 logistic regression 표를 생성해 봅니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>,  <span class="st">"htmlTable"</span>, <span class="st">"broom"</span>, <span class="st">"labelled"</span>, <span class="st">"haven"</span>, <span class="st">"DT"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"devtools"</span>, <span class="st">"lmtest"</span>, <span class="st">"ggplot2"</span>, <span class="st">"shiny"</span>, <span class="st">"shinyWidgets"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"plotly"</span>, <span class="st">"httr"</span>, <span class="st">"rvest"</span>, <span class="st">"jsonlite"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pkg <span class="cf">in</span> pkgs){</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(pkg, <span class="at">character.only =</span> T)) <span class="fu">install.packages</span>(pkg)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(pkg, <span class="at">character.only =</span> T)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tabf"</span>)) <span class="fu">install_github</span>(<span class="st">"jinhaslab/tabf"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tabf)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#myoutput = readRDS("results/myoutput.rds")</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>myoutput <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/myoutput.rds"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>mytab1 <span class="ot">=</span> myoutput</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>mytab1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="gmisc_table table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th colspan="3" style="text-align: left;">Table. OR(95%CI) for sleepgp of 1.sleep disturbance</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Variables</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Values</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Model.I</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">0.Rarely with 0.non short return</td>
+<td style="text-align: left;"><em>1.00 (reference)</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1.≥Sometimes with 0.non short return</td>
+<td style="text-align: left;"><strong>1.53 (1.36-1.73)</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">0.Rarely with 1.short return</td>
+<td style="text-align: left;"><strong>1.97 (1.31-2.97)</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1.≥Sometimes with 1.short return</td>
+<td style="text-align: left;"><strong>6.64 (5.46-8.06)</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">edugp</td>
+<td style="text-align: left;">0.university or more</td>
+<td style="text-align: left;"><em>1.00 (reference)</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1.high school</td>
+<td style="text-align: left;">1.02 (0.91-1.14)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">2.middle school or below</td>
+<td style="text-align: left;"><strong>1.68 (1.39-2.04)</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; border-bottom: 2px solid grey;">AGE</td>
+<td style="text-align: left; border-bottom: 2px solid grey;"></td>
+<td style="text-align: left; border-bottom: 2px solid grey;"><strong>1.01 (1.01-1.02)</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>이 표를 어떻게 chatGPT에게 설명해 달라고 할 수 있을까요?</p>
+<p>우선 api_key가 있어야 합니다. 이걸 통해서 chatGPT와 소통할 것입니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>api_key_report <span class="ot">=</span> <span class="st">"your key"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>우선 보내고 싶은 table을 R에서 사용할 수 있는 표로 만듭니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mytab1 <span class="sc">%&gt;%</span> <span class="fu">read_html</span>() <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">"table"</span>) <span class="sc">%&gt;%</span> html_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+# A tibble: 10 × 3
+   X1                                                    X2                X3   
+   &lt;chr&gt;                                                 &lt;chr&gt;             &lt;chr&gt;
+ 1 "Table. OR(95%CI) for sleepgp of 1.sleep disturbance" "Table. OR(95%CI… Tabl…
+ 2 "Variables"                                           "Values"          Mode…
+ 3 "int"                                                 "0.Rarely with 0… 1.00…
+ 4 ""                                                    "1.≥Sometimes w…  1.53…
+ 5 ""                                                    "0.Rarely with 1… 1.97…
+ 6 ""                                                    "1.≥Sometimes w…  6.64…
+ 7 "edugp"                                               "0.university or… 1.00…
+ 8 ""                                                    "1.high school"   1.02…
+ 9 ""                                                    "2.middle school… 1.68…
+10 "AGE"                                                 ""                1.01…</code></pre>
+</div>
+</div>
+<p>mytab1 %&gt;% read_html() %&gt;% html_nodes(“table”) %&gt;% html_table: mytab1 변수에 저장된 데이터를 HTML 테이블로 읽고 변환합니다. 이 코드는 mytab1이 HTML 형식의 데이터를 포함하고 있다고 가정합니다. read_html, html_nodes, html_table 함수들은 각각 HTML 데이터를 읽고, HTML 내의 테이블 요소를 찾고, 이를 R에서 사용할 수 있는 테이블 형식으로 변환하는 데 사용됩니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ai_models<span class="ot">=</span><span class="st">"gpt-3.5-turbo"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tm<span class="ot">=</span><span class="fl">0.1</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cm_tmp<span class="ot">=</span><span class="fu">c</span>(<span class="st">"Please summarize the my result provided below,write it like a report document,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">         and express it in sentences as public health specilist."</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>addinfor <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"wwa1gp is worry about work after finished work"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ai_models=“gpt-3.5-turbo”: ai_models 변수에 “gpt-3.5-turbo”라는 문자열을 할당합니다. 이는 특정 인공지능 모델을 지칭하는 것으로 보입니다. tm=0.1: tm 변수에 0.1이라는 값을 할당합니다. 이 값의 정확한 용도는 코드에서 명시되어 있지 않지만, 일반적으로 시간이나 임계값 등을 나타내는 데 사용됩니다. cm_tmp: 사용자가 요청한 내용을 포함하는 문자열 배열을 정의합니다. 여기에는 결과를 공중보건 전문가처럼 보고서 형식으로 요약하라는 지시가 포함되어 있습니다. addinfor: 추가 정보를 제공하는 addinfor 변수가 정의되어 있으며, 이는 “wwa1gp is worry about work after finished work”라는 문자열을 포함합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mytable1 <span class="ot">=</span> mytab1 <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_html</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_nodes</span>(<span class="st">"tr"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text</span>(<span class="at">trim=</span><span class="cn">TRUE</span>) </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>mytable1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Table. OR(95%CI) for sleepgp of 1.sleep disturbance"    
+ [2] "Variables\nValues\nModel.I"                             
+ [3] "int\n0.Rarely with 0.non short return\n1.00 (reference)"
+ [4] "1.≥Sometimes with 0.non short return\n1.53 (1.36-1.73)"
+ [5] "0.Rarely with 1.short return\n1.97 (1.31-2.97)"         
+ [6] "1.≥Sometimes with 1.short return\n6.64 (5.46-8.06)"    
+ [7] "edugp\n0.university or more\n1.00 (reference)"          
+ [8] "1.high school\n1.02 (0.91-1.14)"                        
+ [9] "2.middle school or below\n1.68 (1.39-2.04)"             
+[10] "AGE\n\n1.01 (1.01-1.02)"                                </code></pre>
+</div>
+</div>
+<ul>
+<li>HTML 데이터 처리:
+<ul>
+<li>read_html(): mytab1 변수에서 HTML 데이터를 읽습니다. read_html 함수는 rvest 패키지의 일부로, HTML 문서를 R의 세션으로 가져오는 데 사용됩니다.</li>
+<li>html_nodes(“tr”): 읽어들인 HTML 문서에서 모든 행(
+
+태그)을 찾습니다. html_nodes 함수는 지정된 CSS 선택자에 해당하는 HTML 노드들을 추출하는 데 사용됩니다.</li>
+<li>html_text(trim=TRUE): 각 행의 텍스트 내용을 추출합니다. trim=TRUE 옵션은 텍스트의 앞뒤 공백을 제거합니다.</li>
+</ul></li>
+<li>결과 저장 및 출력:
+<ul>
+<li>mytable1: 위의 파이프라인을 통해 처리된 데이터는 mytable1이라는 새로운 변수에 저장됩니다.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>myquestion <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%s, consider my special request of %s. {result} is {%s}"</span>, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                     cm_tmp, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                     addinfor, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">paste</span>(mytable1, <span class="at">collapse=</span><span class="st">" "</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>myquestion <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="gmisc_table table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="border-top: 2px solid grey;">
+<td style="text-align: center; border-top: 2px solid grey; border-bottom: 2px solid grey;">Please summarize the my result provided below,write it like a report document, and express it in sentences as public health specilist., consider my special request of wwa1gp is worry about work after finished work. {result} is {Table. OR(95%CI) for sleepgp of 1.sleep disturbance Variables Values Model.I int 0.Rarely with 0.non short return 1.00 (reference) 1.≥Sometimes with 0.non short return 1.53 (1.36-1.73) 0.Rarely with 1.short return 1.97 (1.31-2.97) 1.≥Sometimes with 1.short return 6.64 (5.46-8.06) edugp 0.university or more 1.00 (reference) 1.high school 1.02 (0.91-1.14) 2.middle school or below 1.68 (1.39-2.04) AGE 1.01 (1.01-1.02)}</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">POST</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="st">"https://api.openai.com/v1/chat/completions"</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_headers</span>(<span class="at">Authorization =</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, api_key_report)),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">content_type_json</span>(),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">encode =</span> <span class="st">"json"</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">body =</span> <span class="fu">list</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> ai_models,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">temperature =</span> <span class="fl">0.1</span>, </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">messages =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> myquestion))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>content <span class="ot">&lt;-</span> <span class="fu">content</span>(response, <span class="at">as =</span> <span class="st">"text"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>parsed_content <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(content)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>parsed_content<span class="sc">$</span>choices[<span class="dv">2</span>]<span class="sc">$</span>message<span class="sc">$</span>content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>API 요청 설정 (POST 함수 사용):
+<ul>
+<li>url = “https://api.openai.com/v1/chat/completions”: OpenAI의 채팅 API 엔드포인트로 요청을 보냅니다.</li>
+<li>add_headers(Authorization = paste(“Bearer”, api_key_report)): API 사용을 인증하기 위해 ‘Bearer’ 토큰을 포함한 헤더를 추가합니다. 여기서 api_key_report는 API 키를 가리킵니다.</li>
+<li>content_type_json(): 요청의 내용이 JSON 형식임을 명시합니다.</li>
+<li>encode = “json”: 요청 본문을 JSON으로 인코딩합니다.</li>
+</ul></li>
+<li>요청 본문 설정 (body):
+<ul>
+<li>model = ai_models: 사용할 모델을 지정합니다. 여기서 ai_models 변수는 앞서 설정된 모델 이름(예: “gpt-3.5-turbo”)을 포함합니다.</li>
+<li>temperature = 0.1: 응답의 창의성을 결정하는 온도 값을 설정합니다. 낮은 값은 더 일관되고 예측 가능한 응답을 생성합니다.</li>
+<li>messages = list(list(role = “user”, content = myquestion)): 사용자의 질문을 포함하는 메시지 리스트를 설정합니다. 여기서 myquestion은 사용자의 질문을 담고 있습니다.</li>
+</ul></li>
+<li>API 요청 실행 및 응답 처리:
+<ul>
+<li>response: API 요청의 결과를 response 변수에 저장합니다.</li>
+<li>content &lt;- content(response, as = “text”): 응답의 내용을 텍스트 형식으로 추출합니다.</li>
+<li>parsed_content &lt;- fromJSON(content): 텍스트 형식의 응답을 JSON으로 파싱합니다.</li>
+</ul></li>
+<li>결과 추출:
+<ul>
+<li>parsed_content<span class="math inline">\(choices[2]\)</span>message$content: 파싱된 JSON 객체에서 특정 응답 내용을 추출합니다. 이 경로는 JSON 객체 내의 두 번째 ’choice’에 해당하는 메시지의 내용을 가리킵니다.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>parsed_content<span class="sc">$</span>choices[<span class="dv">2</span>]<span class="sc">$</span>message<span class="sc">$</span>content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="gmisc_table table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd" style="border-top: 2px solid grey;">
+<td style="text-align: center; border-top: 2px solid grey; border-bottom: 2px solid grey;">[1] The results of the analysis indicate that there is a significant association between sleep disturbance and work-related worries after finishing work. Individuals who reported experiencing sleep disturbance sometimes or more frequently were 1.53 times more likely to worry about work after finishing compared to those who rarely experienced sleep disturbance. Additionally, individuals who reported short returns from work and sometimes or more frequently experienced sleep disturbance were 6.64 times more likely to worry about work after finishing compared to those who rarely experienced sleep disturbance and had non-short returns from work. Furthermore, the results suggest that education level is also associated with sleep disturbance and work-related worries. Individuals with a middle school education or below were 1.68 times more likely to experience sleep disturbance compared to those with a university education or higher. However, there was no significant difference in sleep disturbance and work-related worries between individuals with a high school education and those with a university education or higher. Lastly, the analysis found a small but significant association between age and sleep disturbance. For every one-year increase in age, there was a 1.01 times increase in the likelihood of experiencing sleep disturbance. Overall, these findings highlight the importance of addressing sleep disturbance and work-related worries, particularly among individuals with lower education levels and those who frequently experience short returns from work. Public health interventions should focus on promoting healthy sleep habits and providing support for individuals to manage work-related stress and worries.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="실용화-예시" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="실용화-예시"><span class="header-section-number">18.5</span> 실용화 예시</h2>
+<p>shiny와 interractive visualization은 DS project 수업에 있으니 생략하겠습니다.</p>
+<iframe src="https://sehnr.org/apps/Rapps/int_auto_book/" width="100%" height="600" style="border:none;">
+</iframe>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./620_TimeData_01.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">시간관련 자료 다루기</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./815_rmarkdown02.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">R markdown</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

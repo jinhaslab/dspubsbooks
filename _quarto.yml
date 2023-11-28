@@ -32,7 +32,11 @@ book:
         - 410_wrangling_text_01.qmd
         - 510_webscraping_01.qmd
         - 610_webscraping_02.qmd
+        - 620_TimeData_01.qmd
         
+    - part: "V. AI와 기계학습"
+      chapters:
+        - 710_GenAI_01.qmd
     - part: "VI. 소통"
       chapters:
         - 815_rmarkdown02.qmd
