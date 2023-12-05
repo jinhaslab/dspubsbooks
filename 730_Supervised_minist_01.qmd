@@ -1,0 +1,343 @@
+# 지도학습-MNIST (숫자인식)
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,  eval=FALSE)
+```
+
+```{r, eval=TRUE}
+#
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("dslabs")) install.packages("dslabs")
+if(!require("caret")) install.packages("caret")
+if(!require("purrr")) install.packages("purrr")
+if(!require("purrr")) install.packages("purrr")
+#if(!require("tensorflow")) install.packages("tensorflow")
+if(!require("randomForest")) install.packages("randomForest")
+if(!require("doParallel")) install.packages("doParallel")
+if(!require("foreach")) install.packages("foreach")
+if(!require("tictoc")) install.packages("tictoc")
+library(tensorflow)
+#install_tensorflow()
+#if(!require("keras")) install.packages("keras")
+#install_keras()
+library(keras)
+library(reticulate)
+```
+
+```{r}
+use_virtualenv("/home/sehnr/tensorflow/tensorvenv", required = TRUE)
+```
+In this code chunk, we are using the use_virtualenv function to specify and activate a virtual environment for TensorFlow in R. Let's break down what this code does:
+
+use_virtualenv("/home/sehnr/tensorflow/tensorvenv", required = TRUE): This function call tells R to use a specific virtual environment located at /home/sehnr/tensorflow/tensorvenv. The required = TRUE argument indicates that the specified virtual environment must be available and activated for the code to proceed.
+
+The purpose of creating and using a virtual environment is to isolate the Python environment for TensorFlow from the system-wide Python installation. This is helpful for managing packages and dependencies, ensuring compatibility, and avoiding conflicts between different Python projects.
+
+
+## MNIST
+
+**MNIST Dataset:**
+
+* What is MNIST? MNIST stands for "Modified National Institute of Standards and Technology." It is a dataset of handwritten digits commonly used for training and testing machine learning and computer vision algorithms. The dataset consists of a large number of 28x28 pixel grayscale images of handwritten digits (0 to 9), along with their corresponding labels (the digit each image represents).
+
+* Purpose: The MNIST dataset is often used as a benchmark in machine learning and deep learning tasks, particularly in the context of image classification and digit recognition. It serves as a standardized dataset for evaluating and comparing the performance of various algorithms and models.
+
+* Number of Samples: The MNIST dataset typically contains 60,000 training images and 10,000 testing images, making it a relatively small but well-balanced dataset.
+
+* Labeling: Each image in the dataset is associated with a label indicating the digit it represents. For example, an image of the digit "3" would have a corresponding label of 3.
+
+* Grayscale Images: All images in the MNIST dataset are grayscale, meaning they have only one channel (as opposed to color images with three channels: red, green, and blue). Each pixel in the image has a value representing the intensity of the grayscale.
+
+```{r}
+mnist <- dataset_mnist()
+```
+
+This code chunk calculates and prints the dimensions of the training data (x) within the mnist object. It uses the dim() function to retrieve the number of rows and columns in the training data. This information provides an overview of the size and shape of the training dataset.
+
+```{r}
+names(mnist)
+dim(mnist$train$x)
+table(mnist$train$y)
+indices_train <- sample(1:dim(mnist$train$x)[1], 20000)
+indices_test <- sample(1:dim(mnist$test$x)[1], 2000)
+```
+
+In this step, two sets of random indices (indices_train and indices_test) are generated for the training and testing datasets. Here's what each line does:
+
+indices_train <- sample(1:dim(mnist$train$x)[1], 20000): This line randomly samples 20,000 indices from the range of 1 to the number of rows in the training data (dim(mnist$train$x)[1]). These indices can be used to select a subset of 20,000 training examples from the MNIST dataset for training your machine learning models.
+
+indices_test <- sample(1:dim(mnist$test$x)[1], 2000): Similarly, this line randomly samples 2,000 indices from the range of 1 to the number of rows in the testing data (dim(mnist$test$x)[1]). These indices can be used to select a subset of 2,000 testing examples for evaluating your machine learning models.
+
+
+**Data Preparation for MNIST Dataset**
+[indices_train, , ]: By using the indices from the indices_train vector, this part selects specific rows from the training data. It selects only the rows corresponding to the 20,000 training examples that were sampled in the previous step.
+
+```{r}
+x_train <- mnist$train$x[indices_train, , ]
+x_test <- mnist$test$x[indices_test, , ]
+y_train <- mnist$train$y[indices_train]
+y_test <- mnist$test$y[indices_test]
+```
+
+**Analyzing and Filtering Data for 'Zero' Digit Images**
+
+In this section, we're going to analyze the MNIST dataset to identify and filter out images of the digit 'zero' (0) based on a specific criterion.
+
+*Code Step 1: Calculate Standard Deviations*
+
+```{r}
+zero =  sapply(1:dim(x_train)[1], function(x){sd(x_train[x, , ])})
+
+```
+
+We begin by calculating the standard deviation (sd) for each image in our training dataset (x_train). Each image is represented by a row in the dataset.
+
+The sapply() function helps us apply the standard deviation calculation to each row of x_train. As a result, we obtain a vector called zero, which contains the standard deviation values for all the training images.
+
+
+*Code Step 2: Creating a Histogram*
+
+```{r}
+zero %>% data.frame(sd=.) %>% tibble() %>%
+  ggplot(aes(x=sd)) +
+  geom_histogram()
+```
+
+
+
+*Code Step 3: Filtering 'Zero' Digit Images*
+
+```{r}
+indices_zero <- which(zero >=50)
+```
+The indices_zero variable stores these indices, allowing us to pinpoint the 'zero' sd images in our dataset that exhibit a higher degree of variation.
+
+
+```{r}
+x_train <- x_train[indices_zero, ,]
+y_train <- y_train[indices_zero ]
+```
+
+
+```{r}
+par(mfrow=c(1, 1)) # Set up the plot area
+apply(x_train[1, ,], 2, rev)
+image(1:28, 1:28, x_train[1, , ])
+image(1:28, 1:28, t(apply(x_train[1, ,], 2, rev)))
+```
+We then visualize an example image from our filtered training data (x_train[1, , ]) using the image() function. The first image() call displays the image in its original orientation.
+
+The second image() call displays the same image but with its rows reversed using the rev() function. This visual representation helps us understand the pixel values and structure of the image.
+
+
+**Data Reshaping and Normalization**
+```{r}
+x_train <- array_reshape(x_train, c(nrow(x_train), 28 * 28))
+x_test  <- array_reshape(x_test, c(nrow(x_test), 28 * 28))
+x_train = x_train/255
+x_test  = x_test/255
+```
+In this step, we perform data reshaping and normalization to prepare the image data for machine learning models.
+
+We use the array_reshape() function to reshape the training and testing data. Each image, originally a 28x28 pixel grid, is flattened into a 1D array of length 28 * 28 = 784. This transformation makes the data suitable for many machine learning algorithms.
+
+To ensure that pixel values are within the range [0, 1], we divide all pixel values in both the training and testing datasets by 255. This normalization process scales the pixel values to a range where 0 represents black (minimum intensity) and 1 represents white (maximum intensity).
+
+
+ **Detecting CPU Cores**
+
+We start by detecting the number of CPU cores available in the system using the detectCores() function from the parallel package. Knowing the number of cores is useful for parallel processing, which can speed up computations.
+
+```{r}
+numCores <- parallel::detectCores()
+registerDoParallel(cores = numCores - 1)
+# Define control parameters for the training process
+```
+
+**Define Training Control Parameters**
+```{r}
+train_control <- trainControl(method = "repeatedcv", 
+                              number = 10, 
+                              repeats = 3, 
+                              allowParallel = TRUE, 
+                              classProbs = TRUE
+)
+
+```
+* method = "repeatedcv": We specify the cross-validation method as repeated cross-validation. This helps assess the model's performance by repeatedly splitting the data into training and validation sets.
+
+* number = 10: We set the number of folds for cross-validation to 10, meaning the data will be divided into 10 subsets for evaluation.
+
+* repeats = 3: We repeat the cross-validation process three times for robust evaluation.
+
+* allowParallel = TRUE: We allow parallel processing during training, which can speed up model fitting.
+
+* classProbs = TRUE: We indicate that we want to compute class probabilities during model training, which can be useful for certain evaluation metrics.
+
+
+**Data Preparation for k-NN (Caret)**
+```{r}
+set.seed(2023)  # Setting seed for reproducibility
+index <- sample(1:nrow(x_train), 10000)
+col_index <- 1:ncol(x_train)
+# make data.fram for knn (caret)
+x_train_df = x_train %>% as.data.frame(.)
+y_train_fa <- factor(y_train, levels = 0:9, labels = paste0("digit_", 0:9))
+x_test_df = x_test %>% as.data.frame(.)
+y_test_fa <- factor(y_test, levels = 0:9, labels = paste0("digit_", 0:9))
+```
+We set a seed value (set.seed(2023)) to ensure reproducibility of random processes in our analysis.
+
+We create a random sample of 10,000 indices (index) from the training data. This allows us to work with a manageable subset of the data for training and evaluation.
+
+We define col_index to represent column indices. This variable can be useful for selecting specific columns from the dataset if needed.
+
+We convert the training and testing data (x_train and x_test) into data frames (x_train_df and x_test_df) to facilitate their use with the caret package.
+
+We transform the training and testing labels (y_train and y_test) into factor variables (y_train_fa and y_test_fa) and assign meaningful labels ("digit_0" to "digit_9") to represent the digits in a format suitable for modeling.
+
+**Model Training**
+
+```{r}
+tic()
+train_knn <- caret::train(x_train_df[index, col_index], 
+                          y_train_fa[index] , 
+                   method = "knn", 
+                   tuneGrid = data.frame(k = c(3,5,7)),
+                   trControl = train_control, 
+                   metric = "Accuracy")
+toc()
+```
+We begin by training a k-Nearest Neighbors (k-NN) classifier using the caret::train() function. Here's what each part of the code does:
+
+* x_train_df[index, col_index]: We provide the training features (subset of data) based on the previously sampled indices (index) and column indices (col_index) to focus on specific data points and features.
+
+* y_train_fa[index]: We provide the corresponding training labels, ensuring that we are using the filtered labels for training.
+
+* method = "knn": We specify the method as "knn" to indicate that we want to train a k-NN classifier.
+
+* tuneGrid = data.frame(k = c(3, 5, 7)): We define a grid of hyperparameter values for 'k' (number of neighbors) to tune the model. We consider values 3, 5, and 7 for 'k' as potential choices.
+
+* trControl = train_control: We use the previously defined training control parameters to guide the cross-validation process.
+
+* metric = "Accuracy": We specify that we want to evaluate the model's performance based on accuracy.
+
+
+**Making Predictions**
+
+```{r}
+tic()
+predict_knn = predict(train_knn, x_test_df, type="raw")
+toc()
+```
+
+* train_knn: We use the trained k-NN model train_knn to make predictions.
+
+* x_test_df: We provide the testing features (x_test_df) to predict the corresponding labels.
+
+* type = "raw": We specify the type of predictions as "raw," which means we get the predicted class labels.
+
+
+**Confusion Matrix and Accuracy**
+
+```{r}
+cm_knn = confusionMatrix(as.factor(predict_knn), y_test_fa)
+knn=cm_knn$byClass[, "Balanced Accuracy"] %>% data.frame("knn"=.)
+```
+Finally, we calculate a confusion matrix (cm_knn) to evaluate the model's performance on the testing data. Here's how it's done:
+
+as.factor(predict_knn): We convert the predicted class labels to factors for consistent comparison with the actual labels.
+
+y_test_fa: We use the actual testing labels.
+
+The confusionMatrix() function computes various metrics, including accuracy, for evaluating the classifier's performance. We store the balanced accuracy in the knn variable.
+
+
+## tensorflow-keras
+
+In this section, you're working with TensorFlow and Keras in R to create, train, and evaluate a neural network model. 
+
+**Preparing the Data**
+```{r}
+y_train_c <- to_categorical(y_train, num_classes = 10)
+y_test_c <- to_categorical(y_test, num_classes = 10)
+```
+* Categorical Encoding: Converts the response variable (y_train and y_test) into a binary matrix representation, which is necessary for multi-class classification in Keras.
+
+
+**Building the Neural Network**
+```{R}
+tensor_keras <- keras_model_sequential() %>%
+  layer_dense(units = 256, activation = "relu", input_shape = c(784)) %>%
+  layer_dropout(rate = 0.25) %>% 
+  layer_dense(units = 128, activation = "relu") %>%
+  layer_dropout(rate = 0.25) %>% 
+  layer_dense(units = 64, activation = "relu") %>%
+  layer_dropout(rate = 0.25) %>%
+  layer_dense(units = 10, activation = "softmax")
+summary(tensor_knn)
+
+```
+
+* Sequential Model: A linear stack of layers is created using keras_model_sequential().
+* Layers: The model consists of multiple layer_dense with relu activations and layer_dropout to prevent overfitting.
+* Output Layer: The final layer_dense has 10 units with a softmax activation function, suitable for multi-class classification.
+
+
+**Compiling the Model**
+```{r}
+tensor_keras %>% compile(
+  loss = "categorical_crossentropy",
+  optimizer = optimizer_adam(),
+  metrics = c("accuracy")
+)
+```
+* Compile: Prepares the model for training. Uses categorical crossentropy as the loss function, the Adam optimizer, and accuracy as the metric.
+
+**Training the Model**
+
+```{r}
+history <- tensor_keras %>% 
+  fit(x_train, y_train_c, 
+      epochs = 50, 
+      batch_size = 128, 
+      validation_split = 0.15)
+```
+* Fit: Trains the model on x_train and y_train_c for 50 epochs, with a batch size of 128 and holding out 15% of the data for validation
+
+
+**Making Predictions and Evaluation**
+```{r}
+
+# Make predictions on the test data
+predictions_keras <- tensor_keras %>% predict(x_test)
+#y_test[1]
+#y_test_c[1, ]
+#predictions_keras[1, ] %>% which.max() -1
+predicted_keras_class = apply(predictions_keras, 1, which.max)
+#class(predicted_keras_class)
+true_classes <- apply(y_test_c, 1, which.max)
+#class(true_classes)
+
+# Calculate confusion matrix
+cm_keras <- confusionMatrix(predicted_keras_class %>% as.factor(), 
+                                    true_classes %>% as.factor())
+```
+* Predictions: Generates predictions for x_test.
+* Class Prediction: Converts the softmax output to class predictions.
+* Confusion Matrix: Evaluates the performance using a confusion matrix.
+
+**Visualizing Model Performance**
+```{r}
+keras=cm_keras$byClass[, "Balanced Accuracy"] %>% data.frame("keras"=.)
+
+cbind(knn, keras) %>% data.frame() %>%
+  mutate(class=rownames(.)) %>%
+  tibble() %>%
+  pivot_longer(names_to = "model", values_to = "BA", cols = c(knn, keras)) %>%
+  mutate(class= str_replace(class, "Class: ", "")) %>%
+  ggplot(aes(x=BA, y = class, color = model =="keras")) +
+  geom_point(aes(size = model == "keras"))  +
+  theme_minimal()
+```
+

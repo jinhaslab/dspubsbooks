@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>보건학데이터과학 실습 - 19&nbsp; 지도학습</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./815_rmarkdown02.html" rel="next">
+<link href="./710_GenAI_01.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="table {
+  font-family: 'Times New Roman', serif;
+}">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./710_GenAI_01.html">V. AI와 기계학습</a></li><li class="breadcrumb-item"><a href="./720_Supervised_01.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">지도학습</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">보건학데이터과학 실습</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">소개</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">I. R 기본</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_randrstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./221_Rbasic1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R 속성</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./231_dataimportsave.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">데이터 불러오기</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./241_datamanipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">II. 데이터 표현 표</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./250_smry_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">III. 데이터 표현 플랏</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_ggplot_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">기본 플롯 시각화 (ggplot2)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_kwcs_tutor_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">근로환경조사를 이용한 시각화 실습</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./350_statistical_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T검정, 로지스틱 회귀분석 플랏</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./370_labelled_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">다차원 라벨자료</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./380_wave_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">IV. 여러 형태의 변수값</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_wrangling_text_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">문자값 다루기</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_webscraping_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">웹 스크래핑 I</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_webscraping_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PubMed 에서 R 과 EndNote</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_TimeData_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">시간관련 자료 다루기</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">V. AI와 기계학습</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./710_GenAI_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">생성형 AI 사용</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./720_Supervised_01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">지도학습</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">VI. 소통</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./815_rmarkdown02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R markdown</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">참고문헌</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#simulation-data" id="toc-simulation-data" class="nav-link active" data-scroll-target="#simulation-data"><span class="header-section-number">19.1</span> simulation data</a></li>
+  <li><a href="#prediction-of-continus-outcome" id="toc-prediction-of-continus-outcome" class="nav-link" data-scroll-target="#prediction-of-continus-outcome"><span class="header-section-number">19.2</span> prediction of continus outcome</a>
+  <ul class="collapse">
+  <li><a href="#train-vs-test" id="toc-train-vs-test" class="nav-link" data-scroll-target="#train-vs-test"><span class="header-section-number">19.2.1</span> train vs test</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">19.2.2</span> linear regression</a></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="header-section-number">19.2.3</span> random forest</a></li>
+  <li><a href="#generalized-additive-model" id="toc-generalized-additive-model" class="nav-link" data-scroll-target="#generalized-additive-model"><span class="header-section-number">19.2.4</span> generalized additive model</a></li>
+  <li><a href="#ridge-and-lasso-regression" id="toc-ridge-and-lasso-regression" class="nav-link" data-scroll-target="#ridge-and-lasso-regression"><span class="header-section-number">19.2.5</span> Ridge and Lasso Regression</a></li>
+  </ul></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="header-section-number">19.3</span> classification</a>
+  <ul class="collapse">
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="header-section-number">19.3.1</span> logistic regression</a></li>
+  <li><a href="#random-forest-1" id="toc-random-forest-1" class="nav-link" data-scroll-target="#random-forest-1"><span class="header-section-number">19.3.2</span> random forest</a></li>
+  <li><a href="#gradient-boosting-machine-gbm-classification" id="toc-gradient-boosting-machine-gbm-classification" class="nav-link" data-scroll-target="#gradient-boosting-machine-gbm-classification"><span class="header-section-number">19.3.3</span> Gradient Boosting Machine (GBM) classification</a></li>
+  <li><a href="#svmradial" id="toc-svmradial" class="nav-link" data-scroll-target="#svmradial"><span class="header-section-number">19.3.4</span> svmRadial</a></li>
+  <li><a href="#knn" id="toc-knn" class="nav-link" data-scroll-target="#knn"><span class="header-section-number">19.3.5</span> knn</a></li>
+  <li><a href="#final-model-comparision" id="toc-final-model-comparision" class="nav-link" data-scroll-target="#final-model-comparision"><span class="header-section-number">19.3.6</span> final model comparision</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">지도학습</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tidyverse"</span>)) <span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"dslabs"</span>)) <span class="fu">install.packages</span>(<span class="st">"dslabs"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"caret"</span>)) <span class="fu">install.packages</span>(<span class="st">"caret"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"purrr"</span>)) <span class="fu">install.packages</span>(<span class="st">"purrr"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"randomForest"</span>)) <span class="fu">install.packages</span>(<span class="st">"randomForest"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"doParallel"</span>)) <span class="fu">install.packages</span>(<span class="st">"doParallel"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"foreach"</span>)) <span class="fu">install.packages</span>(<span class="st">"foreach"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tictoc"</span>)) <span class="fu">install.packages</span>(<span class="st">"tictoc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="simulation-data" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="simulation-data"><span class="header-section-number">19.1</span> simulation data</h2>
+<p>Creating a simulated dataset in R for machine learning practice is an excellent approach to grasp foundational concepts in data science and analytics. The provided example generates a dataset with variables such as gender, education, age, income, working hours, and responses to the PHQ-9 questionnaire. This exercise is particularly beneficial for understanding how to manipulate and prepare data, a critical step in machine learning workflows</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>) <span class="co"># For reproducible results</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="co"># Sample size</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>set.seed(2023)</code>:</p>
+<ul>
+<li>This function sets the seed of R’s random number generator, which is essential for ensuring reproducible results.</li>
+<li>The number 2023 is arbitrary; any integer can be used. The important aspect is that using the same seed number will produce the same sequence of random numbers, which is crucial for replicability in scientific studies or when sharing code with others.</li>
+<li>In machine learning, reproducibility is key for debugging, comparing model performance, and collaborative projects.</li>
+</ul>
+<p><code>n &lt;- 10000</code>:</p>
+<ul>
+<li>This line of code initializes a variable n with the value 10000, which represents the sample size for the dataset you are creating or analyzing.</li>
+<li>The choice of sample size can significantly impact the outcomes of data analysis and machine learning models. A larger sample size can lead to more reliable and stable results, but it also requires more computational resources.</li>
+<li>In the context of your simulated dataset, this means you will be generating data for 10,000 observations or entries.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Gender    =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Education =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"2.Middle"</span>,  <span class="st">"1.High"</span>, <span class="st">"0.Univ"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age       =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">30</span><span class="sc">:</span><span class="dv">70</span>), n, <span class="at">replace=</span><span class="cn">TRUE</span>), </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Income    =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)<span class="sc">*</span><span class="dv">100</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span> ), </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">working_h =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">35</span><span class="sc">:</span><span class="dv">65</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agegp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    Age <span class="sc">&lt;</span><span class="dv">30</span> <span class="sc">~</span> <span class="st">"&lt;30"</span>, </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    Age <span class="sc">&lt;</span><span class="dv">40</span> <span class="sc">~</span> <span class="st">"&lt;40"</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    Age <span class="sc">&lt;</span><span class="dv">50</span> <span class="sc">~</span> <span class="st">"&lt;50"</span>, </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    Age <span class="sc">&lt;</span><span class="dv">60</span> <span class="sc">~</span> <span class="st">"&lt;60"</span>, </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226560"</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">incgp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    Income <span class="sc">&lt;</span> <span class="dv">300</span> <span class="sc">~</span> <span class="st">"&lt;300"</span>, </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    Income <span class="sc">&lt;</span> <span class="dv">500</span> <span class="sc">~</span> <span class="st">"&lt;500"</span>, </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    Income <span class="sc">&lt;</span> <span class="dv">700</span> <span class="sc">~</span> <span class="st">"&lt;700"</span>, </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u2265700"</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">whgp =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    working_h <span class="sc">&lt;</span> <span class="dv">45</span> <span class="sc">~</span> <span class="st">"&lt;45"</span>, </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    working_h <span class="sc">&lt;</span> <span class="dv">55</span> <span class="sc">~</span> <span class="st">"&lt;55"</span>, </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"\u226555"</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(.,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">replicate</span>(<span class="dv">9</span>, <span class="fu">integer</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>          <span class="fu">data.frame</span>(.) <span class="sc">%&gt;%</span> <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"Q"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>))</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Following code performs a series of conditional transformations on the PHQ-9 questionnaire responses, based on demographic and personal characteristics like gender, age, education, and working hours. Gender-Based Transformation: Modifies PHQ-9 responses (Q columns) with gender-specific probability distributions. Age-Based Adjustment: Adjusts Q responses according to age groups using varied probabilities. Education-Based Adjustment: Alters Q responses based on education levels with different probabilities. Working Hours Adjustment: Changes Q responses according to working hours, using distinct probability distributions. Final Adjustment of Q Responses: Maintains zero responses; others are reduced based on probability.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mm<span class="ot">=</span> mm <span class="sc">%&gt;%</span> <span class="fu">tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"Q"</span>), </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns  =</span> <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>      Gender <span class="sc">==</span> <span class="st">"Male"</span> <span class="sc">~</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.8</span>,  <span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.05</span>)), </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>             <span class="sc">~</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.7</span>,  <span class="fl">0.15</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"Q"</span>), </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns  =</span> <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      Age <span class="sc">&lt;</span><span class="dv">30</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.90</span>,  <span class="fl">0.1</span>)),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      Age <span class="sc">&lt;</span><span class="dv">40</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>,  <span class="fl">0.15</span>)), </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      Age <span class="sc">&lt;</span><span class="dv">50</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.80</span>,  <span class="fl">0.2</span>)), </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>      Age <span class="sc">&lt;</span><span class="dv">60</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.60</span>,  <span class="fl">0.4</span>)), </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>    <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.40</span>,  <span class="fl">0.6</span>))</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  ))) <span class="sc">%&gt;%</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"Q"</span>), </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns  =</span> <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>      Education <span class="sc">==</span> <span class="st">"0.Univ"</span>   <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.95</span>,  <span class="fl">0.05</span>)),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>      Education <span class="sc">==</span> <span class="st">"1.High"</span>   <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.90</span>,  <span class="fl">0.1</span>)),</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>      Education <span class="sc">==</span> <span class="st">"2.Middle"</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.85</span>,  <span class="fl">0.15</span>)),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"Q"</span>), </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns  =</span> <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>      working_h <span class="sc">&lt;</span><span class="dv">45</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, <span class="fl">0.05</span>)), </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>      working_h <span class="sc">&lt;</span><span class="dv">55</span> <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.90</span>, <span class="fl">0.1</span>)), </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>          <span class="sc">~</span> . <span class="sc">+</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.70</span>, <span class="fl">0.3</span>))</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"Q"</span>), </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns  =</span> <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>      . <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>, </span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>   <span class="sc">~</span> . <span class="sc">-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="fu">length</span>(.), <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">phqsum =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"Q"</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">phq_level =</span><span class="fu">case_when</span>(</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    phqsum <span class="sc">&lt;=</span> <span class="dv">4</span>  <span class="sc">~</span> <span class="st">"0.None"</span>,</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    phqsum <span class="sc">&lt;=</span> <span class="dv">9</span>  <span class="sc">~</span> <span class="st">"1.Mild"</span>, </span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    phqsum <span class="sc">&lt;=</span> <span class="dv">14</span> <span class="sc">~</span> <span class="st">"2.Moderate"</span>, </span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    phqsum <span class="sc">&lt;=</span> <span class="dv">19</span> <span class="sc">~</span> <span class="st">"3.Moderate Severe"</span>, </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>         <span class="sc">~</span> <span class="st">"4.Severe"</span>, </span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">depressive =</span> <span class="fu">ifelse</span>(phqsum <span class="sc">&gt;=</span><span class="dv">10</span>, <span class="st">"Depressive"</span>, <span class="st">"None"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prediction-of-continus-outcome" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="prediction-of-continus-outcome"><span class="header-section-number">19.2</span> prediction of continus outcome</h2>
+<section id="train-vs-test" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="train-vs-test"><span class="header-section-number">19.2.1</span> train vs test</h3>
+<p><strong>Training Set</strong></p>
+<ul>
+<li><p>Purpose: The training set is used to train or fit the machine learning model. This means the model learns the patterns, relationships, or features from this subset of the dataset.</p></li>
+<li><p>Size: Typically, a larger portion of the dataset is allocated to training (commonly 70-80%) because the model’s performance largely depends on the amount and quality of data it learns from.</p></li>
+<li><p>Usage: During training, the model makes predictions or classifications based on the input features and adjusts its internal parameters (in case of algorithms like neural networks) or criteria (like in decision trees) to reduce errors, based on a pre-defined loss function.</p></li>
+</ul>
+<p><strong>Testing Set</strong></p>
+<ul>
+<li><p>Purpose: The testing set is used to evaluate the performance and generalizability of the trained model. It acts as new, unseen data for the model.</p></li>
+<li><p>Size: A smaller portion of the dataset (usually 20-30%) is reserved for testing. The key is to have enough data to confidently assess the model’s performance but not so much that it compromises the training set size.</p></li>
+<li><p>Usage: The model, after being trained, is used to make predictions on the testing set. These predictions are then compared against the actual outcomes (labels) in the testing set to evaluate metrics like accuracy, precision, recall, F1-score, etc., depending on the problem type (classification or regression).</p></li>
+</ul>
+<p><strong>Importance of Splitting</strong></p>
+<ul>
+<li><p>Overfitting Prevention: By having a separate testing set, you can ensure that your model hasn’t just memorized the training data but can generalize well to new data. Overfitting occurs when a model performs exceptionally well on the training data but poorly on new, unseen data.</p></li>
+<li><p>Model Evaluation: The testing set provides a realistic assessment of the model’s performance in real-world scenarios.</p></li>
+<li><p>Bias Reduction: Separating data into training and testing sets helps in reducing bias. It ensures that the model is evaluated on a different set of data than it was trained on.</p></li>
+</ul>
+<p><strong>Techniques</strong></p>
+<ul>
+<li><p>Random Splitting: As seen in your code, datasets are often randomly split into training and testing sets.</p></li>
+<li><p>Stratified Splitting: In scenarios where the dataset is imbalanced (e.g., one class is significantly underrepresented), stratified sampling ensures that the train and test sets have approximately the same percentage of samples of each target class as the original dataset.</p></li>
+<li><p>Cross-Validation: Beyond simple train-test splits, cross-validation techniques like k-fold cross-validation are used for a more robust evaluation, where the dataset is divided into ‘k’ subsets, and the model is trained and evaluated ‘k’ times, each time with a different subset as the testing set.</p></li>
+</ul>
+<hr>
+<p>Now, following code focusing on the crucial step of splitting the dataset into training and testing subsets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mm1 <span class="ot">=</span> mm <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(phqsum, Gender, Education, Age, Income, working_h)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>trainingIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(mm1<span class="sc">$</span>phqsum, <span class="at">p =</span> .<span class="dv">8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> mm1[<span class="sc">+</span>trainingIndex, ]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>test_data  <span class="ot">&lt;-</span> mm1[<span class="sc">-</span>trainingIndex, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Importing the caret Package:</strong></p>
+<ul>
+<li>The caret package, a comprehensive framework for building machine learning models in R, is loaded.</li>
+</ul>
+<p><strong>Setting a Seed for Reproducibility:</strong></p>
+<ul>
+<li>set.seed(2023) ensures that the random processes can be replicated.</li>
+</ul>
+<p><strong>Data Preparation:</strong></p>
+<ul>
+<li>mm1 is created by selecting specific columns from the mm dataset. These columns include the PHQ-9 sum (phqsum) and other demographic variables.</li>
+</ul>
+<p><strong>Splitting the Dataset:</strong></p>
+<ul>
+<li>createDataPartition: This function from the caret package is used to create indices for splitting the dataset. It divides the data into training (80%) and testing (20%) sets based on the phqsum column.</li>
+<li>trainingIndex: Stores the indices of rows for the training set. train_data and test_data: The original dataset mm1 is split into training and testing subsets using these indices.</li>
+</ul>
+<hr>
+</section>
+<section id="linear-regression" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">19.2.2</span> linear regression</h3>
+<p><strong>Model Creation with lm():</strong></p>
+<ul>
+<li>lm(data=., formula = phqsum ~ .): This line of code specifies the linear regression model. The lm() function is used for fitting linear models.</li>
+<li>data=.: The dot (.) indicates that the data for the model will be the current dataset in the pipeline, which in this case is train_data.</li>
+<li>formula = phqsum ~ .: This formula specifies that phqsum is the dependent variable (the variable being predicted), and the tilde (~) followed by a dot means that all other columns in train_data are used as independent variables (predictors).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> train_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">data=</span>., </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">formula =</span>  phqsum <span class="sc">~</span> . )</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = phqsum ~ ., data = .)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-8.922 -2.243 -0.246  2.024 14.358 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       -2.1405458  0.2658471  -8.052 9.34e-16 ***
+GenderMale        -1.2060166  0.0703062 -17.154  &lt; 2e-16 ***
+Education1.High    0.4247050  0.0860791   4.934 8.22e-07 ***
+Education2.Middle  0.8875284  0.0864575  10.265  &lt; 2e-16 ***
+Age                0.1144818  0.0029737  38.498  &lt; 2e-16 ***
+Income             0.0002444  0.0001221   2.002   0.0454 *  
+working_h          0.0904169  0.0039128  23.108  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.143 on 7995 degrees of freedom
+Multiple R-squared:  0.2317,    Adjusted R-squared:  0.2312 
+F-statistic: 401.9 on 6 and 7995 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<hr>
+<blockquote class="blockquote">
+<p>step 3</p>
+</blockquote>
+<p>After fitting a linear regression model to the training data, the next crucial step in supervised machine learning is to evaluate the model’s performance. This is typically done by making predictions on a separate test dataset and then calculating error metrics. Here’s how the provided R code snippet accomplishes this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>predict(model, test_data): This function is used to make predictions using the model (linear regression model) that you’ve trained. It applies the model to the test_data to forecast the outcomes.</li>
+<li>predictions: The output of the predict function, which contains the predicted values of the dependent variable (phqsum) for each observation in the test dataset.</li>
+</ul>
+<p><strong>Calculating Error Meatrix</strong></p>
+<ul>
+<li>Mean Squared Error (MSE):
+<ul>
+<li>mse[[“linear”]]: MSE is a measure of the average squared difference between the actual and predicted values. It’s calculated by taking the mean of the squared differences (predictions - test_data$phqsum)^2.</li>
+<li>A lower MSE indicates a better fit of the model to the data.</li>
+</ul></li>
+<li>Root Mean Squared Error (RMSE):
+<ul>
+<li>rmse[[“linear”]]: RMSE is the square root of the MSE. It’s a popular metric because it scales the error to be more interpretable, as it’s in the same units as the dependent variable.</li>
+<li>Like MSE, a lower RMSE signifies a better model fit.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mse <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rmse<span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>mse[[<span class="st">"linear"</span>]] <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions <span class="sc">-</span> test_data<span class="sc">$</span>phqsum)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>rmse[[<span class="st">"linear"</span>]] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(mse[[<span class="st">"linear"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$linear
+[1] 9.967748</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rmse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$linear
+[1] 3.157174</code></pre>
+</div>
+</div>
+</section>
+<section id="random-forest" class="level3" data-number="19.2.3">
+<h3 data-number="19.2.3" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">19.2.3</span> random forest</h3>
+<p>Random Forest is a powerful machine learning method that utilizes multiple decision trees to make predictions. It’s particularly useful for handling large datasets with complex structures. This chapter will guide you through the process of implementing a Random Forest model in R, evaluating its performance, and comparing it with other models.</p>
+<p><strong>What is Random Forest?</strong></p>
+<ul>
+<li><p>Ensemble Learning Method: Random Forest is an ensemble learning technique. Ensemble methods use multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone.</p></li>
+<li><p>Based on Decision Trees: Specifically, Random Forest builds numerous decision trees and merges them together to get a more accurate and stable prediction. Each tree in a Random Forest is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set.</p></li>
+<li><p>Handling Overfitting: One of the biggest problems in machine learning is overfitting, but most of the time, this won’t happen thanks to the way Random Forest combines the trees. By averaging or combining the results of different trees, it reduces the risk of overfitting.</p></li>
+</ul>
+<p><strong>How Does Random Forest Work?</strong></p>
+<ul>
+<li><p>Random Selection of Features: When building each tree, Random Forest randomly selects a subset of the features at each split in the decision tree. This adds an additional layer of randomness to the model, compared to a single decision tree.</p></li>
+<li><p>Creating Multiple Trees: It creates a forest of trees where each tree is slightly different from the others. When it’s time to make a prediction, the Random Forest takes an average of all the individual decision tree estimates.</p></li>
+<li><p>Advantages: This process of averaging or combining the results helps to improve accuracy and control overfitting. Random Forest can handle both regression and classification tasks and works well with both categorical and continuous variables.</p></li>
+<li><p>Handling Missing Values: Random Forest can also handle missing values by imputing them.</p></li>
+<li><p>Variable Importance: It provides a straightforward indicator of the importance of each feature in the prediction.</p></li>
+</ul>
+<p><strong>Setting Up for Parallel Computing</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Register the parallel backend</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>numCores <span class="ot">&lt;-</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(<span class="at">cores =</span> numCores <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Parallel Computing: To speed up the computation, especially for complex models like Random Forest, we use parallel processing.</li>
+<li>parallel::detectCores(): Detects the number of CPU cores in your machine.</li>
+<li>registerDoParallel(cores = numCores - 1): Registers the number of cores to be used for parallel processing. We leave one core free for other tasks.</li>
+</ul>
+<p><strong>Configuring the Training Process</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"repeatedcv"</span>, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">number =</span> <span class="dv">10</span>, </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">repeats =</span> <span class="dv">3</span>, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">allowParallel =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Repeated Cross-Validation:</strong> A Closer Look at 10-Fold Cross-Validation In machine learning, cross-validation is a technique used to assess how the results of a statistical analysis will generalize to an independent data set. It is mainly used to predict the fit of a model to a hypothetical validation set when an explicit validation set is not available.</p>
+<p><strong>What is 10-Fold Cross-Validation?</strong></p>
+<ul>
+<li><p>Definition: 10-fold cross-validation is a method where the data set is randomly divided into 10 subsets (or ‘folds’). Each subset contains roughly the same proportion of the sample.</p></li>
+<li><p>Process:</p>
+<ul>
+<li>In each round of validation, one of the 10 subsets is used as the validation set (to test the model), and the other nine subsets are combined to form the training set (to train the model).</li>
+<li>This process is repeated 10 times, each time with a different subset serving as the validation set.</li>
+<li>The results from the 10 folds can then be averaged (or otherwise combined) to produce a single estimation.</li>
+</ul></li>
+</ul>
+<p><strong>Why Use 10-Fold Cross-Validation?</strong></p>
+<ul>
+<li>Bias Reduction: By using different subsets as the validation set at different times, 10-fold cross-validation reduces the bias associated with the random selection of a single train-test split.</li>
+<li>Variance Insight: This method provides insight into how the model’s prediction might vary with respect to the data used for training. It offers a more comprehensive view of the model’s performance.</li>
+<li>Generalization: The averaged result is a better estimate of how the model will perform on an independent dataset.</li>
+</ul>
+<p><strong>Repeated Cross-Validation</strong></p>
+<ul>
+<li>In your specific case, this process is repeated 3 times. This repetition means the entire process of 10-fold cross-validation is conducted three times, each time with a different random division of the original dataset into 10 folds.</li>
+<li>This repetition helps to further mitigate variability in the estimation of model performance, leading to a more robust understanding of how well your model is likely to perform on unseen data.</li>
+</ul>
+<p>10-fold cross-validation is a reliable method for assessing model performance. By using it repeatedly, you substantially increase the robustness and reliability of your model assessment, ensuring that your model not only fits your current data well but also holds up well against new, unseen data.</p>
+<p><strong>Training the Random Forest Model</strong></p>
+<ul>
+<li><p>Model Formula: phqsum ~ . indicates that phqsum is predicted using all other variables in train_data.</p></li>
+<li><p>In the context of your R code for training a machine learning model, method = “rf” specifies the use of a Random Forest algorithm.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model_rf <span class="ot">&lt;-</span> <span class="fu">train</span>(phqsum <span class="sc">~</span> ., <span class="at">data =</span> train_data, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"rf"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">trControl =</span> train_control)  </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Evaluating Random Forest Model Performance: Predictions and Error Metrics</strong></p>
+<p>After training a Random Forest model (model_rf) on your training data (train_data), it’s essential to evaluate its performance. This evaluation is done by making predictions on a separate test dataset and calculating error metrics like Mean Squared Error (MSE) and Root Mean Squared Error (RMSE).</p>
+<p><strong>Making Predictions on the Test Set</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>predictions_rf <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rf, test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>predict(model_rf, test_data): This function uses the trained Random Forest model (model_rf) to predict outcomes based on the test_data.</li>
+<li>predictions_rf: The result of the predict function, which contains the predicted values for the dependent variable (phqsum) for each observation in the test dataset.</li>
+</ul>
+<p><strong>Calculating MSE and RMSE</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MSE and RMSE</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>mse[[<span class="st">"rf"</span>]] <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions_rf <span class="sc">-</span> test_data<span class="sc">$</span>phqsum)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>rmse[[<span class="st">"rf"</span>]] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(mse[[<span class="st">"rf"</span>]])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>mse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$linear
+[1] 9.967748
+
+$rf
+[1] 9.878868</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>rmse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$linear
+[1] 3.157174
+
+$rf
+[1] 3.143067</code></pre>
+</div>
+</div>
+</section>
+<section id="generalized-additive-model" class="level3" data-number="19.2.4">
+<h3 data-number="19.2.4" class="anchored" data-anchor-id="generalized-additive-model"><span class="header-section-number">19.2.4</span> generalized additive model</h3>
+<p>Generalized Additive Models (GAMs) are a flexible class of models used in statistics and machine learning. They extend linear models by allowing non-linear functions of the predictor variables while maintaining interpretability</p>
+<p><strong>Setting Up the Environment</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"mgcv"</span>)) <span class="fu">install.packages</span>(<span class="st">"mgcv"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(train_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "phqsum"    "Gender"    "Education" "Age"       "Income"    "working_h"</code></pre>
+</div>
+</div>
+<p><strong>Training the GAM</strong></p>
+<ul>
+<li>gam Function: This function from the mgcv package is used to fit a GAM.</li>
+<li>Model Formula: phqsum ~ s(Age) + Gender + Education + s(Income) + s(working_h) specifies the model’s structure.</li>
+<li>s(): Indicates a smooth term, allowing for a non-linear relationship between the predictor and the outcome.</li>
+<li>Other variables (Gender, Education) are included as linear predictors.</li>
+<li>Data: The data=. syntax indicates that the model uses the train_data dataset.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>model_gam <span class="ot">=</span> train_data <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gam</span>(<span class="at">data=</span>., </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>      phqsum <span class="sc">~</span> <span class="fu">s</span>(Age) <span class="sc">+</span> Gender <span class="sc">+</span> Education <span class="sc">+</span> <span class="fu">s</span>(Income) <span class="sc">+</span> <span class="fu">s</span>(working_h))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Making Predictions and Evaluating Performance</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>predictions_gam <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_gam, <span class="at">newdata=</span>test_data)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>mse[[<span class="st">"gam"</span>]] <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions_gam <span class="sc">-</span> test_data<span class="sc">$</span>phqsum)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>rmse[[<span class="st">"gam"</span>]] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(mse[[<span class="st">"gam"</span>]])</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>mse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$linear
+[1] 9.967748
+
+$rf
+[1] 9.878868
+
+$gam
+[1] 9.66441</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rmse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$linear
+[1] 3.157174
+
+$rf
+[1] 3.143067
+
+$gam
+[1] 3.108763</code></pre>
+</div>
+</div>
+</section>
+<section id="ridge-and-lasso-regression" class="level3" data-number="19.2.5">
+<h3 data-number="19.2.5" class="anchored" data-anchor-id="ridge-and-lasso-regression"><span class="header-section-number">19.2.5</span> Ridge and Lasso Regression</h3>
+<p>Ridge and Lasso regression are two widely used regularization techniques in machine learning and statistics. They are particularly useful when dealing with multicollinearity or when you have more features than observations. Both methods modify the least squares objective function by adding a penalty term, which helps in controlling overfitting.</p>
+<p>Setting Up the Environment and Preparing Data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"glmnet"</span>)) <span class="fu">install.packages</span>(<span class="st">"glmnet"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>glmnet Package: This package is essential for fitting generalized linear models via penalized maximum likelihood. It’s installed and loaded for use.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert categorical variables to dummy variables</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>train_data_matrix <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(phqsum <span class="sc">~</span> ., <span class="at">data =</span> train_data)[, <span class="sc">-</span><span class="dv">1</span>]  <span class="co"># Exclude intercept column</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>test_data_matrix <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(phqsum <span class="sc">~</span> ., <span class="at">data =</span> test_data)[, <span class="sc">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Data Preparation: The model.matrix function converts categorical variables into dummy/indicator variables for regression analysis. The intercept column is excluded.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the response variable</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> train_data<span class="sc">$</span>phqsum</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">&lt;-</span> test_data<span class="sc">$</span>phqsum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Response Variable: The dependent variable (phqsum) is extracted from both training and testing datasets.</li>
+</ul>
+<p><strong>Fitting Ridge and Lasso Regression Models</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ridge Regression</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model_ridge <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(train_data_matrix, y_train, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lasso Regression</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>model_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(train_data_matrix, y_train, <span class="at">alpha =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Ridge Regression (alpha = 0)</strong>: Adds a penalty equal to the square of the magnitude of coefficients.</li>
+<li><strong>Lasso Regression (alpha = 1)</strong>: Adds a penalty equal to the absolute value of the magnitude of coefficients.</li>
+</ul>
+<p><strong>Selecting the Best Lambda (Penalty Parameter)</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>cv_ridge <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(train_data_matrix, y_train, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>cv_lasso <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(train_data_matrix, y_train, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>best_lambda_ridge <span class="ot">&lt;-</span> cv_ridge<span class="sc">$</span>lambda.min</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>best_lambda_lasso <span class="ot">&lt;-</span> cv_lasso<span class="sc">$</span>lambda.min</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Cross-Validation: Determines the best lambda (penalty parameter) for each model. cv.glmnet: Performs cross-validation for glmnet models.</li>
+</ul>
+<p><strong>Making Predictions and Evaluating Models</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predictions</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>predictions_ridge <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_ridge, <span class="at">s =</span> best_lambda_ridge, <span class="at">newx =</span> test_data_matrix)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>predictions_lasso <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_lasso, <span class="at">s =</span> best_lambda_lasso, <span class="at">newx =</span> test_data_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Choosing Between Ridge and Lasso</strong></p>
+<ul>
+<li>Predictive Performance: The choice often depends on the dataset and the problem at hand. It’s common to try both and compare their performance.</li>
+<li>Cross-Validation: Using cross-validation to find the optimal λ is crucial in both methods. This helps in balancing the trade-off between bias and variance.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluation</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>mse[[<span class="st">"ridge"</span>]] <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions_ridge <span class="sc">-</span> y_test)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>rmse[[<span class="st">"ridge"</span>]] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(mse[[<span class="st">"ridge"</span>]])</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>mse[[<span class="st">"lasso"</span>]] <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions_lasso <span class="sc">-</span> y_test)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>rmse[[<span class="st">"lasso"</span>]] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(mse[[<span class="st">"lasso"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do.call</span>(cbind, <span class="fu">list</span>(mse, rmse)) <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"mse"</span>, <span class="st">"rmse"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            mse     rmse
+linear 9.967748 3.157174
+rf     9.878868 3.143067
+gam     9.66441 3.108763
+ridge  9.974757 3.158284
+lasso  9.966269  3.15694</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="classification" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="classification"><span class="header-section-number">19.3</span> classification</h2>
+<section id="logistic-regression" class="level3" data-number="19.3.1">
+<h3 data-number="19.3.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">19.3.1</span> logistic regression</h3>
+<blockquote class="blockquote">
+<p>Step 1: Load Libraries and Set Seed</p>
+</blockquote>
+<p>In this step, we start by loading the caret library, which provides functions for training and evaluating machine learning models. We also set a random seed to ensure that our results are reproducible.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a random seed for reproducibility</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>Step 2: Data Preparation</p>
+</blockquote>
+<p>In this step, we prepare our data. We select the relevant variables from the dataset, including the target variable depressive. Then, we split the data into a training set (train_data) and a testing set (test_data) using the createDataPartition function. This ensures that we have a separate dataset for model training and evaluation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant variables, including the target variable</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>mm1 <span class="ot">&lt;-</span> mm <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(depressive, Gender, Education, Age, Income, working_h)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>trainingIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(mm1<span class="sc">$</span>depressive, <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> mm1[<span class="sc">+</span>trainingIndex, ]</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>test_data  <span class="ot">&lt;-</span> mm1[<span class="sc">-</span>trainingIndex, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>Step 3: Model Training - Logistic Regression</p>
+</blockquote>
+<p>Here, we train a logistic regression model using the glm function. This model is used to predict whether a person is “Depressive” or “None” based on the predictor variables (Gender, Education, Age, Income, and working_h). The logistic regression model estimates the probabilities of each class.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a logistic regression model</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>model_logistic <span class="ot">&lt;-</span> train_data <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">data=</span>., <span class="at">family=</span><span class="fu">binomial</span>(), </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">formula =</span> depressive <span class="sc">==</span> <span class="st">"Depressive"</span> <span class="sc">~</span> .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>Step 4: Model Evaluation</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>predictions_logistic_prob <span class="ot">=</span> <span class="fu">predict</span>(model_logistic, <span class="at">newdata =</span> test_data, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>predictions_logistic      <span class="ot">=</span> <span class="fu">ifelse</span>(predictions_logistic_prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="st">"Depressive"</span>, <span class="st">"None"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate and store balanced accuracy</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>smry_logi <span class="ot">=</span> <span class="fu">confusionMatrix</span>(predictions_logistic <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>(), </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>                test_data<span class="sc">$</span>depressive <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>())</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>bacu <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>bacu[[<span class="st">"logistic"</span>]] <span class="ot">&lt;-</span> smry_logi<span class="sc">$</span>byClass[[<span class="st">"Balanced Accuracy"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this final step, we evaluate the performance of our logistic regression model:</p>
+<p>We make predictions using the trained model (model_logistic) and obtain predicted probabilities (predictions_logistic_prob) and binary class predictions (predictions_logistic) based on a threshold of 0.5. We calculate a confusion matrix (smry_logi) to assess the model’s classification performance. Finally, we store the balanced accuracy of the logistic regression model in a list called bacu under the key “logistic.” The balanced accuracy measures how well the model performs in terms of sensitivity and specificity while accounting for class imbalance in the dataset.</p>
+</section>
+<section id="random-forest-1" class="level3" data-number="19.3.2">
+<h3 data-number="19.3.2" class="anchored" data-anchor-id="random-forest-1"><span class="header-section-number">19.3.2</span> random forest</h3>
+<p><strong>Step 1: Register the Parallel Backend</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Register the parallel backend to speed up computations</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>numCores <span class="ot">&lt;-</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>()</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(<span class="at">cores =</span> numCores <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this step, we configure parallel processing to utilize multiple CPU cores for faster model training. The number of available CPU cores is detected using detectCores, and one core is reserved for other system tasks. The registerDoParallel function is used to set up parallel processing.</p>
+<p><strong>Step 2: Define Control Parameters for Training</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define control parameters for the training process</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>train_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"repeatedcv"</span>, </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">number =</span> <span class="dv">10</span>, </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">repeats =</span> <span class="dv">3</span>, </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">classProbs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">allowParallel =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Here, we define control parameters that guide the training process of the Random Forest model:
+<ul>
+<li>method is set to “repeatedcv,” indicating repeated cross-validation as the resampling method.</li>
+<li>number is set to 10, indicating the number of cross-validation folds. repeats is set to 3, indicating the number of times the cross-validation process is repeated.</li>
+<li>classProbs is set to TRUE, allowing the model to calculate class probabilities.</li>
+<li>allowParallel is set to TRUE, enabling parallel processing for cross-validation.</li>
+</ul></li>
+</ul>
+<p><strong>Step 3: Train the Random Forest Model</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the Random Forest model</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()  <span class="co"># Start measuring time</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>model_rf_class <span class="ot">&lt;-</span> <span class="fu">train</span>(depressive <span class="sc">~</span> ., <span class="at">data =</span> train_data, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">"rf"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">trControl =</span> train_control)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()  <span class="co"># Stop measuring time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>In this step, we train the Random Forest classification model:
+<ul>
+<li>depressive ~ . specifies that we want to predict the depressive variable based on all other variables in the train_data dataset.</li>
+<li>method is set to “rf” to specify the Random Forest algorithm.</li>
+<li>trControl is set to the previously defined control parameters (train_control) to govern the training process.</li>
+</ul></li>
+</ul>
+<p>We use tic() and toc() to measure the time taken for model training.</p>
+<p><strong>Step 4: Make Predictions and Evaluate the Model</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions using the trained model</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>prediction_rf_class <span class="ot">=</span> <span class="fu">predict</span>(model_rf_class, <span class="at">newdata =</span> test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the confusion matrix and balanced accuracy</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>smry_rf <span class="ot">=</span> <span class="fu">confusionMatrix</span>(prediction_rf_class <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>(), </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                         test_data<span class="sc">$</span>depressive <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>())</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the balanced accuracy in the 'bacu' list</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>bacu[[<span class="st">"rf"</span>]] <span class="ot">=</span> smry_rf<span class="sc">$</span>byClass[[<span class="st">"Balanced Accuracy"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Make predictions on the test dataset using the trained Random Forest model. Calculate a confusion matrix (smry_rf) to evaluate the classification performance. Extract the balanced accuracy from the confusion matrix and store it in the bacu list under the key “rf.”</p>
+</section>
+<section id="gradient-boosting-machine-gbm-classification" class="level3" data-number="19.3.3">
+<h3 data-number="19.3.3" class="anchored" data-anchor-id="gradient-boosting-machine-gbm-classification"><span class="header-section-number">19.3.3</span> Gradient Boosting Machine (GBM) classification</h3>
+<div class="cell" data-hash="720_Supervised_01_cache/html/unnamed-chunk-40_53916caf7e775756053abacade63d083">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"gbm"</span>)) <span class="fu">install.packages</span>(<span class="st">"gbm"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>model_gbm_class <span class="ot">&lt;-</span> <span class="fu">train</span>(depressive <span class="sc">~</span> ., <span class="at">data =</span> train_data, </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">"gbm"</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">trControl =</span> train_control)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Iter   TrainDeviance   ValidDeviance   StepSize   Improve
+     1        1.2461            -nan     0.1000    0.0073
+     2        1.2340            -nan     0.1000    0.0058
+     3        1.2229            -nan     0.1000    0.0055
+     4        1.2136            -nan     0.1000    0.0044
+     5        1.2066            -nan     0.1000    0.0034
+     6        1.2002            -nan     0.1000    0.0030
+     7        1.1939            -nan     0.1000    0.0029
+     8        1.1889            -nan     0.1000    0.0023
+     9        1.1834            -nan     0.1000    0.0024
+    10        1.1793            -nan     0.1000    0.0018
+    20        1.1475            -nan     0.1000    0.0013
+    40        1.1201            -nan     0.1000    0.0002
+    60        1.1098            -nan     0.1000    0.0001
+    80        1.1054            -nan     0.1000   -0.0000
+   100        1.1033            -nan     0.1000   -0.0000
+   120        1.1021            -nan     0.1000   -0.0000
+   140        1.1011            -nan     0.1000   -0.0001
+   150        1.1007            -nan     0.1000   -0.0001</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.624 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>prediction_gbm_class <span class="ot">=</span> <span class="fu">predict</span>(model_gbm_class, <span class="at">newdata =</span> test_data)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>smry_gbm <span class="ot">=</span> <span class="fu">confusionMatrix</span>(prediction_gbm_class <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>(), </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                          test_data<span class="sc">$</span>depressive <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>())</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>bacu[[<span class="st">"gbm"</span>]] <span class="ot">=</span> smry_gbm<span class="sc">$</span>byClass[[<span class="st">"Balanced Accuracy"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="svmradial" class="level3" data-number="19.3.4">
+<h3 data-number="19.3.4" class="anchored" data-anchor-id="svmradial"><span class="header-section-number">19.3.4</span> svmRadial</h3>
+<div class="cell" data-hash="720_Supervised_01_cache/html/unnamed-chunk-41_da471b3dd4e8716633ccb3a5bd5c8577">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"kernlab"</span>)) <span class="fu">install.packages</span>(<span class="st">"kernlab"</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>model_svmRadial_class <span class="ot">&lt;-</span> <span class="fu">train</span>(depressive <span class="sc">~</span> ., <span class="at">data =</span> train_data, </span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">method =</span> <span class="st">"svmRadial"</span>,</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">trControl =</span> train_control)  </span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>24.292 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>prediction_svmRadial_class <span class="ot">=</span> <span class="fu">predict</span>(model_svmRadial_class, <span class="at">newdata =</span> test_data)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>smry_svmRadial <span class="ot">=</span> <span class="fu">confusionMatrix</span>(prediction_svmRadial_class <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>(), </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                           test_data<span class="sc">$</span>depressive <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>())</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>bacu[[<span class="st">"svmRadial"</span>]] <span class="ot">=</span> smry_svmRadial<span class="sc">$</span>byClass[[<span class="st">"Balanced Accuracy"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="knn" class="level3" data-number="19.3.5">
+<h3 data-number="19.3.5" class="anchored" data-anchor-id="knn"><span class="header-section-number">19.3.5</span> knn</h3>
+<div class="cell" data-hash="720_Supervised_01_cache/html/unnamed-chunk-42_f00412a3e1f22e43e3be82d19433d808">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"rpart"</span>)) <span class="fu">install.packages</span>(<span class="st">"rpart"</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>model_tree_class <span class="ot">&lt;-</span> <span class="fu">train</span>(depressive <span class="sc">~</span> ., <span class="at">data =</span> train_data, </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">method =</span> <span class="st">"rpart"</span>,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">trControl =</span> train_control)  </span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.823 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>prediction_tree_class <span class="ot">=</span> <span class="fu">predict</span>(model_tree_class, <span class="at">newdata =</span> test_data)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>smry_tree <span class="ot">=</span> <span class="fu">confusionMatrix</span>(prediction_tree_class <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>(), </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                                 test_data<span class="sc">$</span>depressive <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>())</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>bacu[[<span class="st">"tree"</span>]] <span class="ot">=</span> smry_tree<span class="sc">$</span>byClass[[<span class="st">"Balanced Accuracy"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="final-model-comparision" class="level3" data-number="19.3.6">
+<h3 data-number="19.3.6" class="anchored" data-anchor-id="final-model-comparision"><span class="header-section-number">19.3.6</span> final model comparision</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>bacu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$logistic
+[1] 0.6275994
+
+$rf
+[1] 0.6238929
+
+$gbm
+[1] 0.6374802
+
+$svmRadial
+[1] 0.597726
+
+$tree
+[1] 0.6180259</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./710_GenAI_01.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">생성형 AI 사용</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./815_rmarkdown02.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R markdown</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

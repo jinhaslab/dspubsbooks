@@ -1,0 +1,677 @@
+# 지도학습
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+#
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("dslabs")) install.packages("dslabs")
+if(!require("caret")) install.packages("caret")
+if(!require("purrr")) install.packages("purrr")
+if(!require("randomForest")) install.packages("randomForest")
+if(!require("doParallel")) install.packages("doParallel")
+if(!require("foreach")) install.packages("foreach")
+if(!require("tictoc")) install.packages("tictoc")
+
+```
+
+## simulation data
+
+  Creating a simulated dataset in R for machine learning practice is an excellent approach to grasp foundational concepts in data science and analytics. The provided example generates a dataset with variables such as gender, education, age, income, working hours, and responses to the PHQ-9 questionnaire. This exercise is particularly beneficial for understanding how to manipulate and prepare data, a critical step in machine learning workflows
+
+```{r}
+set.seed(2023) # For reproducible results
+n <- 10000 # Sample size
+```
+
+`set.seed(2023)`:
+
+* This function sets the seed of R's random number generator, which is essential for ensuring reproducible results.
+* The number 2023 is arbitrary; any integer can be used. The important aspect is that using the same seed number will produce the same sequence of random numbers, which is crucial for replicability in scientific studies or when sharing code with others.
+* In machine learning, reproducibility is key for debugging, comparing model performance, and collaborative projects.
+
+`n <- 10000`:
+
+* This line of code initializes a variable n with the value 10000, which represents  the sample size for the dataset you are creating or analyzing.
+* The choice of sample size can significantly impact the outcomes of data analysis and machine learning models. A larger sample size can lead to more reliable and stable results, but it also requires more computational resources.
+* In the context of your simulated dataset, this means you will be generating data for 10,000 observations or entries.
+ 
+
+```{r}
+mm <- tibble(
+  Gender    = sample(c("Male", "Female"), n, replace = TRUE), 
+  Education = sample(c("2.Middle",  "1.High", "0.Univ"), n, replace = TRUE), 
+  Age       = sample(c(30:70), n, replace=TRUE), 
+  Income    = sample(c(1:10)*100, n, replace = TRUE ), 
+  working_h = sample(c(35:65), n, replace = TRUE),
+) %>% 
+  mutate(agegp = case_when(
+    Age <30 ~ "<30", 
+    Age <40 ~ "<40", 
+    Age <50 ~ "<50", 
+    Age <60 ~ "<60", 
+    TRUE ~ "\u226560" 
+  )) %>%
+  mutate(incgp = case_when(
+    Income < 300 ~ "<300", 
+    Income < 500 ~ "<500", 
+    Income < 700 ~ "<700", 
+    TRUE ~ "\u2265700"
+  )) %>%
+  mutate(whgp = case_when(
+    working_h < 45 ~ "<45", 
+    working_h < 55 ~ "<55", 
+    TRUE ~ "\u226555"
+  )) %>%
+  cbind(.,
+        replicate(9, integer(n)) %>%
+          data.frame(.) %>% setNames(paste0("Q", 1:9))
+)
+```
+
+Following code performs a series of conditional transformations on the PHQ-9 questionnaire responses, based on demographic and personal characteristics like gender, age, education, and working hours. Gender-Based Transformation: Modifies PHQ-9 responses (Q columns) with gender-specific probability distributions. Age-Based Adjustment: Adjusts Q responses according to age groups using varied probabilities. Education-Based Adjustment: Alters Q responses based on education levels with different probabilities. Working Hours Adjustment: Changes Q responses according to working hours, using distinct probability distributions. Final Adjustment of Q Responses: Maintains zero responses; others are reduced based on probability.
+
+```{r}
+
+mm= mm %>% tibble() %>%
+  mutate(across(
+    .cols = starts_with("Q"), 
+    .fns  = ~ case_when(
+      Gender == "Male" ~ sample(0:3, length(.), replace = TRUE, prob = c(0.8,  0.1, 0.05, 0.05)), 
+      TRUE             ~ sample(0:3, length(.), replace = TRUE, prob = c(0.7,  0.15, 0.1, 0.05))
+    )
+  )) %>%
+  mutate(across(
+    .cols = starts_with("Q"), 
+    .fns  = ~ case_when(
+      Age <30 ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.90,  0.1)),
+      Age <40 ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.85,  0.15)), 
+      Age <50 ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.80,  0.2)), 
+      Age <60 ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.60,  0.4)), 
+      TRUE    ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.40,  0.6))
+  ))) %>%
+  mutate(across(
+    .cols = starts_with("Q"), 
+    .fns  = ~ case_when(
+      Education == "0.Univ"   ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.95,  0.05)),
+      Education == "1.High"   ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.90,  0.1)),
+      Education == "2.Middle" ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.85,  0.15)),
+    )
+  )) %>%
+  mutate(across(
+    .cols = starts_with("Q"), 
+    .fns  = ~ case_when(
+      working_h <45 ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.95, 0.05)), 
+      working_h <55 ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.90, 0.1)), 
+      TRUE          ~ . + sample(0:1, length(.), replace = TRUE, prob = c(0.70, 0.3))
+    )
+  )) %>%
+  mutate(across(
+    .cols = starts_with("Q"), 
+    .fns  = ~ case_when(
+      . == 0 ~ 0, 
+      TRUE   ~ . - sample(0:1, length(.), replace = TRUE, prob = c(0.8, 0.2))
+    )
+  )) %>%
+  mutate(phqsum = rowSums(across(starts_with("Q")))) %>%
+  mutate(phq_level =case_when(
+    phqsum <= 4  ~ "0.None",
+    phqsum <= 9  ~ "1.Mild", 
+    phqsum <= 14 ~ "2.Moderate", 
+    phqsum <= 19 ~ "3.Moderate Severe", 
+    TRUE         ~ "4.Severe", 
+  )) %>%
+  mutate(depressive = ifelse(phqsum >=10, "Depressive", "None"))
+```
+
+## prediction of continus outcome
+
+### train vs test
+
+**Training Set**
+
+* Purpose: The training set is used to train or fit the machine learning model. This means the model learns the patterns, relationships, or features from this subset of the dataset.
+
+* Size: Typically, a larger portion of the dataset is allocated to training (commonly 70-80%) because the model's performance largely depends on the amount and quality of data it learns from.
+
+* Usage: During training, the model makes predictions or classifications based on the input features and adjusts its internal parameters (in case of algorithms like neural networks) or criteria (like in decision trees) to reduce errors, based on a pre-defined loss function.
+
+**Testing Set**
+
+* Purpose: The testing set is used to evaluate the performance and generalizability of the trained model. It acts as new, unseen data for the model.
+
+* Size: A smaller portion of the dataset (usually 20-30%) is reserved for testing. The key is to have enough data to confidently assess the model's performance but not so much that it compromises the training set size.
+
+* Usage: The model, after being trained, is used to make predictions on the testing set. These predictions are then compared against the actual outcomes (labels) in the testing set to evaluate metrics like accuracy, precision, recall, F1-score, etc., depending on the problem type (classification or regression).
+
+
+
+**Importance of Splitting**
+
+* Overfitting Prevention: By having a separate testing set, you can ensure that your model hasn’t just memorized the training data but can generalize well to new data. Overfitting occurs when a model performs exceptionally well on the training data but poorly on new, unseen data.
+
+* Model Evaluation: The testing set provides a realistic assessment of the model's performance in real-world scenarios.
+
+* Bias Reduction: Separating data into training and testing sets helps in reducing bias. It ensures that the model is evaluated on a different set of data than it was trained on.
+
+**Techniques**
+
+* Random Splitting: As seen in your code, datasets are often randomly split into training and testing sets.
+
+* Stratified Splitting: In scenarios where the dataset is imbalanced (e.g., one class is significantly underrepresented), stratified sampling ensures that the train and test sets have approximately the same percentage of samples of each target class as the original dataset.
+
+* Cross-Validation: Beyond simple train-test splits, cross-validation techniques like k-fold cross-validation are used for a more robust evaluation, where the dataset is divided into 'k' subsets, and the model is trained and evaluated 'k' times, each time with a different subset as the testing set.
+
+<hr>
+
+Now, following code focusing on the crucial step of splitting the dataset into training and testing subsets. 
+
+```{r}
+library(caret)
+set.seed(2023)
+mm1 = mm %>% 
+  select(phqsum, Gender, Education, Age, Income, working_h)
+trainingIndex <- createDataPartition(mm1$phqsum, p = .8, list = FALSE)
+train_data <- mm1[+trainingIndex, ]
+test_data  <- mm1[-trainingIndex, ]
+```
+
+**Importing the caret Package:**
+
+* The caret package, a comprehensive framework for building machine learning models in R, is loaded.
+
+**Setting a Seed for Reproducibility:**
+
+* set.seed(2023) ensures that the random processes can be replicated.
+
+**Data Preparation:**
+
+* mm1 is created by selecting specific columns from the mm dataset. These columns include the PHQ-9 sum (phqsum) and other demographic variables.
+
+**Splitting the Dataset:**
+
+* createDataPartition: This function from the caret package is used to create indices for splitting the dataset. It divides the data into training (80%) and testing (20%) sets based on the phqsum column.
+* trainingIndex: Stores the indices of rows for the training set.
+train_data and test_data: The original dataset mm1 is split into training and testing subsets using these indices.
+
+
+
+<hr>
+
+### linear regression
+
+
+**Model Creation with lm():**
+
+* lm(data=., formula = phqsum ~ .): This line of code specifies the linear regression model. The lm() function is used for fitting linear models.
+* data=.: The dot (.) indicates that the data for the model will be the current dataset in the pipeline, which in this case is train_data.
+* formula = phqsum ~ .: This formula specifies that phqsum is the dependent variable (the variable being predicted), and the tilde (~) followed by a dot means that all other columns in train_data are used as independent variables (predictors).
+
+```{r}
+model <- train_data %>%
+  lm(data=., 
+     formula =  phqsum ~ . )
+summary(model)
+
+```
+
+<hr>
+> step 3
+
+After fitting a linear regression model to the training data, the next crucial step in supervised machine learning is to evaluate the model's performance. This is typically done by making predictions on a separate test dataset and then calculating error metrics. Here's how the provided R code snippet accomplishes this:
+
+
+```{r}
+predictions <- predict(model, test_data)
+```
+
+* predict(model, test_data): This function is used to make predictions using the model (linear regression model) that you've trained. It applies the model to the test_data to forecast the outcomes.
+* predictions: The output of the predict function, which contains the predicted values of the dependent variable (phqsum) for each observation in the test dataset.
+
+**Calculating Error Meatrix**
+
+* Mean Squared Error (MSE):
+    + mse[["linear"]]: MSE is a measure of the average squared difference between the actual and predicted values. It's calculated by taking the mean of the squared differences (predictions - test_data$phqsum)^2.
+    + A lower MSE indicates a better fit of the model to the data.
+* Root Mean Squared Error (RMSE):
+    + rmse[["linear"]]: RMSE is the square root of the MSE. It's a popular metric because it scales the error to be more interpretable, as it's in the same units as the dependent variable.
+    + Like MSE, a lower RMSE signifies a better model fit.
+
+```{r}
+mse = list()
+rmse= list()
+mse[["linear"]] <- mean((predictions - test_data$phqsum)^2)
+rmse[["linear"]] <- sqrt(mse[["linear"]])
+```
+
+```{r}
+mse
+rmse
+```
+
+### random forest
+
+Random Forest is a powerful machine learning method that utilizes multiple decision trees to make predictions. It's particularly useful for handling large datasets with complex structures. This chapter will guide you through the process of implementing a Random Forest model in R, evaluating its performance, and comparing it with other models.
+
+**What is Random Forest?**
+
+* Ensemble Learning Method: Random Forest is an ensemble learning technique. Ensemble methods use multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone.
+
+* Based on Decision Trees: Specifically, Random Forest builds numerous decision trees and merges them together to get a more accurate and stable prediction. Each tree in a Random Forest is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set.
+
+* Handling Overfitting: One of the biggest problems in machine learning is overfitting, but most of the time, this won’t happen thanks to the way Random Forest combines the trees. By averaging or combining the results of different trees, it reduces the risk of overfitting.
+
+**How Does Random Forest Work?**
+
+* Random Selection of Features: When building each tree, Random Forest randomly selects a subset of the features at each split in the decision tree. This adds an additional layer of randomness to the model, compared to a single decision tree.
+
+* Creating Multiple Trees: It creates a forest of trees where each tree is slightly different from the others. When it’s time to make a prediction, the Random Forest takes an average of all the individual decision tree estimates.
+
+* Advantages: This process of averaging or combining the results helps to improve accuracy and control overfitting. Random Forest can handle both regression and classification tasks and works well with both categorical and continuous variables.
+
+* Handling Missing Values: Random Forest can also handle missing values by imputing them.
+
+* Variable Importance: It provides a straightforward indicator of the importance of each feature in the prediction.
+
+
+**Setting Up for Parallel Computing**
+```{r}
+# Register the parallel backend
+numCores <- parallel::detectCores()
+registerDoParallel(cores = numCores - 1)
+
+```
+
+* Parallel Computing: To speed up the computation, especially for complex models like Random Forest, we use parallel processing.
+* parallel::detectCores(): Detects the number of CPU cores in your machine.
+* registerDoParallel(cores = numCores - 1): Registers the number of cores to be used for parallel processing. We leave one core free for other tasks.
+
+**Configuring the Training Process**
+
+```{r}
+train_control <- trainControl(method = "repeatedcv", 
+                              number = 10, 
+                              repeats = 3, 
+                              allowParallel = TRUE)
+```
+
+**Repeated Cross-Validation:** A Closer Look at 10-Fold Cross-Validation
+In machine learning, cross-validation is a technique used to assess how the results of a statistical analysis will generalize to an independent data set. It is mainly used to predict the fit of a model to a hypothetical validation set when an explicit validation set is not available.
+
+**What is 10-Fold Cross-Validation?**
+
+* Definition: 10-fold cross-validation is a method where the data set is randomly divided into 10 subsets (or 'folds'). Each subset contains roughly the same proportion of the sample.
+
+* Process:
+    + In each round of validation, one of the 10 subsets is used as the validation set (to test the model), and the other nine subsets are combined to form the training set (to train the model).
+    + This process is repeated 10 times, each time with a different subset serving as the validation set.
+    + The results from the 10 folds can then be averaged (or otherwise combined) to produce a single estimation.
+
+**Why Use 10-Fold Cross-Validation?**
+
+* Bias Reduction: By using different subsets as the validation set at different times, 10-fold cross-validation reduces the bias associated with the random selection of a single train-test split.
+* Variance Insight: This method provides insight into how the model's prediction might vary with respect to the data used for training. It offers a more comprehensive view of the model’s performance.
+* Generalization: The averaged result is a better estimate of how the model will perform on an independent dataset.
+
+**Repeated Cross-Validation**
+
+* In your specific case, this process is repeated 3 times. This repetition means the entire process of 10-fold cross-validation is conducted three times, each time with a different random division of the original dataset into 10 folds.
+* This repetition helps to further mitigate variability in the estimation of model performance, leading to a more robust understanding of how well your model is likely to perform on unseen data.
+
+10-fold cross-validation is a reliable method for assessing model performance. By using it repeatedly, you substantially increase the robustness and reliability of your model assessment, ensuring that your model not only fits your current data well but also holds up well against new, unseen data.
+
+
+
+**Training the Random Forest Model**
+
+* Model Formula: phqsum ~ . indicates that phqsum is predicted using all other variables in train_data.
+
+* In the context of your R code for training a machine learning model, method = "rf" specifies the use of a Random Forest algorithm. 
+
+```{r, eval=FALSE}
+tic()
+model_rf <- train(phqsum ~ ., data = train_data, 
+                  method = "rf",
+                  trControl = train_control)  
+toc()
+```
+
+```{r, echo=FALSE, eval=FALSE}
+saveRDS(model_rf, "data/model_rf.rds")
+```
+```{r, echo=FALSE}
+model_rf = readRDS("data/model_rf.rds")
+```
+
+
+**Evaluating Random Forest Model Performance: Predictions and Error Metrics**
+
+After training a Random Forest model (model_rf) on your training data (train_data), it's essential to evaluate its performance. This evaluation is done by making predictions on a separate test dataset and calculating error metrics like Mean Squared Error (MSE) and Root Mean Squared Error (RMSE). 
+
+**Making Predictions on the Test Set**
+
+```{r}
+# Make predictions on the test set
+predictions_rf <- predict(model_rf, test_data)
+```
+
+* predict(model_rf, test_data): This function uses the trained Random Forest model (model_rf) to predict outcomes based on the test_data.
+* predictions_rf: The result of the predict function, which contains the predicted values for the dependent variable (phqsum) for each observation in the test dataset.
+
+**Calculating MSE and RMSE**
+```{r}
+# Calculate MSE and RMSE
+mse[["rf"]] <- mean((predictions_rf - test_data$phqsum)^2)
+rmse[["rf"]] <- sqrt(mse[["rf"]])
+mse
+rmse
+```
+
+### generalized additive model
+
+Generalized Additive Models (GAMs) are a flexible class of models used in statistics and machine learning. They extend linear models by allowing non-linear functions of the predictor variables while maintaining interpretability
+
+**Setting Up the Environment**
+```{r}
+if(!require("mgcv")) install.packages("mgcv")
+library(mgcv)
+names(train_data)
+```
+
+**Training the GAM**
+
+* gam Function: This function from the mgcv package is used to fit a GAM.
+* Model Formula: phqsum ~ s(Age) + Gender + Education + s(Income) + s(working_h) specifies the model's structure.
+* s(): Indicates a smooth term, allowing for a non-linear relationship between the predictor and the outcome.
+* Other variables (Gender, Education) are included as linear predictors.
+* Data: The data=. syntax indicates that the model uses the train_data dataset.
+
+```{r}
+model_gam = train_data %>%
+  gam(data=., 
+      phqsum ~ s(Age) + Gender + Education + s(Income) + s(working_h))
+
+```
+
+**Making Predictions and Evaluating Performance**
+
+```{r}
+predictions_gam <- predict(model_gam, newdata=test_data)
+mse[["gam"]] <- mean((predictions_gam - test_data$phqsum)^2)
+rmse[["gam"]] <- sqrt(mse[["gam"]])
+mse
+rmse
+```
+
+
+### Ridge and Lasso Regression
+
+Ridge and Lasso regression are two widely used regularization techniques in machine learning and statistics. They are particularly useful when dealing with multicollinearity or when you have more features than observations. Both methods modify the least squares objective function by adding a penalty term, which helps in controlling overfitting.
+
+Setting Up the Environment and Preparing Data
+```{r}
+if(!require("glmnet")) install.packages("glmnet")
+library(glmnet)
+```
+* glmnet Package: This package is essential for fitting generalized linear models via penalized maximum likelihood. It's installed and loaded for use.
+
+
+```{r}
+# Convert categorical variables to dummy variables
+train_data_matrix <- model.matrix(phqsum ~ ., data = train_data)[, -1]  # Exclude intercept column
+test_data_matrix <- model.matrix(phqsum ~ ., data = test_data)[, -1]
+```
+* Data Preparation: The model.matrix function converts categorical variables into dummy/indicator variables for regression analysis. The intercept column is excluded.
+
+```{r}
+# Define the response variable
+y_train <- train_data$phqsum
+y_test <- test_data$phqsum
+```
+* Response Variable: The dependent variable (phqsum) is extracted from both training and testing datasets.
+
+**Fitting Ridge and Lasso Regression Models**
+```{r}
+# Ridge Regression
+model_ridge <- glmnet(train_data_matrix, y_train, alpha = 0)
+# Lasso Regression
+model_lasso <- glmnet(train_data_matrix, y_train, alpha = 1)
+```
+* **Ridge Regression (alpha = 0)**: Adds a penalty equal to the square of the magnitude of coefficients.
+* **Lasso Regression (alpha = 1)**: Adds a penalty equal to the absolute value of the magnitude of coefficients.
+
+**Selecting the Best Lambda (Penalty Parameter)**
+
+```{r}
+set.seed(123)  # For reproducibility
+cv_ridge <- cv.glmnet(train_data_matrix, y_train, alpha = 0)
+cv_lasso <- cv.glmnet(train_data_matrix, y_train, alpha = 1)
+best_lambda_ridge <- cv_ridge$lambda.min
+best_lambda_lasso <- cv_lasso$lambda.min
+```
+
+* Cross-Validation: Determines the best lambda (penalty parameter) for each model.
+cv.glmnet: Performs cross-validation for glmnet models.
+
+**Making Predictions and Evaluating Models**
+```{r}
+# Predictions
+predictions_ridge <- predict(model_ridge, s = best_lambda_ridge, newx = test_data_matrix)
+predictions_lasso <- predict(model_lasso, s = best_lambda_lasso, newx = test_data_matrix)
+```
+
+**Choosing Between Ridge and Lasso**
+
+* Predictive Performance: The choice often depends on the dataset and the problem at hand. It's common to try both and compare their performance.
+* Cross-Validation: Using cross-validation to find the optimal λ is crucial in both methods. This helps in balancing the trade-off between bias and variance.
+
+```{r}
+# Evaluation
+mse[["ridge"]] <- mean((predictions_ridge - y_test)^2)
+rmse[["ridge"]] <- sqrt(mse[["ridge"]])
+mse[["lasso"]] <- mean((predictions_lasso - y_test)^2)
+rmse[["lasso"]] <- sqrt(mse[["lasso"]])
+```
+
+```{r}
+do.call(cbind, list(mse, rmse)) %>% data.frame() %>%
+  setNames(c("mse", "rmse"))
+```
+
+
+## classification
+
+### logistic regression
+
+> Step 1: Load Libraries and Set Seed
+
+In this step, we start by loading the caret library, which provides functions for training and evaluating machine learning models. We also set a random seed to ensure that our results are reproducible.
+
+```{r}
+# Import necessary libraries
+library(caret)
+# Set a random seed for reproducibility
+set.seed(2023)
+```
+
+> Step 2: Data Preparation
+
+In this step, we prepare our data. We select the relevant variables from the dataset, including the target variable depressive. Then, we split the data into a training set (train_data) and a testing set (test_data) using the createDataPartition function. This ensures that we have a separate dataset for model training and evaluation.
+
+
+```{r}
+# Select relevant variables, including the target variable
+mm1 <- mm %>%
+  select(depressive, Gender, Education, Age, Income, working_h)
+# Split the data into training and testing sets
+trainingIndex <- createDataPartition(mm1$depressive, p = 0.8, list = FALSE)
+train_data <- mm1[+trainingIndex, ]
+test_data  <- mm1[-trainingIndex, ]
+
+```
+
+> Step 3: Model Training - Logistic Regression
+
+Here, we train a logistic regression model using the glm function. This model is used to predict whether a person is "Depressive" or "None" based on the predictor variables (Gender, Education, Age, Income, and working_h). The logistic regression model estimates the probabilities of each class.
+
+```{r}
+# Fit a logistic regression model
+model_logistic <- train_data %>%
+  glm(data=., family=binomial(), 
+      formula = depressive == "Depressive" ~ .)
+```
+
+> Step 4: Model Evaluation 
+
+```{r}
+# Make predictions
+predictions_logistic_prob = predict(model_logistic, newdata = test_data, type = "response")
+predictions_logistic      = ifelse(predictions_logistic_prob > 0.5, "Depressive", "None")
+
+# Calculate and store balanced accuracy
+smry_logi = confusionMatrix(predictions_logistic %>% as.factor(), 
+                test_data$depressive %>% as.factor())
+bacu <- list()
+bacu[["logistic"]] <- smry_logi$byClass[["Balanced Accuracy"]]
+
+```
+
+In this final step, we evaluate the performance of our logistic regression model:
+
+We make predictions using the trained model (model_logistic) and obtain predicted probabilities (predictions_logistic_prob) and binary class predictions (predictions_logistic) based on a threshold of 0.5.
+We calculate a confusion matrix (smry_logi) to assess the model's classification performance.
+Finally, we store the balanced accuracy of the logistic regression model in a list called bacu under the key "logistic."
+The balanced accuracy measures how well the model performs in terms of sensitivity and specificity while accounting for class imbalance in the dataset.
+
+### random forest
+
+**Step 1: Register the Parallel Backend**
+```{R}
+# Register the parallel backend to speed up computations
+numCores <- parallel::detectCores()
+registerDoParallel(cores = numCores - 1)
+```
+In this step, we configure parallel processing to utilize multiple CPU cores for faster model training. The number of available CPU cores is detected using detectCores, and one core is reserved for other system tasks. The registerDoParallel function is used to set up parallel processing.
+
+**Step 2: Define Control Parameters for Training**
+```{R}
+# Define control parameters for the training process
+train_control <- trainControl(method = "repeatedcv", 
+                              number = 10, 
+                              repeats = 3, 
+                              classProbs = TRUE,
+                              allowParallel = TRUE)
+```
+
+* Here, we define control parameters that guide the training process of the Random Forest model:
+    + method is set to "repeatedcv," indicating repeated cross-validation as the resampling method.
+    + number is set to 10, indicating the number of cross-validation folds.
+repeats is set to 3, indicating the number of times the cross-validation process is repeated.
+    + classProbs is set to TRUE, allowing the model to calculate class probabilities.
+    + allowParallel is set to TRUE, enabling parallel processing for cross-validation.
+
+**Step 3: Train the Random Forest Model**
+```{R, eval=FALSE}
+# Train the Random Forest model
+tic()  # Start measuring time
+model_rf_class <- train(depressive ~ ., data = train_data, 
+                        method = "rf",
+                        trControl = train_control)
+toc()  # Stop measuring time
+```
+
+```{r, eval = FALSE, echo=FALSE}
+saveRDS(model_rf_class, "data/model_rf_class.rds")
+```
+```{r, echo=FALSE}
+model_rf_class = readRDS("data/model_rf_class.rds")
+```
+
+* In this step, we train the Random Forest classification model:
+    + depressive ~ . specifies that we want to predict the depressive variable based on all other variables in the train_data dataset.
+    + method is set to "rf" to specify the Random Forest algorithm.
+    + trControl is set to the previously defined control parameters (train_control) to govern the training process.
+
+We use tic() and toc() to measure the time taken for model training.
+
+**Step 4: Make Predictions and Evaluate the Model**
+
+```{R}
+# Make predictions using the trained model
+prediction_rf_class = predict(model_rf_class, newdata = test_data)
+```
+```{R}
+# Calculate the confusion matrix and balanced accuracy
+smry_rf = confusionMatrix(prediction_rf_class %>% as.factor(), 
+                         test_data$depressive %>% as.factor())
+# Store the balanced accuracy in the 'bacu' list
+bacu[["rf"]] = smry_rf$byClass[["Balanced Accuracy"]]
+```
+
+Make predictions on the test dataset using the trained Random Forest model.
+Calculate a confusion matrix (smry_rf) to evaluate the classification performance.
+Extract the balanced accuracy from the confusion matrix and store it in the bacu list under the key "rf."
+
+
+### Gradient Boosting Machine (GBM) classification 
+
+```{r, cache = TRUE}
+if(!require("gbm")) install.packages("gbm")
+
+tic()
+model_gbm_class <- train(depressive ~ ., data = train_data, 
+                        method = "gbm",
+                        trControl = train_control)  
+toc()
+
+prediction_gbm_class = predict(model_gbm_class, newdata = test_data)
+smry_gbm = confusionMatrix(prediction_gbm_class %>% as.factor(), 
+                          test_data$depressive %>% as.factor())
+bacu[["gbm"]] = smry_gbm$byClass[["Balanced Accuracy"]]
+```
+
+
+
+### svmRadial
+```{r, cache = TRUE}
+if(!require("kernlab")) install.packages("kernlab")
+
+tic()
+model_svmRadial_class <- train(depressive ~ ., data = train_data, 
+                         method = "svmRadial",
+                         trControl = train_control)  
+toc()
+
+prediction_svmRadial_class = predict(model_svmRadial_class, newdata = test_data)
+smry_svmRadial = confusionMatrix(prediction_svmRadial_class %>% as.factor(), 
+                           test_data$depressive %>% as.factor())
+bacu[["svmRadial"]] = smry_svmRadial$byClass[["Balanced Accuracy"]]
+```
+
+
+
+
+
+### knn
+```{r, cache = TRUE}
+if(!require("rpart")) install.packages("rpart")
+tic()
+model_tree_class <- train(depressive ~ ., data = train_data, 
+                               method = "rpart",
+                               trControl = train_control)  
+toc()
+
+prediction_tree_class = predict(model_tree_class, newdata = test_data)
+smry_tree = confusionMatrix(prediction_tree_class %>% as.factor(), 
+                                 test_data$depressive %>% as.factor())
+bacu[["tree"]] = smry_tree$byClass[["Balanced Accuracy"]]
+```
+
+### final model comparision
+
+```{r}
+bacu
+```
+

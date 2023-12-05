@@ -37,6 +37,8 @@ book:
     - part: "V. AI와 기계학습"
       chapters:
         - 710_GenAI_01.qmd
+        - 720_Supervised_01.qmd
+        - 730_Supervised_minist_01.qmd
     - part: "VI. 소통"
       chapters:
         - 815_rmarkdown02.qmd
