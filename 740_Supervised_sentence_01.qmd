@@ -1,0 +1,174 @@
+# 지도학습-setence (문장 인식)
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,  eval=FALSE)
+```
+```{r}
+library(tidyverse)
+pkgs = c("tidyverse",  "tidytext", "tensorflow", "keras", "caret", "data.table", 
+         "googleLanguageR", "cld2","tidyverse", "datasets", "ggplot2", "tictoc")
+for (pkg in pkgs){
+  if(!require(pkg, character.only = TRUE)) install.packages(pkg)
+  library(pkg, character.only = TRUE)
+}
+```
+```{r}
+mt2 = readRDS("db/mt2.rds")
+mt3 = mt2 %>% 
+  # 몇
+  mutate(code = code2) %>%
+  select(id, code, word = word2)
+```
+
+```{r}
+
+code_inc = mt3 %>%
+  select(id, code) %>% unique() %>%
+  group_by(code) %>%
+  count() %>%
+  arrange(desc(n)) %>% 
+  filter(n>1500) %>%     
+  pull(code)
+
+length(code_inc)
+wordnumber = 2000
+wordData = mt3 %>%
+  filter(code %in% code_inc)  %>%
+  group_by(word) %>%
+  count() %>%
+  arrange(desc(n)) %>%
+  ungroup() %>%
+  slice(1:wordnumber) %>%
+  mutate(wordid = row_number()) %>%
+  select(-n)
+wordData
+mt4 = mt3 %>% filter(code %in% code_inc) %>%
+  left_join(wordData, by = c("word")) %>%
+  na.omit() %>%
+  ungroup() %>%
+  mutate(code = as.numeric(code))
+
+## code lkup 을 통해 code를 1부터 순서대로 만든 code_nums로 트레이닝 시키기 
+code_lkup = mt4 %>%
+  select(code) %>% unique() %>%
+  mutate(code_nums = row_number())
+
+
+mt5 = mt4 %>%
+  filter(id != "W615000") %>%
+  left_join(code_lkup, by=c("code"))
+```
+
+
+
+```{r}
+# data 만들기
+library(parallel)
+gg = mt5 %>% select(id, code_nums) %>% unique()
+nrow(gg)
+gg$code_nums
+set.seed(2022)
+```
+
+```{r}
+trainIndex = createDataPartition(gg$code_nums, p =0.7, 
+                                 list = FALSE, 
+                                 times = 1)
+index = trainIndex %>% as.numeric()
+training_pre = gg[ index, ]
+testing_pre  = gg[-index, ]
+train_index = training_pre %>% pull(id) %>% unique()
+test_index  = testing_pre %>% pull(id) %>% unique()
+training = mt5 %>% filter(id %in% train_index)
+testing  = mt5 %>% filter(id %in% test_index)
+training$code %>% unique()
+training %>%  group_by(code_nums) %>% count() %>%
+  left_join(testing  %>%  group_by(code_nums) %>% count(), 
+            by= c("code_nums")) %>%
+  setNames(c("code_nums", "train", "test")) %>%
+  mutate(prob = test/train)
+trainDX = training %>% select(id, wordid)
+trainDY = training %>% select(id, code_nums) %>% unique()
+#trainDY %>%
+#  group_by(id) %>%
+#  count() %>%
+#  arrange(desc(n))
+testDX  = testing  %>% select(id, wordid)
+testDY  = testing  %>% select(id, code_nums) %>% unique()
+trainY = trainDY %>% pull(code_nums)
+testY  = testDY %>% pull(code_nums)
+trainY %>% unique() %>% length(.)
+```
+
+```{r}
+# list 로 변환
+library(parallel)
+trainMX = list()
+trainF = function(i){trainDX %>% filter(id == i) %>% pull(wordid)}
+trainMX =  mclapply(train_index, trainF,  mc.cores = 40)
+length(trainMX) == nrow(trainDY)
+#saveRDS(trainMX, "db/trainMX.rds")
+#trainMX = readRDS("db/trainMX.rds")
+trainMX
+testMX = list()
+testF = function(i){testDX %>% filter(id == i) %>% pull(wordid)}
+testMX =  mclapply(test_index, testF,  mc.cores = 40)
+
+sequencingF = function(mx){
+  jj = matrix(0, nrow=length(mx), ncol= 2000)
+  for (i in 1:length(mx))
+    jj[i, mx[[i]]] <-1
+  return(jj)
+}
+```
+```{r}
+# one-hot encode to categories
+library(reticulate)
+library(tensorflow)
+use_virtualenv("/home/sehnr/tensorflow/tensorvenv", required = TRUE)
+Xtrain = sequencingF(trainMX)
+Xtest  = sequencingF(testMX)
+Ytrain = to_categorical(trainY) #
+```
+
+
+```{r}
+set.seed(2022)
+nrow(Xtrain)
+val_indices <- sample(c(1:c(Xtrain %>% nrow())), c(Xtrain %>% nrow())/10)
+x_val <- Xtrain[val_indices,]
+partial_x_train <- Xtrain[-val_indices,]
+y_val <- Ytrain[val_indices,]
+partial_y_train = Ytrain[-val_indices,]
+```
+
+```{r}
+library(keras)
+keras::k_clear_session()
+#ref: https://medium.com/@cmukesh8688/activation-functions-sigmoid-tanh-relu-leaky-relu-softmax-50d3778dcea5
+model <- keras_model_sequential() %>%
+  layer_dense(units = 18, activation = "relu", input_shape = c(wordnumber)) %>%
+  layer_dropout(rate = 0.4) %>% #  layers to avoid overfitting.
+  layer_dense(units = 72, activation = "relu") %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 36, activation = "sigmoid") %>%
+  layer_dense(units = 18, activation = "softmax")
+model
+```
+```{r}
+model %>% compile(
+  optimizer = "adam",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy"))
+```
+```{r}
+history <- model %>% fit(
+  partial_x_train,
+  partial_y_train,
+  epochs = 10,
+  batch_size = 50,
+  #validation_split=0.2, 
+  validation_data = list(x_val, y_val)
+)
+```
+

@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="jinha">
-<meta name="dcterms.date" content="2023-08-08">
 
-<title>보건학데이터과학 실습</title>
+<title>보건학데이터과학 실습 - 21&nbsp; 지도학습-setence (문장 인식)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./210_randrstudio.html" rel="next">
+<link href="./815_rmarkdown02.html" rel="next">
+<link href="./730_Supervised_minist_01.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">소개</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./710_GenAI_01.html">V. AI와 기계학습</a></li><li class="breadcrumb-item"><a href="./740_Supervised_sentence_01.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">지도학습-setence (문장 인식)</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -111,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">소개</span></a>
   </div>
 </li>
@@ -290,7 +323,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./740_Supervised_sentence_01.html" class="sidebar-item-text sidebar-link">
+  <a href="./740_Supervised_sentence_01.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">지도학습-setence (문장 인식)</span></span></a>
   </div>
 </li>
@@ -331,45 +364,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#소개" id="toc-소개" class="nav-link active" data-scroll-target="#소개">소개</a>
-  <ul class="collapse">
-  <li><a href="#보건학" id="toc-보건학" class="nav-link" data-scroll-target="#보건학">보건학</a></li>
-  <li><a href="#보건학-데이터과학" id="toc-보건학-데이터과학" class="nav-link" data-scroll-target="#보건학-데이터과학">보건학 데이터과학</a></li>
-  <li><a href="#보건학-데이터-과학-과학이-되려면" id="toc-보건학-데이터-과학-과학이-되려면" class="nav-link" data-scroll-target="#보건학-데이터-과학-과학이-되려면">보건학 데이터 과학, 과학이 되려면</a></li>
-  <li><a href="#참고-books" id="toc-참고-books" class="nav-link" data-scroll-target="#참고-books">참고 books</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">보건학데이터과학 실습</h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">지도학습-setence (문장 인식)</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>jinha </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">August 8, 2023</p>
-    </div>
-  </div>
   
     
   </div>
@@ -377,113 +386,166 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="소개" class="level1 unnumbered">
-<h1 class="unnumbered">소개</h1>
-<section id="보건학" class="level2">
-<h2 class="anchored" data-anchor-id="보건학">보건학</h2>
-<p>보건학은 인간과 그들의 사회의 건강을 향상시키기 위한 과학입니다. 보건학은 의학에서 사회과학에 이르기까지 여러 학문과 밀접하게 연관되어 있습니다. 따라서, 다학제적 접근법은 보건학 전문가에게 가장 중요한 기술 중 하나입니다.</p>
-</section>
-<section id="보건학-데이터과학" class="level2">
-<h2 class="anchored" data-anchor-id="보건학-데이터과학">보건학 데이터과학</h2>
-<p>데이터 과학은 크게 데이터를 수집, 처리, 분석하고, 그 결과를 해석하여 의사결정이나 예측, 분류 등의 작업을 수행하는 분야입니다. 이를 위해 프로그래밍, 통계학, 머신러닝 및 도메인 지식을 종합적으로 활용합니다. 이러한 기술을 보건학에 접목시키는 것이 보건학 데이터과학입니다.</p>
-<p>보건학 데이터과학의 주요 특징은 다음과 같습니다:</p>
-<ul>
-<li>다양한 데이터의 수집 및 관리:
-<ul>
-<li>보건학에서는 환자 기록, 임상 데이터, 역학 조사 데이터, 환경 데이터 등 다양한 유형의 데이터를 다룹니다. 이러한 데이터의 효율적인 수집과 관리는 보건학의 데이터과학에서 중요한 부분을 차지합니다.</li>
-</ul></li>
-<li>통계 및 머신러닝의 적용:
-<ul>
-<li>공공보건의 문제를 해결하기 위해, 통계적 방법과 머신러닝 기술을 사용하여 데이터에서 통찰력을 얻거나 예측 모델을 만드는 작업을 수행합니다.</li>
-</ul></li>
-<li>데이터 시각화:
-<ul>
-<li>복잡한 보건 데이터를 쉽게 이해하고 해석하기 위해 시각화 기술을 사용합니다. 이를 통해 정책 결정자나 일반 대중에게 데이터를 효과적으로 전달할 수 있습니다.</li>
-</ul></li>
-<li>재현성 및 공유 가능한 연구:
-<ul>
-<li>보건학 데이터과학에서는 연구 결과의 재현성을 보장하고, 연구 결과를 다른 연구자와 공유할 수 있도록 투명한 방법을 추구합니다.</li>
-</ul></li>
-<li>도메인 지식:
-<ul>
-<li>보건학 데이터과학자는 단순히 데이터과학의 기술만을 가지고 있는 것이 아니라, 보건학에 대한 깊은 이해도 필요합니다. 이를 통해 데이터를 올바르게 해석하고, 실제 보건 문제에 적절한 솔루션을 제시할 수 있습니다.</li>
-</ul></li>
-</ul>
-</section>
-<section id="보건학-데이터-과학-과학이-되려면" class="level2">
-<h2 class="anchored" data-anchor-id="보건학-데이터-과학-과학이-되려면">보건학 데이터 과학, 과학이 되려면</h2>
-<p><strong>과학에서의 제현성</strong> 과학에서의 재현성은 연구 결과를 다른 연구자들이 동일한 조건 하에서 반복해서 얻을 수 있는지의 여부를 나타내는 중요한 원칙입니다. 재현성은 과학적 연구의 진정성과 신뢰성을 평가하는 기준 중 하나로 간주됩니다.</p>
-<p><strong>보건학 데이터과학이 과학의 기준에 부합하려면 다음과 같은 재현성 요소들을 갖추어야 합니다</strong></p>
-<ul>
-<li><strong>데이터의 접근성</strong>:
-<ul>
-<li>연구에 사용된 원본 데이터는 공개되어야 하며, 연구를 재현하려는 다른 연구자들이 접근할 수 있어야 합니다. 당연히 개인정보 보호와 관련된 법률 및 규정을 준수하면서, 필요한 경우 익명화 또는 변조된 형태로 데이터를 공개해야 합니다.</li>
-</ul></li>
-<li><strong>분석 코드 및 소프트웨어의 공개</strong>:
-<ul>
-<li>연구에 사용된 데이터 처리, 분석, 시각화 등의 코드와 사용된 소프트웨어의 버전 정보도 공개되어야 합니다.</li>
-</ul></li>
-<li><strong>분석 방법론의 명확성</strong>:
-<ul>
-<li>사용된 통계적 방법, 머신러닝 알고리즘, 모델링 접근법 등이 명확하게 기술되어야 합니다.</li>
-</ul></li>
-<li><strong>외부 변수 및 제어</strong>:
-<ul>
-<li>연구 과정에서 영향을 미칠 수 있는 외부 변수들에 대한 정보와 그것들을 어떻게 제어했는지에 대한 정보가 필요합니다.</li>
-</ul></li>
-<li><strong>결과의 재현 가능성 평가</strong>:
-<ul>
-<li>가능한 경우, 연구 결과의 재현 가능성을 평가하기 위해 독립된 데이터셋이나 방법론을 사용하여 검증을 시도해야 합니다.</li>
-</ul></li>
-<li><strong>연구 환경의 명세</strong>:
-<ul>
-<li>연구가 수행된 하드웨어 및 소프트웨어 환경, 그리고 이를 설정하기 위한 파라미터 등도 기록되어야 합니다. 이는 특히 계산적으로 복잡한 모델이나 시뮬레이션을 다룰 때 중요합니다.</li>
-</ul></li>
-<li><strong>피어 리뷰</strong>:
-<ul>
-<li>보건학 데이터과학 연구의 결과는 동료 평가 과정을 거쳐 검증되어야 합니다. 피어 리뷰는 연구의 품질과 재현성을 높이는 데 중요한 역할을 합니다.</li>
-</ul></li>
-</ul>
-<p>정리하면 아래와 같은 흐름데로 연구하게 됩니다.</p>
-<p><img src="img/flow1.png" class="img-fluid" alt="Data Science Flow"> 이 튜토리얼에서는 R, Rstudio, markdown, Shiny server, PostgreSQL 및 github를 사용할 것입니다. R은 무료 오픈 소스 통계 언어로, 데이터 과학 분야에서 널리 사용됩니다. 가장 중요한 참고 자료는 Rafael A. Irizarry의 책과 Hadley Wickham의 책입니다. 아래와 같습니다.</p>
-<p>
-</p></section>
-<section id="참고-books" class="level2">
-<h2 class="anchored" data-anchor-id="참고-books">참고 books</h2>
-<table class="table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>title</th>
-<th>authos</th>
-<th>url</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Introduction to Data Science with R</td>
-<td>Rafael A. Irizarry</td>
-<td>https://rafalab.github.io/dsbook/</td>
-</tr>
-<tr class="even">
-<td>R for Data Science</td>
-<td>Garrett Grolemund, Hadley Wickham</td>
-<td>https://r4ds.had.co.nz/index.html</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>I hope you will get valuable experience with me.</li>
-</ul>
-<p>그럼 시작하겠습니다.!!! <strong>jinha</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>,  <span class="st">"tidytext"</span>, <span class="st">"tensorflow"</span>, <span class="st">"keras"</span>, <span class="st">"caret"</span>, <span class="st">"data.table"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"googleLanguageR"</span>, <span class="st">"cld2"</span>,<span class="st">"tidyverse"</span>, <span class="st">"datasets"</span>, <span class="st">"ggplot2"</span>, <span class="st">"tictoc"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pkg <span class="cf">in</span> pkgs){</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(pkg)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mt2 <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"db/mt2.rds"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mt3 <span class="ot">=</span> mt2 <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 몇</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">code =</span> code2) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, code, <span class="at">word =</span> word2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>code_inc <span class="ot">=</span> mt3 <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, code) <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(code) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1500</span>) <span class="sc">%&gt;%</span>     </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(code)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(code_inc)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>wordnumber <span class="ot">=</span> <span class="dv">2000</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>wordData <span class="ot">=</span> mt3 <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(code <span class="sc">%in%</span> code_inc)  <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(word) <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span>wordnumber) <span class="sc">%&gt;%</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wordid =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>wordData</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>mt4 <span class="ot">=</span> mt3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(code <span class="sc">%in%</span> code_inc) <span class="sc">%&gt;%</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(wordData, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"word"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">code =</span> <span class="fu">as.numeric</span>(code))</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="do">## code lkup 을 통해 code를 1부터 순서대로 만든 code_nums로 트레이닝 시키기 </span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>code_lkup <span class="ot">=</span> mt4 <span class="sc">%&gt;%</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(code) <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">code_nums =</span> <span class="fu">row_number</span>())</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>mt5 <span class="ot">=</span> mt4 <span class="sc">%&gt;%</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">!=</span> <span class="st">"W615000"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(code_lkup, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"code"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data 만들기</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">=</span> mt5 <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, code_nums) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(gg)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>gg<span class="sc">$</span>code_nums</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>trainIndex <span class="ot">=</span> <span class="fu">createDataPartition</span>(gg<span class="sc">$</span>code_nums, <span class="at">p =</span><span class="fl">0.7</span>, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">list =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">times =</span> <span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>index <span class="ot">=</span> trainIndex <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>training_pre <span class="ot">=</span> gg[ index, ]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>testing_pre  <span class="ot">=</span> gg[<span class="sc">-</span>index, ]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>train_index <span class="ot">=</span> training_pre <span class="sc">%&gt;%</span> <span class="fu">pull</span>(id) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>test_index  <span class="ot">=</span> testing_pre <span class="sc">%&gt;%</span> <span class="fu">pull</span>(id) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>training <span class="ot">=</span> mt5 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id <span class="sc">%in%</span> train_index)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>testing  <span class="ot">=</span> mt5 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id <span class="sc">%in%</span> test_index)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>training<span class="sc">$</span>code <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>training <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(code_nums) <span class="sc">%&gt;%</span> <span class="fu">count</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(testing  <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(code_nums) <span class="sc">%&gt;%</span> <span class="fu">count</span>(), </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">by=</span> <span class="fu">c</span>(<span class="st">"code_nums"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"code_nums"</span>, <span class="st">"train"</span>, <span class="st">"test"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> test<span class="sc">/</span>train)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>trainDX <span class="ot">=</span> training <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, wordid)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>trainDY <span class="ot">=</span> training <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, code_nums) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#trainDY %&gt;%</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#  group_by(id) %&gt;%</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  count() %&gt;%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#  arrange(desc(n))</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>testDX  <span class="ot">=</span> testing  <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, wordid)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>testDY  <span class="ot">=</span> testing  <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, code_nums) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>trainY <span class="ot">=</span> trainDY <span class="sc">%&gt;%</span> <span class="fu">pull</span>(code_nums)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>testY  <span class="ot">=</span> testDY <span class="sc">%&gt;%</span> <span class="fu">pull</span>(code_nums)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>trainY <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">length</span>(.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list 로 변환</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parallel)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>trainMX <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>trainF <span class="ot">=</span> <span class="cf">function</span>(i){trainDX <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id <span class="sc">==</span> i) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(wordid)}</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>trainMX <span class="ot">=</span>  <span class="fu">mclapply</span>(train_index, trainF,  <span class="at">mc.cores =</span> <span class="dv">40</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(trainMX) <span class="sc">==</span> <span class="fu">nrow</span>(trainDY)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(trainMX, "db/trainMX.rds")</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#trainMX = readRDS("db/trainMX.rds")</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>trainMX</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>testMX <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>testF <span class="ot">=</span> <span class="cf">function</span>(i){testDX <span class="sc">%&gt;%</span> <span class="fu">filter</span>(id <span class="sc">==</span> i) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(wordid)}</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>testMX <span class="ot">=</span>  <span class="fu">mclapply</span>(test_index, testF,  <span class="at">mc.cores =</span> <span class="dv">40</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>sequencingF <span class="ot">=</span> <span class="cf">function</span>(mx){</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  jj <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow=</span><span class="fu">length</span>(mx), <span class="at">ncol=</span> <span class="dv">2000</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mx))</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    jj[i, mx[[i]]] <span class="ot">&lt;-</span><span class="dv">1</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(jj)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># one-hot encode to categories</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"/home/sehnr/tensorflow/tensorvenv"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Xtrain <span class="ot">=</span> <span class="fu">sequencingF</span>(trainMX)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Xtest  <span class="ot">=</span> <span class="fu">sequencingF</span>(testMX)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>Ytrain <span class="ot">=</span> <span class="fu">to_categorical</span>(trainY) <span class="co">#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2022</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Xtrain)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>val_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">c</span>(Xtrain <span class="sc">%&gt;%</span> <span class="fu">nrow</span>())), <span class="fu">c</span>(Xtrain <span class="sc">%&gt;%</span> <span class="fu">nrow</span>())<span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>x_val <span class="ot">&lt;-</span> Xtrain[val_indices,]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>partial_x_train <span class="ot">&lt;-</span> Xtrain[<span class="sc">-</span>val_indices,]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>y_val <span class="ot">&lt;-</span> Ytrain[val_indices,]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>partial_y_train <span class="ot">=</span> Ytrain[<span class="sc">-</span>val_indices,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>keras<span class="sc">::</span><span class="fu">k_clear_session</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#ref: https://medium.com/@cmukesh8688/activation-functions-sigmoid-tanh-relu-leaky-relu-softmax-50d3778dcea5</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">18</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">input_shape =</span> <span class="fu">c</span>(wordnumber)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="at">rate =</span> <span class="fl">0.4</span>) <span class="sc">%&gt;%</span> <span class="co">#  layers to avoid overfitting.</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">72</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="at">rate =</span> <span class="fl">0.3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">36</span>, <span class="at">activation =</span> <span class="st">"sigmoid"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">18</span>, <span class="at">activation =</span> <span class="st">"softmax"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="st">"adam"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="st">"categorical_crossentropy"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"accuracy"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  partial_x_train,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  partial_y_train,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">10</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> <span class="dv">50</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#validation_split=0.2, </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_data =</span> <span class="fu">list</span>(x_val, y_val)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -836,10 +898,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./730_Supervised_minist_01.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">지도학습-MNIST (숫자인식)</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./210_randrstudio.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./815_rmarkdown02.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">R markdown</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
