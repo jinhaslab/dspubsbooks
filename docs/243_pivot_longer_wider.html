@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>보건학데이터과학 실습 - 5&nbsp; long vs wide</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./245_datamanipulation_for_table.html" rel="next">
+<link href="./241_datamanipulation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="table {
+  font-family: 'Times New Roman', serif;
+}">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./210_randrstudio.html">I. R 기본</a></li><li class="breadcrumb-item"><a href="./243_pivot_longer_wider.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">long vs wide</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">보건학데이터과학 실습</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">소개</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">I. R 기본</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./210_randrstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./221_Rbasic1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R 속성</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./231_dataimportsave.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">데이터 불러오기</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./241_datamanipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./243_pivot_longer_wider.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">long vs wide</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">II. 데이터 표현 표</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표_3</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./250_smry_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">III. 데이터 표현 플랏</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./310_ggplot_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">기본 플롯 시각화 (ggplot2)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./320_kwcs_tutor_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">근로환경조사를 이용한 시각화 실습</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./350_statistical_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">T검정, 로지스틱 회귀분석 플랏</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./370_labelled_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">다차원 라벨자료</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./380_wave_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">IV. 여러 형태의 변수값</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_wrangling_text_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">문자값 다루기</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_webscraping_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">웹 스크래핑 I</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_webscraping_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">PubMed 에서 R 과 EndNote</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_TimeData_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">시간관련 자료 다루기</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">V. AI와 기계학습</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./710_GenAI_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">생성형 AI 사용</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./720_Supervised_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">지도학습</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./730_Supervised_minist_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">지도학습-MNIST (숫자인식)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./740_Supervised_sentence_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">지도학습-setence (문장 인식)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">VI. 소통</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./815_rmarkdown02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R markdown</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">참고문헌</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#iris-data-를-이용한-실습" id="toc-iris-data-를-이용한-실습" class="nav-link active" data-scroll-target="#iris-data-를-이용한-실습"><span class="header-section-number">5.1</span> IRIS data 를 이용한 실습</a></li>
+  <li><a href="#pivot-longer에서-data-변환" id="toc-pivot-longer에서-data-변환" class="nav-link" data-scroll-target="#pivot-longer에서-data-변환"><span class="header-section-number">5.2</span> Pivot longer에서 data 변환</a></li>
+  <li><a href="#long-form-에서의-group_by" id="toc-long-form-에서의-group_by" class="nav-link" data-scroll-target="#long-form-에서의-group_by"><span class="header-section-number">5.3</span> Long form 에서의 group_by</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">5.3.1</span> </a></li>
+  <li><a href="#wide-form과-long-form-요약의-차이점" id="toc-wide-form과-long-form-요약의-차이점" class="nav-link" data-scroll-target="#wide-form과-long-form-요약의-차이점"><span class="header-section-number">5.3.2</span> <strong>Wide Form과 Long Form 요약의 차이점</strong></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">long vs wide</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Long Form과 Wide Form은 데이터를 구성하는 두 가지 다른 방식으로, 각각의 특징과 장단점을 가지고 있습니다. 어떤 형식이 더 적합한지는 분석의 목적과 데이터의 특성에 따라 달라집니다.보건학에서 검사 A, B, C별 수치를 예시로 Long Form과 Wide Form의 장단점을 설명하면 다음과 같습니다.</p>
+<ol type="1">
+<li>Long Form</li>
+</ol>
+<p>구조: 각 행이 개별 관측치를 나타내고, 여러 검사 결과는 하나의 열에 “검사 종류”와 “검사 결과” 변수로 표현됩니다. 즉, 각 개인에 대해 여러 행이 존재할 수 있습니다.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>검사 종류</th>
+<th>검사 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>B</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>C</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>A</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>B</td>
+<td>25</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>C</td>
+<td>35</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>장점:</p>
+<ul>
+<li>데이터 추가 및 수정이 용이: 새로운 검사 항목 (예: 검사 D) 추가 시, 새로운 행을 추가하기만 하면 됩니다. 다양한 통계 분석에 적합: 반복 측정 ANOVA, 혼합 효과 모델 등 다양한 통계 분석에 적합한 형태입니다. 데이터 저장 공간 효율성: Wide Form에 비해 데이터 중복이 적어 저장 공간을 효율적으로 사용할 수 있습니다.</li>
+</ul></li>
+<li><p>단점:</p>
+<ul>
+<li>데이터 구조 파악이 어려울 수 있음: 특히 검사 종류가 많아질수록 데이터 구조를 직관적으로 파악하기 어려워질 수 있습니다. 특정 분석에 비효율적: 일부 분석 (예: 상관관계 분석)에서는 Wide Form이 더 효율적일 수 있습니다.</li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li>Wide Form</li>
+</ol>
+<p>구조: 각 행이 개별 관측치를 나타내고, 각 검사 결과는 별도의 열에 저장됩니다.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>검사A</th>
+<th>검사B</th>
+<th>검사C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>10</td>
+<td>20</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>15</td>
+<td>25</td>
+<td>35</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>장점:</p>
+<ul>
+<li>데이터 구조 파악이 용이: 각 검사 결과를 별도의 열로 표현하여 데이터 구조를 직관적으로 파악하기 쉽습니다. 특정 분석에 효율적: 상관관계 분석 등 특정 분석에 Wide Form이 더 효율적일 수 있습니다.</li>
+</ul></li>
+<li><p>단점:</p>
+<ul>
+<li>데이터 추가 및 수정이 번거로움: 새로운 검사 항목 추가 시, 새로운 열을 추가해야 합니다. 데이터 저장 공간 비효율성: Long Form에 비해 데이터 중복이 많아 저장 공간을 비효율적으로 사용할 수 있습니다. 일부 통계 분석에 부적합: 반복 측정 ANOVA, 혼합 효과 모델 등 다양한 통계 분석에 Long Form이 더 적합합니다.</li>
+</ul></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>보건학 연구에서 Long Form 활용 예시:</strong></p>
+</blockquote>
+<ul>
+<li>시간에 따른 변화 분석: 특정 환자 집단의 검사 A, B, C 결과를 시간에 따라 추적하여 변화 양상을 분석할 때 유용합니다.</li>
+<li>집단 간 비교: 환자 집단 간 (예: 치료군 vs.&nbsp;대조군) 검사 A, B, C 결과를 비교 분석할 때 유용합니다.</li>
+<li>예측 모델 개발: 검사 A, B, C 결과를 이용하여 질병 발생 가능성을 예측하는 모델을 개발할 때 유용합니다.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>보건학 연구에서 Wide Form 활용 예시:</strong></p>
+</blockquote>
+<ul>
+<li>상관관계 분석: 검사 A, B, C 결과 간의 상관관계를 분석할 때 유용합니다.</li>
+<li>군집 분석: 환자들을 검사 A, B, C 결과를 기반으로 유사한 특징을 가진 군집으로 분류할 때 유용합니다.</li>
+</ul>
+<p>결론: Long Form과 Wide Form은 각자의 장단점을 가지고 있으며, 연구 목적과 데이터 특성에 따라 적절한 형태를 선택해야 합니다. 보건학 연구에서는 일반적으로 Long Form이 더 많이 사용되지만, Wide Form이 더 적합한 경우도 있습니다.</p>
+<blockquote class="blockquote">
+<p><strong>데이터 추가에서의 long vs wide 폼</strong></p>
+</blockquote>
+<p>Long Form에서 데이터를 추가하는 것은 간단합니다. 새로운 행을 추가하고, ID, 검사 종류, 검사 결과 열에 해당하는 값을 입력하면 됩니다. 예를 들어, ID가 3인 사람의 검사 A 결과가 12이고, 검사 B 결과가 23이라면 다음과 같이 행을 추가하면 됩니다.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>D</th>
+<th>검사 종류</th>
+<th>검사 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>A</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>B</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>C</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>A</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>B</td>
+<td>25</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>C</td>
+<td>35</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>A</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>B</td>
+<td>23</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>D</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>Wide Form에서 데이터를 추가하는 것은 조금 더 복잡합니다. 먼저, 새로운 행을 추가하고 ID 열에 해당하는 값을 입력합니다. 그런 다음, 해당 ID에 대해 수행한 검사 결과를 해당 열에 입력합니다. 만약 해당 ID에 대해 수행하지 않은 검사가 있다면 해당 열에 NA 값을 입력해야 합니다. 예를 들어, ID가 3인 사람의 검사 A 결과가 12이고, 검사 B 결과가 23이라면 다음과 같이 행을 추가해야 합니다.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>검사 A</th>
+<th>검사 B</th>
+<th>검사 C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>10</td>
+<td>20</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>15</td>
+<td>25</td>
+<td>35</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td><strong>12</strong></td>
+<td><strong>23</strong></td>
+<td><strong>NA</strong></td>
+</tr>
+</tbody>
+</table>
+<p>만약 새로운 검사 항목이 추가된다면, Wide Form에서는 모든 행에 새로운 열을 추가하고, 해당 검사를 수행하지 않은 사람들에 대해서는 <code>NA</code> 값을 입력해야 합니다. 예를 들어, <code>검사 D</code> 항목이 추가되고, <code>ID</code>가 1인 사람만 <code>검사 D</code>를 수행하여 결과가 40이라면 다음과 같이 Wide Form을 수정해야 합니다.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>검사 A</th>
+<th>검사 B</th>
+<th>검사 C</th>
+<th>검사 D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>10</td>
+<td>20</td>
+<td>30</td>
+<td><strong>40</strong></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>15</td>
+<td>25</td>
+<td>35</td>
+<td><strong>NA</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>12</td>
+<td>23</td>
+<td>NA</td>
+<td><strong>NA</strong></td>
+</tr>
+</tbody>
+</table>
+<section id="iris-data-를-이용한-실습" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="iris-data-를-이용한-실습"><span class="header-section-number">5.1</span> IRIS data 를 이용한 실습</h2>
+<p>이 튜토리얼에서는 iris 데이터를 사용하여 tidyr 패키지의 pivot_longer()와 pivot_wider()를 설명합니다. 이 두 함수는 데이터를 길거나 넓은 형식으로 변환할 수 있게 도와줍니다. pivot_longer()는 데이터를 길게(행을 더 추가) 만들고, pivot_wider()는 데이터를 넓게(열을 더 추가) 만듭니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tidyverse"</span>)) <span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"htmlTable"</span>)) <span class="fu">install.packages</span>(<span class="st">"htmlTable"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"haven"</span>)) <span class="fu">install.packages</span>(<span class="st">"haven"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"DT"</span>)) <span class="fu">install.packages</span>(<span class="st">"DT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>pivot_longer(): 여러 열을 하나의 열로 변환하기</li>
+</ol>
+<ul>
+<li>Sepal.Length, Sepal.Width, Petal.Length, Petal.Width를 길게 변환합니다.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>iris_long <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Measurement"</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Value"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  Species Measurement  Value
+  &lt;fct&gt;   &lt;chr&gt;        &lt;dbl&gt;
+1 setosa  Sepal.Length   5.1
+2 setosa  Sepal.Width    3.5
+3 setosa  Petal.Length   1.4
+4 setosa  Petal.Width    0.2
+5 setosa  Sepal.Length   4.9
+6 setosa  Sepal.Width    3  </code></pre>
+</div>
+</div>
+<ul>
+<li><p>설명:</p>
+<ul>
+<li>pivot_longer() 함수는 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width 열들을 하나의 “Measurement”라는 열로 합치고, 각 측정값은 “Value”라는 열에 들어갑니다. 기존에 150행이었던 데이터는 변환 후 600행이 되었습니다.</li>
+</ul></li>
+</ul>
+<ol start="2" type="1">
+<li>pivot_wider(): 길어진 데이터를 다시 넓은 형식으로 변환</li>
+</ol>
+<ul>
+<li>Species별로 다시 열을 복구합니다.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>iris_wide <span class="ot">&lt;-</span> iris_long <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"Measurement"</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="st">"Value"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 확인</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  Species    Sepal.Length Sepal.Width Petal.Length Petal.Width
+  &lt;fct&gt;      &lt;list&gt;       &lt;list&gt;      &lt;list&gt;       &lt;list&gt;     
+1 setosa     &lt;dbl [50]&gt;   &lt;dbl [50]&gt;  &lt;dbl [50]&gt;   &lt;dbl [50]&gt; 
+2 versicolor &lt;dbl [50]&gt;   &lt;dbl [50]&gt;  &lt;dbl [50]&gt;   &lt;dbl [50]&gt; 
+3 virginica  &lt;dbl [50]&gt;   &lt;dbl [50]&gt;  &lt;dbl [50]&gt;   &lt;dbl [50]&gt; </code></pre>
+</div>
+</div>
+<ul>
+<li><p>pivot_wider(): 길어진 데이터를 다시 넓은 형식으로 변환</p>
+<ul>
+<li>Species별로 다시 열을 복구하기 합니다.</li>
+</ul></li>
+</ul>
+</section>
+<section id="pivot-longer에서-data-변환" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="pivot-longer에서-data-변환"><span class="header-section-number">5.2</span> Pivot longer에서 data 변환</h2>
+<p>이제 pivot_longer()를 사용할 때, 여러 열을 한 번에 다루면서 변수명을 결합해야 하는 상황을 예시 데이터를 통해 설명하겠습니다. 예시 데이터는 iris 데이터에 Sepal과 Petal 측정값(길이와 너비)을 사용하고, 이를 새로운 형태로 변환하여 길이와 너비를 변수로 분리해보겠습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iris_longer_example <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(Sepal.Length, Sepal.Width, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>             Petal.Length, Petal.Width),  <span class="co"># 여러 열 선택</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"Part"</span>, <span class="st">"Measure"</span>),      <span class="co"># 두 개의 새로운 변수로 나눔</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">."</span>,                    <span class="co"># 열 이름의 구분자가 "."임을 지정</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Value"</span>                   <span class="co"># 측정값을 저장할 열 이름</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris_longer_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  Species Part  Measure Value
+  &lt;fct&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
+1 setosa  Sepal Length    5.1
+2 setosa  Sepal Width     3.5
+3 setosa  Petal Length    1.4
+4 setosa  Petal Width     0.2
+5 setosa  Sepal Length    4.9
+6 setosa  Sepal Width     3  </code></pre>
+</div>
+</div>
+<ul>
+<li>names_to = c(“Part”, “Measure”): 여기서는 names_to에서 두 개의 새로운 변수를 생성했습니다. 첫 번째는 “Part” (Sepal 또는 Petal), 두 번째는 “Measure” (길이 또는 너비).</li>
+<li>names_sep = “\.”: 열 이름을 분리하기 위해 구분자로 .을 사용했습니다. 즉, Sepal.Length는 Part = “Sepal”, Measure = “Length”로 분리됩니다.</li>
+<li>cols = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width): 변환할 여러 열을 선택하여 한 번에 변환합니다.</li>
+</ul>
+<p>이렇게 변환하면 <code>iris_longer_example</code> 데이터는 <code>Part</code>, <code>Measure</code>, 그리고 <code>Value</code>라는 세 개의 주요 열을 가지게 됩니다.</p>
+</section>
+<section id="long-form-에서의-group_by" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="long-form-에서의-group_by"><span class="header-section-number">5.3</span> Long form 에서의 group_by</h2>
+<p><code>pivot_longer()</code>를 사용하여 데이터를 긴 형식으로 변환하는 것의 주요 장점은 <strong>데이터 분석과 요약 작업이 더욱 효율적</strong>이 된다는 점입니다. 특히 <code>group_by()</code>와 <code>summarise()</code> 같은 함수와 결합하면 <strong>반복문을 사용하지 않고도</strong> 여러 그룹에 대한 계산을 쉽게 할 수 있습니다. 이 방식이 중요한 이유를 몇 가지 장점과 함께 설명하겠습니다.</p>
+<p>1. <strong>반복문 없이 쉽게 그룹화 및 요약 가능</strong></p>
+<p>긴 형식으로 변환된 데이터는 열(column)에 변수가 저장되어 있어, 여러 변수나 그룹별로 쉽게 요약할 수 있습니다. 예를 들어, <code>Sepal.Length</code>와 <code>Sepal.Width</code>라는 열이 있으면 이를 각각 따로 그룹화하고 요약해야 할 수 있지만, 긴 형식에서는 <code>Part</code>와 <code>Measure</code>로 통합되었기 때문에 반복문 없이도 쉽게 요약할 수 있습니다.</p>
+<p>1). Wide Form (넓은 형식)에서 통계 요약</p>
+<p>넓은 형식에서는 각 변수가 서로 다른 열에 있으므로, 각 열에 대해 개별적으로 요약을 해야 합니다. 보통 여러 열에 대해 요약할 때 <code>summarise()</code>를 여러 번 써야 하거나, 각 변수에 대해 명시적으로 작업해야 합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wide form에서는 각 변수별로 요약해야 함</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>iris_wide_summary <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Length.Mean =</span> <span class="fu">mean</span>(Sepal.Length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sepal.Width.Mean =</span> <span class="fu">mean</span>(Sepal.Width, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Length.Mean =</span> <span class="fu">mean</span>(Petal.Length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Petal.Width.Mean =</span> <span class="fu">mean</span>(Petal.Width, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 확인</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(iris_wide_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  Species  Sepal.Length.Mean Sepal.Width.Mean Petal.Length.Mean Petal.Width.Mean
+  &lt;fct&gt;                &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;
+1 setosa                5.01             3.43              1.46            0.246
+2 versico…              5.94             2.77              4.26            1.33 
+3 virgini…              6.59             2.97              5.55            2.03 </code></pre>
+</div>
+</div>
+<section id="section" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="section"><span class="header-section-number">5.3.1</span> </h3>
+<p>2. Long Form (긴 형식)에서 통계 요약</p>
+<p>긴 형식으로 변환한 데이터는 모든 변수가 하나의 열에 통합되어 있으므로, 그룹화한 뒤 간단히 요약할 수 있습니다. 변수명이 하나의 열에 들어가 있어 더 유연하게 처리할 수 있습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iris_longer_example 데이터에서 'Part'와 'Measure'별 평균 구하기</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>iris_summary <span class="ot">&lt;-</span> iris_longer_example <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species, Part, Measure) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Mean_Value =</span> <span class="fu">mean</span>(Value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 확인</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(iris_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+# Groups:   Species, Part [6]
+   Species    Part  Measure Mean_Value
+   &lt;fct&gt;      &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
+ 1 setosa     Petal Length       1.46 
+ 2 setosa     Petal Width        0.246
+ 3 setosa     Sepal Length       5.01 
+ 4 setosa     Sepal Width        3.43 
+ 5 versicolor Petal Length       4.26 
+ 6 versicolor Petal Width        1.33 
+ 7 versicolor Sepal Length       5.94 
+ 8 versicolor Sepal Width        2.77 
+ 9 virginica  Petal Length       5.55 
+10 virginica  Petal Width        2.03 
+11 virginica  Sepal Length       6.59 
+12 virginica  Sepal Width        2.97 </code></pre>
+</div>
+</div>
+</section>
+<section id="wide-form과-long-form-요약의-차이점" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="wide-form과-long-form-요약의-차이점"><span class="header-section-number">5.3.2</span> <strong>Wide Form과 Long Form 요약의 차이점</strong></h3>
+<ul>
+<li><p><strong>코드 복잡성</strong>:</p>
+<ul>
+<li><p><strong>Wide Form</strong>: 각 변수를 개별적으로 명시해야 하므로 코드가 더 길고 복잡해집니다. 요약하려는 열이 많을수록 더 많은 요약 함수 호출이 필요합니다.</p></li>
+<li><p><strong>Long Form</strong>: <code>pivot_longer()</code>로 데이터를 변환하면 여러 변수들을 <code>group_by()</code>와 <code>summarise()</code>에서 한 번에 처리할 수 있어 훨씬 간단한 코드로 요약할 수 있습니다.</p></li>
+</ul></li>
+<li><p><strong>확장성</strong>:</p>
+<ul>
+<li><p><strong>Wide Form</strong>: 열의 개수가 늘어날수록 코드가 더 복잡해집니다. 각 변수에 대해 별도의 요약을 해야 하므로, 새로운 변수가 추가되면 모든 요약 코드를 다시 작성해야 합니다.</p></li>
+<li><p><strong>Long Form</strong>: 긴 형식에서는 변수를 하나의 열로 합쳤기 때문에 변수가 몇 개 추가되더라도 <code>group_by()</code>와 <code>summarise()</code>로 한 번에 처리할 수 있습니다.</p></li>
+</ul></li>
+<li><p><strong>유연성</strong>:</p>
+<ul>
+<li><p><strong>Wide Form</strong>: 변수별로 개별 처리가 필요하므로, 각 변수에 대해 개별적인 계산을 해야 합니다.</p></li>
+<li><p><strong>Long Form</strong>: 여러 변수를 한 번에 처리할 수 있기 때문에 <code>facet_wrap()</code>, <code>ggplot2</code>를 사용한 시각화, 통계 분석 등에서 유연하게 활용할 수 있습니다.</p></li>
+</ul></li>
+<li><p><strong>사용 목적</strong>:</p>
+<ul>
+<li><p><strong>Wide Form</strong>: 개별 변수에 대해 명확하게 작업해야 할 때 유용합니다. 하지만 데이터의 구조가 매우 복잡할 때는 비효율적일 수 있습니다.</p></li>
+<li><p><strong>Long Form</strong>: 여러 변수를 하나의 열에 넣고, 그룹화, 요약, 시각화 등을 유연하게 처리할 때 이상적입니다. 특히 반복 작업이 필요 없는 장점이 큽니다.</p></li>
+</ul></li>
+</ul>
+<blockquote class="blockquote">
+<p>데이터 처리의 유연성 증가</p>
+</blockquote>
+<p>긴 형식(long form)은 <strong>다양한 변수 간의 관계를 탐색</strong>하는 데 유리합니다. <code>pivot_longer()</code>를 사용하여 여러 열을 하나로 합치면, 여러 변수 간의 분석이 더 쉬워집니다. 이를 통해 데이터 시각화, 통계적 분석, 그룹별 처리 등에서 매우 유연하게 사용할 수 있습니다. ggplot2 에 대해서는 시각하 챕터에서 공부합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot2로 각 Part와 Measure에 따른 값 분포 시각화</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris_longer_example, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Value, <span class="at">fill =</span> Measure)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Part) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="243_pivot_longer_wider_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="장점" class="level4" data-number="5.3.2.1">
+<h4 data-number="5.3.2.1" class="anchored" data-anchor-id="장점"><span class="header-section-number">5.3.2.1</span> 장점:</h4>
+<ul>
+<li><p>여러 변수를 그룹화하여 한 번에 시각화할 수 있습니다.</p></li>
+<li><p>긴 형식 데이터를 사용하면, 변수들을 쉽게 <code>facet_wrap()</code>이나 <code>color</code> 등의 옵션으로 그룹화하여 다양한 시각적 분석이 가능합니다.</p></li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./241_datamanipulation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./245_datamanipulation_for_table.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_1</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

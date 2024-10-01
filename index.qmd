@@ -51,12 +51,10 @@
 ## 참고 books
 
 | title                               | authos                            | url                               |
-|------------------------|------------------------|------------------------|
+|-------------------------------------|-----------------------------------|-----------------------------------|
 | Introduction to Data Science with R | Rafael A. Irizarry                | https://rafalab.github.io/dsbook/ |
 | R for Data Science                  | Garrett Grolemund, Hadley Wickham | https://r4ds.had.co.nz/index.html |
 
 -   I hope you will get valuable experience with me.
 
 그럼 시작하겠습니다.!!! **jinha**
-
-
