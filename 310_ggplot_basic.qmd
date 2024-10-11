@@ -1,4 +1,5 @@
 # 기본 플롯 시각화 (ggplot2)
+
 ```{r, echo= FALSE, message = FALSE}
 rm(list=ls())
 if(!require("tidyverse")) install.packages("tidyverse")
@@ -12,64 +13,89 @@ if(!require("readxl")) install.packages("readxl")
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
- <iframe width="560" height="315" src="https://www.youtube.com/embed/LlUUfPJBkl8?si=jphvYK9EhzOpe6Th" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
- 
- Now this is a basic R visualization tutorial using GGPLOT2 and some related libraries. It includes basic plotting principles and setup options. At the end of the tutorial, you will have a working visualization example for Data Explorer.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LlUUfPJBkl8?si=jphvYK9EhzOpe6Th" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
 
-## ggplot basic
+</iframe>
 
-Before drawing basic tables and graphs, let's take a look at the most used package, ggplot2. Let's practice ggplot2 using the built-in data `iris`.
+이 튜토리얼에서는 R의 대표적인 시각화 라이브러리인 ggplot2와 관련된 기본적인 개념과 사용 방법을 다룹니다. 이를 통해 데이터 시각화의 기초 원리를 이해하고, 예제 데이터를 사용하여 다양한 유형의 그래프를 그려보는 연습을 하게 됩니다.
+
+## ggplot 기본
+
+먼저 내장 데이터셋인 `iris`를 사용하여 기본적인 시각화 예제를 다뤄보겠습니다. ggplot2의 핵심 문법은 크게 축(axis)과 레이어(layer)로 나뉘며, 이 두 요소를 결합하여 원하는 시각화를 만들어갑니다.
 
 ```{r}
 library(tidyverse)
 data(iris)
 ```
 
-The main syntax for ggplot2 are included by axis and layer. Let's Take It from the beginning.  
- 
-### axis
- 
- 2-denominational plot needs 3 components of data, axis,layer. First we draw x-axis and y-axis, and putting information into that using layer. 
- 
+### axis (축 설정)
+
+2차원 평면 그래프를 그리려면 데이터, 축, 레이어의 3가지 구성 요소가 필요합니다. 먼저 x축과 y축을 그리고, 레이어를 사용하여 해당 축에 정보를 넣습니다.
+
+좀 더 자세히 설명하면,
+
+-   **데이터:** 그래프에 표시할 정보입니다. 예를 들어, 시간에 따른 주식 가격, 온도 변화, 도시별 인구 수 등이 될 수 있습니다.
+
+-   **축:** 그래프의 기준이 되는 선입니다. x축은 가로축, y축은 세로축을 나타냅니다. 각 축은 데이터의 범위를 나타내는 눈금과 단위로 이루어져 있습니다.
+
+-   **레이어:** 데이터를 시각적으로 표현하는 방식입니다. 점, 선, 막대 등 다양한 형태의 레이어를 사용하여 데이터를 그래프에 나타낼 수 있습니다.
+
+즉, 2차원 그래프를 그리려면 먼저 x축과 y축을 그리고, 데이터를 적절한 레이어 형태(점, 선, 막대 등)를 사용하여 표현하면 됩니다.
+
 ```{r basic set up 1}
 iris %>% # data what we used
   ggplot(aes(x = Sepal.Length, y = Sepal.Width))
 
 ```
- 
-In this way, the X and Y axes were created. Let's change the axis names to xlab, ylab and use ggtitle to change the title. 
+
+축 이름을 변경하고, 그래프의 제목도 추가해보겠습니다.
+
 ```{r setup 2}
 iris %>% 
   ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
   xlab("sepal length") + ylab("sepal width") +
   ggtitle("Iris flow and its characteristics")
 ```
- 
-### layer, geom_x()
 
-Layers are what you want to put inside the frame. geom_x() format.
- _x() can be points, lines, smoothing, histograms, densities, boxplots, and bars.
- 
-| geom_x()| contents|
-|---|---|
-|geom_point()|scatter plot|
-|geom_line()|line plot|
-|geom_smooth()|prediction line|
-|geom_histogram()|histogram|
-|geom_density()|density line|
-|geom_boxplot()|boxplot plot|
-|geom_bar()|bar chart|
+### 레이어와 `geom_x()` 사용법
 
-### geom_point() 
+`ggplot2`에서 레이어(`geom_x()`)는 그래프의 세부 요소를 지정합니다. 대표적인 종류는 다음과 같습니다:
 
-This is the most basic scatterplot. Plot Sepal.Length on the x-axis and Sepal.Width on the y-axis. The layer to use in this case is geom_point().
+`ggplot2`에서 레이어(`geom_x()`)는 그래프의 세부 요소를 지정합니다. 대표적인 종류는 다음과 같습니다:
+
+| `geom_x()` 함수    | 내용                     |
+|--------------------|--------------------------|
+| `geom_point()`     | 산점도 (Scatter Plot)    |
+| `geom_line()`      | 선 그래프 (Line Plot)    |
+| `geom_smooth()`    | 추세선 (Trend Line)      |
+| `geom_histogram()` | 히스토그램 (Histogram)   |
+| `geom_density()`   | 밀도 곡선 (Density Plot) |
+| `geom_boxplot()`   | 박스플롯 (Boxplot)       |
+| `geom_bar()`       | 막대그래프 (Bar Chart)   |
+
+### `geom_point()`로 산점도 그리기
+
+이것은 가장 기본적인 산점도입니다. x축에는 Sepal.Length를, y축에는 Sepal.Width를 표시합니다. 이 경우 사용할 레이어는 geom_point()입니다.
+
+좀 더 쉽게 풀어서 설명하면,
+
+-   **산점도:** 두 변수 간의 관계를 점으로 나타낸 그래프입니다. 예를 들어, 키와 몸무게의 관계, 공부 시간과 시험 점수의 관계 등을 시각적으로 확인할 수 있습니다.
+
+-   **Sepal.Length:** 꽃받침의 길이를 나타내는 데이터입니다.
+
+-   **Sepal.Width:** 꽃받침의 너비를 나타내는 데이터입니다.
+
+-   **geom_point():** ggplot2 라이브러리에서 제공하는 함수로, 데이터를 점으로 표현하는 레이어입니다.
+
+즉, 꽃받침의 길이(Sepal.Length)와 너비(Sepal.Width) 데이터를 사용하여, x축에는 길이, y축에는 너비를 표시하고, 각 데이터를 점으로 나타내는 산점도를 그리는 것입니다. geom_point() 함수를 사용하면 이러한 산점도를 쉽게 그릴 수 있습니다.
+
 ```{r geom_point_1}
 iris %>%
   ggplot(aes(x=Sepal.Length, y = Sepal.Width)) +
   geom_point()
 ```
 
-You can put a description here using xlalb and ylab. Create a title using ggtitle(). .
+산점도에 축 이름과 제목을 추가한 예제입니다.
 
 ```{r layer point 1}
 iris %>% 
@@ -80,8 +106,9 @@ iris %>%
   geom_point()
 
 ```
-  Let's go further. There is no interpretation in scatter plots. At this time, we will use different colors for each type of iris. We will create a frame by putting color = Species inside aes( ). 
-  
+
+더 자세히 알아보죠. 산점도 자체만으로는 해석이 부족할 수 있습니다. 이번에는 붓꽃 종류별로 다른 색상을 사용하여 표현해 보겠습니다. `aes()` 안에 `color = Species`를 추가하여 종류별로 색상을 지정하면 됩니다.
+
 ```{r layer point 2}
 iris %>% 
 
@@ -93,9 +120,15 @@ iris %>%
   geom_point()
 
 ```
- How about it? A little bit better. This time, we will add a trend line geom_smooth() to examine the relationship between sepal length and width by type. Also try adding geom_line() . It is omitted here because it is not logically useful.
- 
-### geom_smooth() 
+
+이렇게 하면 좀 더 나아 보이죠? 이제 붓꽃 종류별로 꽃받침 길이와 너비의 관계를 파악하기 위해 추세선을 추가해 보겠습니다. `geom_smooth()` 함수를 사용하면 됩니다. 또한, `geom_line()` 함수도 추가해 볼 수 있지만, 논리적으로 유용하지 않기 때문에 여기서는 생략합니다.
+
+### 추세선 추가 (geom_smooth())
+
+`geom_smooth()` 함수를 사용하면 데이터의 추세를 나타내는 선을 그릴 수 있습니다.
+
+아래 코드는 붓꽃 종류별로 꽃받침 길이와 너비의 관계를 나타내는 추세선을 그립니다.
+
 ```{r layer point 3}
 iris %>% #
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, 
@@ -107,7 +140,7 @@ iris %>% #
   geom_smooth() 
 ```
 
- The following code demonstrated example of adding a linear trend line as well as polynomial line. 
+`geom_smooth()` 함수에 `method`와 `formula` 옵션을 지정하여 선형 추세선이나 다항식 추세선을 추가할 수 있습니다. 아래 코드는 5차 다항식 추세선 (linetype 1)과 선형 추세선 (linetype 2)을 추가합니다. `se = TRUE`로 설정하면 추세선 주변에 신뢰 구간을 표시할 수 있습니다.  
 
 ```{r layer point 4}
 iris %>%
@@ -122,9 +155,10 @@ iris %>%
   
 ```
 
-### faceting
+### 패싯팅 (faceting)
 
-Drawing on one screen has advantages, but also has complexities. In this case, faceting is used. facet_wrap()
+하나의 그래프에 모든 데이터를 표시하면 복잡해 보일 수 있습니다. 이럴 때 `facet_wrap()` 함수를 사용하여 데이터를 여러 개의 작은 그래프로 나누어 표시할 수 있습니다.
+
 ```{r layer point 5}
 iris %>%
   ggplot(aes(x = Sepal.Length, y = Sepal.Width, 
@@ -139,13 +173,12 @@ iris %>%
   
 ```
 
+위 코드는 붓꽃 종류별로 그래프를 나누어 표시합니다.
 
+### 막대 그래프 geom_bar()
 
-### geom_bar() 
+`geom_bar()` 함수를 사용하면 막대 그래프를 그릴 수 있습니다.
 
-
-To make a barplot of counts, we will use `geom_bar()`. 
- 
 ```{r geom_bar 1 }
 iris %>% 
   ggplot(aes(x = Species,  
@@ -155,8 +188,9 @@ iris %>%
   ggtitle("Number of iris according to its types.") +
   geom_bar()
 ```
- Let's draw the count number of iris with Sepal.Width equal to or greater than 3. We will use `filter(Sepal.Width > 3)`. 
- 
+
+`filter()` 함수를 사용하여 특정 조건에 맞는 데이터만 추출하여 시각화할 수 있습니다. 아래 코드는 꽃받침 너비가 3보다 큰 붓꽃의 종류별 개수를 막대 그래프로 표시합니다.
+
 ```{r geom_bar 2 , message = FALSE, warning = FALSE }
 iris %>% 
   filter(Sepal.Width >3) %>% 
@@ -168,7 +202,7 @@ iris %>%
   geom_bar()
 ```
 
- `coord_polar` is polar coordinate system for pie chart. 
+원형차트, (`coord_polar()` 함수를 사용하면 막대 그래프를 원형 차트로 변환할 수 있습니다.
 
 ```{r geom_bar 4, message = FALSE, warning = FALSE  }
 iris %>% 
@@ -182,11 +216,10 @@ iris %>%
   geom_bar(width =1) + coord_polar()
 ```
 
-### geom_density() , geom_histogram()
+### 히스토그램 및 밀도 그래프 (geom_histogram(), geom_density())
 
+`geom_histogram()` 함수는 히스토그램을, `geom_density()` 함수는 밀도 그래프를 그립니다. 아래 코드는 붓꽃의 꽃받침 길이 분포를 히스토그램과 밀도 그래프로 표시합니다.
 
-Let's plot the distribution of sepal length. I drew histogram and density.
- 
 ```{r geom_density 1, message = FALSE, warning = FALSE  }
 iris %>% 
   ggplot(aes(x = Sepal.Length)) + 
@@ -197,8 +230,7 @@ iris %>%
   geom_density()
 ```
 
-I see heterogeneity. Can you see it. Let's put `fill = Species` inside aes() to distinguish them. virginica has broad leaves. How is it different from the previous code of color = Species?
- 
+`aes()` 함수 안에 `fill = Species`를 추가하여 붓꽃 종류별로 히스토그램과 밀도 그래프를 다르게 표시할 수 있습니다. 아래코드는, 붓꽃 종류별 꽃받침 길이 분포를 히스토그램과 밀도 그래프로 표시하고, 투명도를 조절하여 겹쳐 보이도록 합니다. `color = Species`는 점이나 선의 색상을 변경하는 반면, `fill = Species`는 히스토그램이나 막대 그래프의 내부 색상을 변경합니다.
 
 ```{r geom_density 2, message = FALSE, warning = FALSE }
 iris %>% 
@@ -210,7 +242,8 @@ iris %>%
   geom_density(stat="density", alpha = 0.3) +
   theme_minimal()
 ```
-Of course, you can try faceting. Is faceting good in this case? Is it good not to have it? It may be depend on your purpose.
+
+`facet_wrap()` 함수를 사용하여 붓꽃 종류별로 그래프를 나누어 표시할 수 있습니다. 아래 코드는 붓꽃 종류별 꽃받침 길이 분포를 히스토그램과 밀도 그래프로 표시하고, 종류별로 그래프를 나누어 표시합니다.
 
 ```{r geom_density 3, message = FALSE, warning = FALSE }
 iris %>% 
@@ -224,10 +257,10 @@ iris %>%
   facet_wrap(Species~.)
 ```
 
-### geom_boxplot()
+### 상자 그림 (geom_boxplot())
 
-Let's draw a boxplot of the sepal width distribution for each iris flower.
- 
+`geom_boxplot()` 함수를 사용하면 상자 그림을 그릴 수 있습니다. 위 코드는 붓꽃 종류별 꽃받침 너비 분포를 상자 그림으로 표시합니다.
+
 ```{r geom_boxplot 1 }
 iris %>% 
   ggplot(aes(x = Species, y = Sepal.Width, 
@@ -235,11 +268,10 @@ iris %>%
   geom_boxplot()
 ```
 
+### 3차원 그래프
 
-### 3d plot
+이번 실습에서는 붓꽃의 종류를 꽃받침의 너비와 길이에 따라 구분할 수 있는지 확인했습니다. `ggplot`보다 인터랙티브하고 3차원 그래프를 잘 표현하는 `plot_ly` 라이브러리를 사용하여 3차원 산점도를 그려봤습니다.
 
- 
-In this practice, it seems that the types of iris can be distinguished according to the width and length of the sepals.  plot_ly is better than ggplot in interactive part and 3d part. Let's do it. 
 ```{r 3d plot width length, warning=FALSE, message=FALSE}
 library(plotly)
 iris %>%
@@ -255,15 +287,16 @@ plot_ly(
                             zaxis = list(title = 'Petal Width')))
 ```
 
-## Visualzation example 1 
-### simple machine learning decision tree
- Do you think that it is possible to make a decision tree depending on the length and width of the iris? Now that we've come this far, let's just take a look at the flow using simple example.
- Approximately, decision trees are machine learning methods used for **classification**. The models aim to predict the value of Y by learning simple decision steps. There are importance weight to make each step of decision. So, it can be visualize bar chart. 
-  
-#### Divide the data into training and test by 7:3. 
+## 개별 시각화 예제 1
 
-I will prepare two data set, one is for training, the other is for testing. The proportion of training set is 70% from original data. 
-    
+### 간단한 머신러닝 의사결정나무
+
+이제 붓꽃의 길이와 너비에 따라 의사결정나무를 만들어 종류를 분류하는 모델을 만들어 보겠습니다. 의사결정나무는 간단한 결정 단계를 학습하여 Y 값을 예측하는 머신러닝 방법입니다. 각 결정 단계에는 중요도 가중치가 있으며, 이를 막대 그래프로 시각화할 수 있습니다..
+
+#### 데이터 분할 및 교차 검증
+
+먼저 데이터를 7:3 비율로 학습 데이터와 테스트 데이터로 나눕니다.
+
 ```{r, warning = FALSE, message = FALSE}
 if(!require("caret")) install.packages("caret")
 library(caret) # 
@@ -277,20 +310,19 @@ train_index <- createDataPartition(
 train_data <- iris[ train_index,]  
 test_data  <- iris[-train_index,]  
 ```
-  
 
 #### 10 fold cross validation
 
-Cross-validation is a resampling method for limited data set. I will use 10 fold cross validation.
+그리고 10겹 교차 검증을 사용하여 모델의 성능을 평가합니다.
 
 ```{r}
 fitControl <- trainControl(method = "cv", # cross validation
                            number = 10    ) # 10 times
 ```
 
-#### machine learning model
+#### 머신러닝 모델 학습 및 평가
 
-check accuracy and model performance using confusion matrix. What is average accuracy for model performance. 
+`caret` 패키지를 사용하여 의사결정나무 모델을 학습하고, 혼동 행렬을 통해 정확도와 모델 성능을 확인합니다.
 
 ```{r}
 set.seed(2020)
@@ -301,11 +333,10 @@ DTFit1 <- train(data = train_data, #
                trControl = fitControl) #  cross validation
 confusionMatrix(DTFit1) # 
 ```
-Our goal is visualization, what kind of plot are needed? The basic bar plot is great choice.   
 
-#### barplot for importance
+#### 중요도 시각화
 
-The importance weight differs among variables. Let's draw importance using bar plot. 
+변수별 중요도 가중치를 막대 그래프로 시각화합니다.
 
 ```{r imp bar plot}
 fit1_imp <- varImp(DTFit1)
@@ -316,17 +347,16 @@ ggplot(mapping = aes(x = Overall)) +
   
 ```
 
-What is most important feature for classification of iris. Petal? Sepal?
+붓꽃을 분류할 때 가장 중요한 특징은 꽃잎일까요, 아니면 꽃받침일까요? rpart 패키지가 제공하는 의사결정나무 그림을 통해 데이터를 탐색하고 그 답을 찾아볼 수 있습니다.
 
-
-`rpart` package gives us nice plot for decision tree. It can be used for data explorer
 ```{r dt tree 1234, warning = FALSE, message = FALSE}
 library(rpart)
 library(rattle)
 fancyRpartPlot(DTFit1$finalModel)
 ```
 
-To check this classification steps, we also use 3d plot, as we discussed. 
+앞서 논의했던 것처럼, 이러한 분류 단계를 확인하기 위해 3차원 그래프를 활용할 수 있습니다.
+
 ```{r plotly iris dt, echo=FALSE, warning=FALSE, message=FALSE}
 library(plotly)
 iris %>%
@@ -342,16 +372,22 @@ plot_ly(
                             zaxis = list(title = 'Petal Width')))
 ```
 
-## summary
+## 요약
 
-* basic visualization
-  + axis and layer    
-    + try your idea using different layer
-  + explore data get idea
-  + discussion with friend
-  + try your predict model
-  + visualization your model output
+-   **기본 시각화:**
 
+    -   데이터 시각화의 기본은 축과 레이어입니다.
 
+    -   x축과 y축을 기준으로 데이터를 점, 선, 막대 등 다양한 레이어 형태로 표현하여 시각화합니다.
 
+    **다양한 레이어 활용:**
 
+    -   `geom_point()`, `geom_smooth()`, `geom_bar()`, `geom_histogram()`, `geom_density()`, `geom_boxplot()` 등 ggplot2에서 제공하는 다양한 레이어를 사용하여 데이터를 다양한 방식으로 시각화해보세요.
+
+    -   여러 레이어를 조합하여 자신만의 아이디어를 표현할 수 있습니다.
+
+    **데이터 탐색:**
+
+    -   데이터를 시각화하면 데이터의 특징과 패턴을 파악하고 새로운 아이디어를 얻을 수 있습니다.
+
+    -   시각화를 통해 데이터에 대한 이해도를 높이고 분석의 방향을 설정할 수 있습니다.

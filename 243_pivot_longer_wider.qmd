@@ -198,7 +198,7 @@ iris_summary <- iris_longer_example %>%
 print(iris_summary)
 ```
 
-### **Wide Form과 Long Form 요약의 차이점** 
+### **Wide Form과 Long Form 요약의 차이점**
 
 -   **코드 복잡성**:
 
