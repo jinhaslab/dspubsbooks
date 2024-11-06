@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.6.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>보건학데이터과학 실습 - 6&nbsp; 보건학표_2</title>
+<title>7&nbsp; 보건학표_2 – 보건학데이터과학 실습</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,11 +17,12 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -32,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -100,11 +71,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a8378a0342da607bf6aa9ac04725c156.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-ee0f4f7d966e899a69427f9cc7766ddb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1f0ec513117eee69af5759d1d92d0607.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -112,7 +83,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -121,8 +98,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -134,14 +113,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <body class="nav-sidebar floating">
 
-
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./245_datamanipulation_for_table.html">II. 데이터 표현 표</a></li><li class="breadcrumb-item"><a href="./247_datamanipulation_for_table_2.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_2</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -149,166 +132,279 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">보건학데이터과학 실습</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">소개</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">소개</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">I. R 기본</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I. R 기본</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./210_randrstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></a>
+  <a href="./210_randrstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R &amp; R studio 사용</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./221_Rbasic1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R 속성</span></a>
+  <a href="./221_Rbasic1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R 속성</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./231_dataimportsave.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">데이터 불러오기</span></a>
+  <a href="./231_dataimportsave.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">데이터 불러오기</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./241_datamanipulation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></a>
+  <a href="./241_datamanipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./243_pivot_longer_wider.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">long vs wide</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">II. 데이터 표현 표</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. 데이터 표현 표</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></a>
+  <a href="./245_datamanipulation_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></a>
+  <a href="./247_datamanipulation_for_table_2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></a>
+  <a href="./248_datamanipulation_for_table_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표_3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./250_smry_for_table.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></a>
+  <a href="./250_smry_for_table.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">보건학표 만들기 요약</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">III. 데이터 표현 플랏</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">III. 데이터 표현 플랏</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./310_ggplot_basic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">기본 플롯 시각화 (ggplot2)</span></a>
+  <a href="./310_ggplot_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">기본 플롯 시각화 (ggplot2)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./320_kwcs_tutor_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">근로환경조사를 이용한 시각화 실습</span></a>
+  <a href="./320_kwcs_tutor_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">근로환경조사를 이용한 시각화 실습</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./350_statistical_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">T검정, 로지스틱 회귀분석 플랏</span></a>
+  <a href="./350_statistical_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">T검정, 로지스틱 회귀분석 플랏</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./370_labelled_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">다차원 라벨자료</span></a>
+  <a href="./370_labelled_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">다차원 라벨자료</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./380_wave_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></a>
+  <a href="./380_wave_plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">웨이브 형테의 시각화</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">IV. 여러 형태의 변수값</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./410_wrangling_text_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">문자값 다루기</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./510_webscraping_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">웹 스크래핑 I</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./610_webscraping_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">PubMed 에서 R 과 EndNote</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./620_TimeData_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">시간관련 자료 다루기</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">V. AI와 기계학습</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./710_GenAI_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">생성형 AI 사용</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./720_Supervised_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">지도학습</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./730_Supervised_minist_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">지도학습-MNIST (숫자인식)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./740_Supervised_sentence_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">지도학습-setence (문장 인식)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">VI. 소통</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./815_rmarkdown02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R markdown</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">참고문헌</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">참고문헌</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#데이터-준비" id="toc-데이터-준비" class="nav-link active" data-scroll-target="#데이터-준비"><span class="toc-section-number">6.1</span>  데이터 준비</a></li>
-  <li><a href="#분석-주제-선정" id="toc-분석-주제-선정" class="nav-link" data-scroll-target="#분석-주제-선정"><span class="toc-section-number">6.2</span>  분석 주제 선정</a>
+  <li><a href="#데이터-준비" id="toc-데이터-준비" class="nav-link active" data-scroll-target="#데이터-준비"><span class="header-section-number">7.1</span> 데이터 준비</a></li>
+  <li><a href="#분석-주제-선정" id="toc-분석-주제-선정" class="nav-link" data-scroll-target="#분석-주제-선정"><span class="header-section-number">7.2</span> 분석 주제 선정</a>
   <ul class="collapse">
-  <li><a href="#근로환경조사와-recode-선택사항" id="toc-근로환경조사와-recode-선택사항" class="nav-link" data-scroll-target="#근로환경조사와-recode-선택사항"><span class="toc-section-number">6.2.1</span>  근로환경조사와 recode (선택사항)</a></li>
-  <li><a href="#근로환경조사-기본-변수-생성" id="toc-근로환경조사-기본-변수-생성" class="nav-link" data-scroll-target="#근로환경조사-기본-변수-생성"><span class="toc-section-number">6.2.2</span>  근로환경조사 기본 변수 생성</a></li>
+  <li><a href="#근로환경조사와-recode-선택사항" id="toc-근로환경조사와-recode-선택사항" class="nav-link" data-scroll-target="#근로환경조사와-recode-선택사항"><span class="header-section-number">7.2.1</span> 근로환경조사와 recode (선택사항)</a></li>
+  <li><a href="#근로환경조사-기본-변수-생성" id="toc-근로환경조사-기본-변수-생성" class="nav-link" data-scroll-target="#근로환경조사-기본-변수-생성"><span class="header-section-number">7.2.2</span> 근로환경조사 기본 변수 생성</a></li>
   </ul></li>
-  <li><a href="#근로환경조사-table-1-만들기" id="toc-근로환경조사-table-1-만들기" class="nav-link" data-scroll-target="#근로환경조사-table-1-만들기"><span class="toc-section-number">6.3</span>  근로환경조사 Table 1 만들기</a>
+  <li><a href="#근로환경조사-table-1-만들기" id="toc-근로환경조사-table-1-만들기" class="nav-link" data-scroll-target="#근로환경조사-table-1-만들기"><span class="header-section-number">7.3</span> 근로환경조사 Table 1 만들기</a>
   <ul class="collapse">
-  <li><a href="#변수-값-요약하기" id="toc-변수-값-요약하기" class="nav-link" data-scroll-target="#변수-값-요약하기"><span class="toc-section-number">6.3.1</span>  변수 값 요약하기</a></li>
-  <li><a href="#p-value-구하기." id="toc-p-value-구하기." class="nav-link" data-scroll-target="#p-value-구하기."><span class="toc-section-number">6.3.2</span>  P value 구하기.</a></li>
+  <li><a href="#변수-값-요약하기" id="toc-변수-값-요약하기" class="nav-link" data-scroll-target="#변수-값-요약하기"><span class="header-section-number">7.3.1</span> 변수 값 요약하기</a></li>
+  <li><a href="#p-value-구하기." id="toc-p-value-구하기." class="nav-link" data-scroll-target="#p-value-구하기."><span class="header-section-number">7.3.2</span> P value 구하기.</a></li>
   </ul></li>
-  <li><a href="#table-1-정리하기" id="toc-table-1-정리하기" class="nav-link" data-scroll-target="#table-1-정리하기"><span class="toc-section-number">6.4</span>  Table 1 정리하기</a>
+  <li><a href="#table-1-정리하기" id="toc-table-1-정리하기" class="nav-link" data-scroll-target="#table-1-정리하기"><span class="header-section-number">7.4</span> Table 1 정리하기</a>
   <ul class="collapse">
-  <li><a href="#htmltable-visulaization" id="toc-htmltable-visulaization" class="nav-link" data-scroll-target="#htmltable-visulaization"><span class="toc-section-number">6.4.1</span>  htmlTable visulaization</a></li>
+  <li><a href="#htmltable-visulaization" id="toc-htmltable-visulaization" class="nav-link" data-scroll-target="#htmltable-visulaization"><span class="header-section-number">7.4.1</span> htmlTable visulaization</a></li>
   </ul></li>
-  <li><a href="#kwcsfunction" id="toc-kwcsfunction" class="nav-link" data-scroll-target="#kwcsfunction"><span class="toc-section-number">6.5</span>  함수만들기</a></li>
+  <li><a href="#kwcsfunction" id="toc-kwcsfunction" class="nav-link" data-scroll-target="#kwcsfunction"><span class="header-section-number">7.5</span> 함수만들기</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./245_datamanipulation_for_table.html">II. 데이터 표현 표</a></li><li class="breadcrumb-item"><a href="./247_datamanipulation_for_table_2.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_2</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="tables2" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_2</span></span></h1>
+<h1 class="title"><span id="tables2" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_2</span></span></h1>
 </div>
 
 
@@ -321,12 +417,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
+
 </header>
+
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rIp8NNoiq24?si=1KqhaWqTo21a2wzU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
 </iframe>
-<section id="데이터-준비" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="데이터-준비"><span class="header-section-number">6.1</span> 데이터 준비</h2>
+<section id="데이터-준비" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="데이터-준비"><span class="header-section-number">7.1</span> 데이터 준비</h2>
 <p>데이터 표를 만드는 실습은 6차 근로환경조사 자료를 통해 실습할 것입니다.. 자료는 안전보건공단, 근로환경조사 원시자료 사이트 (http://kosha.or.kr/kosha/data/primitiveData.do) 에서 신청할 수 있습니다..</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
@@ -344,18 +442,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kwcs <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/tutorKWCS.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="분석-주제-선정" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="분석-주제-선정"><span class="header-section-number">6.2</span> 분석 주제 선정</h2>
+<section id="분석-주제-선정" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="분석-주제-선정"><span class="header-section-number">7.2</span> 분석 주제 선정</h2>
 <p>우선 수면 장애를 중심으로 연구를 하기로 했습니다. 이때 장시간 근무가 수면장애를 일으킬 수 있다는 가정을 했습니다. 기존 연구에서 유사한 내용이 있었기 때문입니다. 그 이유를 생각해보니, 오래 일하면 어떤 방식으로든 수면시간 자체가 줄어들 것으로 보였기 때문입니다. 우선 sleep disturbance, long working hours per week 이 정해졌습니다. 이후 연구방법론의 혼란변수 선정 방법이나, 연구자의 Domain knowledge에 따른 선정, 새로운 가설 개발 (originality) 위한 변수 선정등을 고려할 수 있습니다. 이러한 내용은 각각의 연구방법론 수업에서 학습하시기를 바랍니다. <br> 여러 토론을 하다보니, 일을 마치고 집에 돌아온 후 해야할 일이 많은 경우 수면장애가 발생할 것 같은 느낌이 들었습니다. 이 것을 확인해 보고자 합니다. <br> &nbsp; 즉, 장시간근로와 일과 삶의 균형에 따른 수면장애 관련성을 연구해 보고 싶습니다.</p>
 <p><img src="img/wlbalance.PNG"></p>
 <p>&nbsp; 이제 data manipulation, long wide 변환을 통해 실습을 해보겠습니다.</p>
-<section id="근로환경조사와-recode-선택사항" class="level3" data-number="6.2.1">
-<h3 data-number="6.2.1" class="anchored" data-anchor-id="근로환경조사와-recode-선택사항"><span class="header-section-number">6.2.1</span> 근로환경조사와 recode (선택사항)</h3>
+<section id="근로환경조사와-recode-선택사항" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="근로환경조사와-recode-선택사항"><span class="header-section-number">7.2.1</span> 근로환경조사와 recode (선택사항)</h3>
 <p>번외로 분석을 빠르게 진행하기 위해 <code>recode</code>에 대한 복습을 해 보겠습니다. <code>recode</code>는 아주 단순한 변경에 사용되는데요, 근로환경조사는 이미 변수를 1, 2, 3, 4, 5 의 순서를 Likert 척도로 사용하고 있습니다.</p>
 <blockquote class="blockquote">
 <p>근로환경조사 Likert 척도</p>
 </blockquote>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
@@ -497,8 +595,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="근로환경조사-기본-변수-생성" class="level3" data-number="6.2.2">
-<h3 data-number="6.2.2" class="anchored" data-anchor-id="근로환경조사-기본-변수-생성"><span class="header-section-number">6.2.2</span> 근로환경조사 기본 변수 생성</h3>
+<section id="근로환경조사-기본-변수-생성" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="근로환경조사-기본-변수-생성"><span class="header-section-number">7.2.2</span> 근로환경조사 기본 변수 생성</h3>
 <p>data manipulation에서 실습한 내용을 통해 변수를 생성해 보겠습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manip function</span></span>
@@ -597,8 +695,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="근로환경조사-table-1-만들기" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="근로환경조사-table-1-만들기"><span class="header-section-number">6.3</span> 근로환경조사 Table 1 만들기</h2>
+<section id="근로환경조사-table-1-만들기" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="근로환경조사-table-1-만들기"><span class="header-section-number">7.3</span> 근로환경조사 Table 1 만들기</h2>
 <p>지금까지 작업을 통해 분석한 변수를 선정합니다. 이때 정리할 부분은 무엇으로 구분할지, 관심변수는 무엇인지 이중 명목변수와 연속변수는 무엇인지를 구분하는 것입니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Variables selection</span></span>
@@ -616,8 +714,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>conVars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"AGE"</span>,<span class="st">"satisfaction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="변수-값-요약하기" class="level3" data-number="6.3.1">
-<h3 data-number="6.3.1" class="anchored" data-anchor-id="변수-값-요약하기"><span class="header-section-number">6.3.1</span> 변수 값 요약하기</h3>
+<section id="변수-값-요약하기" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="변수-값-요약하기"><span class="header-section-number">7.3.1</span> 변수 값 요약하기</h3>
 <p>아래 코드가 뜻하는 것은 무엇일까요? 하나하나 살펴보아야 합니다. Table을 만들때 long file 형태로 만든 것입니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>catTab <span class="ot">=</span> dat1 <span class="sc">%&gt;%</span></span>
@@ -653,8 +751,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tabDat <span class="ot">=</span> <span class="fu">rbind</span>(catTab, conTab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="p-value-구하기." class="level3" data-number="6.3.2">
-<h3 data-number="6.3.2" class="anchored" data-anchor-id="p-value-구하기."><span class="header-section-number">6.3.2</span> P value 구하기.</h3>
+<section id="p-value-구하기." class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="p-value-구하기."><span class="header-section-number">7.3.2</span> P value 구하기.</h3>
 <p>이제 P value를 구해보겠습니다. 명목변수는 카이검정, 연속변수는 T검정을 해보겠습니다.</p>
 <blockquote class="blockquote">
 <p>Chisq-Test</p>
@@ -866,8 +964,8 @@ sample estimates:
 </div>
 </section>
 </section>
-<section id="table-1-정리하기" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="table-1-정리하기"><span class="header-section-number">6.4</span> Table 1 정리하기</h2>
+<section id="table-1-정리하기" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="table-1-정리하기"><span class="header-section-number">7.4</span> Table 1 정리하기</h2>
 <p>이제 변수값 요약과, p.value를 합치고, 순서에 맞게 정리하겠습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">=</span> tabDat <span class="sc">%&gt;%</span></span>
@@ -886,19 +984,19 @@ sample estimates:
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="sc">%&gt;%</span> <span class="fu">htmlTable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<table class="gmisc_table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
-<tr><th style="border-bottom: 1px solid grey; border-top: 2px solid grey;"></th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">variables</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">values</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">0.non distrubance</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">1.sleep disturbance</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">p.value</th>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; border-bottom: 1px solid grey; border-top: 2px solid grey;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">variables</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">values</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">0.non distrubance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">1.sleep disturbance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">p.value</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">1</td>
 <td style="text-align: center;">wwa1gp</td>
 <td style="text-align: center;">Never</td>
@@ -906,7 +1004,7 @@ sample estimates:
 <td style="text-align: center;">684 (5.3%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">2</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Rarely</td>
@@ -914,7 +1012,7 @@ sample estimates:
 <td style="text-align: center;">714 (5.5%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">3</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Sometimes</td>
@@ -922,7 +1020,7 @@ sample estimates:
 <td style="text-align: center;">981 (9.7%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">4</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Often</td>
@@ -930,7 +1028,7 @@ sample estimates:
 <td style="text-align: center;">717 (17.2%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">5</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Always</td>
@@ -938,7 +1036,7 @@ sample estimates:
 <td style="text-align: center;">272 (30.0%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">6</td>
 <td style="text-align: center;">wwa2gp</td>
 <td style="text-align: center;">Never</td>
@@ -946,7 +1044,7 @@ sample estimates:
 <td style="text-align: center;">597 (4.6%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">7</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Rarely</td>
@@ -954,7 +1052,7 @@ sample estimates:
 <td style="text-align: center;">863 (5.9%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">8</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Sometimes</td>
@@ -962,7 +1060,7 @@ sample estimates:
 <td style="text-align: center;">1072 (10.8%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">9</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Often</td>
@@ -970,7 +1068,7 @@ sample estimates:
 <td style="text-align: center;">638 (20.6%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">10</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Always</td>
@@ -978,7 +1076,7 @@ sample estimates:
 <td style="text-align: center;">198 (41.1%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">11</td>
 <td style="text-align: center;">wwa3gp</td>
 <td style="text-align: center;">Never</td>
@@ -986,7 +1084,7 @@ sample estimates:
 <td style="text-align: center;">682 (4.8%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">12</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Rarely</td>
@@ -994,7 +1092,7 @@ sample estimates:
 <td style="text-align: center;">1040 (6.9%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">13</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Sometimes</td>
@@ -1002,7 +1100,7 @@ sample estimates:
 <td style="text-align: center;">868 (10.1%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">14</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Often</td>
@@ -1010,7 +1108,7 @@ sample estimates:
 <td style="text-align: center;">597 (20.5%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">15</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Always</td>
@@ -1018,7 +1116,7 @@ sample estimates:
 <td style="text-align: center;">181 (40.4%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">16</td>
 <td style="text-align: center;">wwa4gp</td>
 <td style="text-align: center;">Never</td>
@@ -1026,7 +1124,7 @@ sample estimates:
 <td style="text-align: center;">1169 (5.9%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">17</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Rarely</td>
@@ -1034,7 +1132,7 @@ sample estimates:
 <td style="text-align: center;">1362 (8.4%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">18</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Sometimes</td>
@@ -1042,7 +1140,7 @@ sample estimates:
 <td style="text-align: center;">592 (15.0%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">19</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Often</td>
@@ -1050,7 +1148,7 @@ sample estimates:
 <td style="text-align: center;">193 (19.3%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">20</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Always</td>
@@ -1058,7 +1156,7 @@ sample estimates:
 <td style="text-align: center;">52 (39.4%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">21</td>
 <td style="text-align: center;">wwa5gp</td>
 <td style="text-align: center;">Never</td>
@@ -1066,7 +1164,7 @@ sample estimates:
 <td style="text-align: center;">1245 (6.1%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">22</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Rarely</td>
@@ -1074,7 +1172,7 @@ sample estimates:
 <td style="text-align: center;">1349 (8.4%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">23</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Sometimes</td>
@@ -1082,7 +1180,7 @@ sample estimates:
 <td style="text-align: center;">550 (14.7%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">24</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Often</td>
@@ -1090,7 +1188,7 @@ sample estimates:
 <td style="text-align: center;">173 (20.2%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">25</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Always</td>
@@ -1098,7 +1196,7 @@ sample estimates:
 <td style="text-align: center;">51 (52.0%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">26</td>
 <td style="text-align: center;">shortReturn</td>
 <td style="text-align: center;">non short return</td>
@@ -1106,7 +1204,7 @@ sample estimates:
 <td style="text-align: center;">2927 (7.5%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">27</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">short return</td>
@@ -1114,7 +1212,7 @@ sample estimates:
 <td style="text-align: center;">441 (22.1%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">28</td>
 <td style="text-align: center;">sexgp</td>
 <td style="text-align: center;">Men</td>
@@ -1122,7 +1220,7 @@ sample estimates:
 <td style="text-align: center;">1327 (6.9%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">29</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Women</td>
@@ -1130,7 +1228,7 @@ sample estimates:
 <td style="text-align: center;">2041 (9.3%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">30</td>
 <td style="text-align: center;">edugp</td>
 <td style="text-align: center;">university or more</td>
@@ -1138,7 +1236,7 @@ sample estimates:
 <td style="text-align: center;">1502 (7.1%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">31</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">high school</td>
@@ -1146,7 +1244,7 @@ sample estimates:
 <td style="text-align: center;">1318 (8.1%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">32</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">middle school or below</td>
@@ -1154,7 +1252,7 @@ sample estimates:
 <td style="text-align: center;">548 (14.6%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">33</td>
 <td style="text-align: center;">empgp</td>
 <td style="text-align: center;">paid-worker</td>
@@ -1162,7 +1260,7 @@ sample estimates:
 <td style="text-align: center;">2122 (7.6%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">34</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">employer/self-employer</td>
@@ -1170,7 +1268,7 @@ sample estimates:
 <td style="text-align: center;">229 (8.3%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">35</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">own-account worker</td>
@@ -1178,7 +1276,7 @@ sample estimates:
 <td style="text-align: center;">880 (9.5%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">36</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">unpaind family work</td>
@@ -1186,7 +1284,7 @@ sample estimates:
 <td style="text-align: center;">137 (11.5%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">37</td>
 <td style="text-align: center;">AGE</td>
 <td style="text-align: center;"></td>
@@ -1194,20 +1292,20 @@ sample estimates:
 <td style="text-align: center;">49.7±11.9</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: left;">38</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">satisfaction</td>
-<td style="border-bottom: 2px solid grey; text-align: center;"></td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.1±0.5</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.4±0.6</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">&lt;0.001</td>
+<tr class="even">
+<td style="text-align: left; border-bottom: 2px solid grey;">38</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">satisfaction</td>
+<td style="text-align: center; border-bottom: 2px solid grey;"></td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.1±0.5</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.4±0.6</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&lt;0.001</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<section id="htmltable-visulaization" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="htmltable-visulaization"><span class="header-section-number">6.4.1</span> htmlTable visulaization</h3>
+<section id="htmltable-visulaization" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="htmltable-visulaization"><span class="header-section-number">7.4.1</span> htmlTable visulaization</h3>
 <p>테이블이 너무 길기 때문에, wwa2, wwa3, wwa4, wwa5, 는 제외하고 표를 만들겠습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">=</span> tab1 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">25</span>))</span>
@@ -1215,143 +1313,142 @@ sample estimates:
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">rownames&lt;-</span><span class="st">`</span>(<span class="cn">NULL</span>)  <span class="sc">%&gt;%</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">htmlTable</span>(<span class="at">rnames =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<table class="gmisc_table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
-<tr>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">variables</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">values</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">0.non distrubance</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">1.sleep disturbance</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">p.value</th>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">variables</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">values</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">0.non distrubance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">1.sleep disturbance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">p.value</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">wwa1gp</td>
 <td style="text-align: center;">Never</td>
 <td style="text-align: center;">12222 (94.7%)</td>
 <td style="text-align: center;">684 (5.3%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Rarely</td>
 <td style="text-align: center;">12316 (94.5%)</td>
 <td style="text-align: center;">714 (5.5%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Sometimes</td>
 <td style="text-align: center;">9112 (90.3%)</td>
 <td style="text-align: center;">981 (9.7%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Often</td>
 <td style="text-align: center;">3456 (82.8%)</td>
 <td style="text-align: center;">717 (17.2%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Always</td>
 <td style="text-align: center;">634 (70.0%)</td>
 <td style="text-align: center;">272 (30.0%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">shortReturn</td>
 <td style="text-align: center;">non short return</td>
 <td style="text-align: center;">36183 (92.5%)</td>
 <td style="text-align: center;">2927 (7.5%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">short return</td>
 <td style="text-align: center;">1557 (77.9%)</td>
 <td style="text-align: center;">441 (22.1%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">sexgp</td>
 <td style="text-align: center;">Men</td>
 <td style="text-align: center;">17892 (93.1%)</td>
 <td style="text-align: center;">1327 (6.9%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">Women</td>
 <td style="text-align: center;">19848 (90.7%)</td>
 <td style="text-align: center;">2041 (9.3%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">edugp</td>
 <td style="text-align: center;">university or more</td>
 <td style="text-align: center;">19597 (92.9%)</td>
 <td style="text-align: center;">1502 (7.1%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">high school</td>
 <td style="text-align: center;">14943 (91.9%)</td>
 <td style="text-align: center;">1318 (8.1%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">middle school or below</td>
 <td style="text-align: center;">3200 (85.4%)</td>
 <td style="text-align: center;">548 (14.6%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">empgp</td>
 <td style="text-align: center;">paid-worker</td>
 <td style="text-align: center;">25786 (92.4%)</td>
 <td style="text-align: center;">2122 (7.6%)</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">employer/self-employer</td>
 <td style="text-align: center;">2539 (91.7%)</td>
 <td style="text-align: center;">229 (8.3%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">own-account worker</td>
 <td style="text-align: center;">8359 (90.5%)</td>
 <td style="text-align: center;">880 (9.5%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
 <td style="text-align: center;">unpaind family work</td>
 <td style="text-align: center;">1056 (88.5%)</td>
 <td style="text-align: center;">137 (11.5%)</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">AGE</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">46.8±12.4</td>
 <td style="text-align: center;">49.7±11.9</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: center;">satisfaction</td>
-<td style="border-bottom: 2px solid grey; text-align: center;"></td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.1±0.5</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.4±0.6</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">&lt;0.001</td>
+<tr class="even">
+<td style="text-align: center; border-bottom: 2px solid grey;">satisfaction</td>
+<td style="text-align: center; border-bottom: 2px solid grey;"></td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.1±0.5</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.4±0.6</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&lt;0.001</td>
 </tr>
 </tbody>
 </table>
@@ -1369,199 +1466,204 @@ sample estimates:
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Basic Characteristics according to Sleep disturbance"</span></span>
 <span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<table class="gmisc_table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
-<tr><td colspan="7" style="text-align: left;">
-Basic Characteristics according to Sleep disturbance</td></tr>
-<tr>
-<th colspan="2" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
-<th colspan="2" style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">Sleep disturbance</th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
-<th colspan="1" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th>
+<tr class="header">
+<th colspan="7" style="text-align: left;">Basic Characteristics according to Sleep disturbance</th>
 </tr>
-<tr>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;"></th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;"></th> 
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">None</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">Disturbance</th> 
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">P value</th>
+<tr class="even">
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-top: 2px solid grey;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: none; border-top: 2px solid grey;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Sleep disturbance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: none; border-top: 2px solid grey;">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-top: 2px solid grey;"></th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">None</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">Disturbance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">P value</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">wwa1gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Never</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">12222 (94.7%)</td>
-<td style="text-align: center;">684 (5.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">684 (5.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Rarely</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">12316 (94.5%)</td>
-<td style="text-align: center;">714 (5.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">714 (5.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Sometimes</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">9112 (90.3%)</td>
-<td style="text-align: center;">981 (9.7%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">981 (9.7%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Often</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3456 (82.8%)</td>
-<td style="text-align: center;">717 (17.2%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">717 (17.2%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Always</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">634 (70.0%)</td>
-<td style="text-align: center;">272 (30.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">272 (30.0%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">shortReturn</td>
-<td style="text-align: center;">non short return</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">non short return</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">36183 (92.5%)</td>
-<td style="text-align: center;">2927 (7.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">2927 (7.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">short return</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">short return</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">1557 (77.9%)</td>
-<td style="text-align: center;">441 (22.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">441 (22.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">sexgp</td>
-<td style="text-align: center;">Men</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Men</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">17892 (93.1%)</td>
-<td style="text-align: center;">1327 (6.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1327 (6.9%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Women</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Women</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">19848 (90.7%)</td>
-<td style="text-align: center;">2041 (9.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">2041 (9.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">edugp</td>
-<td style="text-align: center;">university or more</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">university or more</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">19597 (92.9%)</td>
-<td style="text-align: center;">1502 (7.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1502 (7.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">high school</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">high school</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">14943 (91.9%)</td>
-<td style="text-align: center;">1318 (8.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1318 (8.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">middle school or below</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">middle school or below</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3200 (85.4%)</td>
-<td style="text-align: center;">548 (14.6%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">548 (14.6%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">empgp</td>
-<td style="text-align: center;">paid-worker</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">paid-worker</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">25786 (92.4%)</td>
-<td style="text-align: center;">2122 (7.6%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">2122 (7.6%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">employer/self-employer</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">employer/self-employer</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">2539 (91.7%)</td>
-<td style="text-align: center;">229 (8.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">229 (8.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">own-account worker</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">own-account worker</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">8359 (90.5%)</td>
-<td style="text-align: center;">880 (9.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">880 (9.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">unpaind family work</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">unpaind family work</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">1056 (88.5%)</td>
-<td style="text-align: center;">137 (11.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">137 (11.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">AGE</td>
-<td style="text-align: center;"></td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">46.8±12.4</td>
-<td style="text-align: center;">49.7±11.9</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">49.7±11.9</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: center;">satisfaction</td>
-<td style="border-bottom: 2px solid grey; text-align: center;"></td> 
-<td style="border-bottom: 2px solid grey; text-align: center;" colspan="1">&nbsp;</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.1±0.5</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.4±0.6</td> 
-<td style="border-bottom: 2px solid grey; text-align: center;" colspan="1">&nbsp;</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">&lt;0.001</td>
+<tr class="even">
+<td style="text-align: center; border-bottom: 2px solid grey;">satisfaction</td>
+<td style="text-align: center; border-bottom: 2px solid grey;"></td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&nbsp;</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.1±0.5</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.4±0.6</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&nbsp;</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&lt;0.001</td>
 </tr>
-</tbody>
-<tfoot><tr><td colspan="7">
-P value calculated by Chisq-Test and T-Test</td></tr></tfoot>
+</tbody><tfoot>
+<tr class="odd">
+<td colspan="7" style="text-align: center;">P value calculated by Chisq-Test and T-Test</td>
+</tr>
+</tfoot>
+
 </table>
 </div>
 </div>
 </section>
 </section>
-<section id="kwcsfunction" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="kwcsfunction"><span class="header-section-number">6.5</span> 함수만들기</h2>
+<section id="kwcsfunction" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="kwcsfunction"><span class="header-section-number">7.5</span> 함수만들기</h2>
 <p>지금가지 했던 일련의 과정을 함수로 정리하겠습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>kwcsTabf <span class="ot">=</span> <span class="cf">function</span>(dat1, stratas, catVars, conVars){</span>
@@ -1672,489 +1774,494 @@ P value calculated by Chisq-Test and T-Test</td></tr></tfoot>
 <span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Basic Characteristics according to Sleep disturbance"</span></span>
 <span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<table class="gmisc_table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
-<tr><td colspan="7" style="text-align: left;">
-Basic Characteristics according to Sleep disturbance</td></tr>
-<tr>
-<th colspan="2" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
-<th colspan="2" style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">Sleep disturbance</th><th style="border-bottom: none; border-top: 2px solid grey;" colspan="1">&nbsp;</th>
-<th colspan="1" style="font-weight: 900; border-top: 2px solid grey; text-align: center;"></th>
+<tr class="header">
+<th colspan="7" style="text-align: left;">Basic Characteristics according to Sleep disturbance</th>
 </tr>
-<tr>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;"></th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;"></th> 
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">None</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">Disturbance</th> 
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;" colspan="1">&nbsp;</th>
-<th style="font-weight: 900; border-bottom: 1px solid grey; text-align: center;">P value</th>
+<tr class="even">
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-top: 2px solid grey;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: none; border-top: 2px solid grey;">&nbsp;</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">Sleep disturbance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: none; border-top: 2px solid grey;">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-top: 2px solid grey;"></th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">None</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">Disturbance</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey;">P value</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">wwa1gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Never</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">12222 (94.7%)</td>
-<td style="text-align: center;">684 (5.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">684 (5.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Rarely</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">12316 (94.5%)</td>
-<td style="text-align: center;">714 (5.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">714 (5.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Sometimes</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">9112 (90.3%)</td>
-<td style="text-align: center;">981 (9.7%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">981 (9.7%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Often</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3456 (82.8%)</td>
-<td style="text-align: center;">717 (17.2%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">717 (17.2%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Always</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">634 (70.0%)</td>
-<td style="text-align: center;">272 (30.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">272 (30.0%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">wwa2gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Never</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">12432 (95.4%)</td>
-<td style="text-align: center;">597 (4.6%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">597 (4.6%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Rarely</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">13682 (94.1%)</td>
-<td style="text-align: center;">863 (5.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">863 (5.9%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Sometimes</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">8882 (89.2%)</td>
-<td style="text-align: center;">1072 (10.8%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1072 (10.8%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Often</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">2460 (79.4%)</td>
-<td style="text-align: center;">638 (20.6%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">638 (20.6%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Always</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">284 (58.9%)</td>
-<td style="text-align: center;">198 (41.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">198 (41.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">wwa3gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Never</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">13472 (95.2%)</td>
-<td style="text-align: center;">682 (4.8%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">682 (4.8%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Rarely</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">13938 (93.1%)</td>
-<td style="text-align: center;">1040 (6.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1040 (6.9%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Sometimes</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">7749 (89.9%)</td>
-<td style="text-align: center;">868 (10.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">868 (10.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Often</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">2314 (79.5%)</td>
-<td style="text-align: center;">597 (20.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">597 (20.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Always</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">267 (59.6%)</td>
-<td style="text-align: center;">181 (40.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">181 (40.4%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">wwa4gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Never</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">18708 (94.1%)</td>
-<td style="text-align: center;">1169 (5.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1169 (5.9%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Rarely</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">14799 (91.6%)</td>
-<td style="text-align: center;">1362 (8.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1362 (8.4%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Sometimes</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3348 (85.0%)</td>
-<td style="text-align: center;">592 (15.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">592 (15.0%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Often</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">805 (80.7%)</td>
-<td style="text-align: center;">193 (19.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">193 (19.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Always</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">80 (60.6%)</td>
-<td style="text-align: center;">52 (39.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">52 (39.4%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">wwa5gp</td>
-<td style="text-align: center;">Never</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Never</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">19061 (93.9%)</td>
-<td style="text-align: center;">1245 (6.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1245 (6.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Rarely</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Rarely</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">14770 (91.6%)</td>
-<td style="text-align: center;">1349 (8.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1349 (8.4%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Sometimes</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Sometimes</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3180 (85.3%)</td>
-<td style="text-align: center;">550 (14.7%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">550 (14.7%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Often</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Often</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">682 (79.8%)</td>
-<td style="text-align: center;">173 (20.2%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">173 (20.2%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Always</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Always</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">47 (48.0%)</td>
-<td style="text-align: center;">51 (52.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">51 (52.0%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">shortReturn</td>
-<td style="text-align: center;">non short return</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">non short return</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">36183 (92.5%)</td>
-<td style="text-align: center;">2927 (7.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">2927 (7.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">short return</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">short return</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">1557 (77.9%)</td>
-<td style="text-align: center;">441 (22.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">441 (22.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">shiftWork</td>
-<td style="text-align: center;">non shift work</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">non shift work</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">35056 (91.9%)</td>
-<td style="text-align: center;">3073 (8.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">3073 (8.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">shift work</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">shift work</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">2684 (90.1%)</td>
-<td style="text-align: center;">295 (9.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">295 (9.9%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">njob</td>
-<td style="text-align: center;">one-job</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">one-job</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">37471 (91.9%)</td>
-<td style="text-align: center;">3317 (8.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">3317 (8.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">njob</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">njob</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">269 (84.1%)</td>
-<td style="text-align: center;">51 (15.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">51 (15.9%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">sexgp</td>
-<td style="text-align: center;">Men</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Men</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">17892 (93.1%)</td>
-<td style="text-align: center;">1327 (6.9%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1327 (6.9%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Women</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">Women</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">19848 (90.7%)</td>
-<td style="text-align: center;">2041 (9.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">2041 (9.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">agegp</td>
-<td style="text-align: center;">&lt;25</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;25</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">1359 (96.6%)</td>
-<td style="text-align: center;">48 (3.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">48 (3.4%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">&lt;30</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;30</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">2697 (94.3%)</td>
-<td style="text-align: center;">163 (5.7%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">163 (5.7%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">&lt;35</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;35</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3308 (93.6%)</td>
-<td style="text-align: center;">225 (6.4%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">225 (6.4%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">&lt;40</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;40</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3995 (92.3%)</td>
-<td style="text-align: center;">334 (7.7%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">334 (7.7%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">&lt;45</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;45</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">4414 (92.2%)</td>
-<td style="text-align: center;">372 (7.8%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">372 (7.8%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">&lt;50</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;50</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">4934 (92.7%)</td>
-<td style="text-align: center;">388 (7.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">388 (7.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">&lt;55</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;55</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">5300 (91.9%)</td>
-<td style="text-align: center;">465 (8.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">465 (8.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">&lt;60</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">&lt;60</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">5099 (90.0%)</td>
-<td style="text-align: center;">566 (10.0%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">566 (10.0%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">≥60</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">≥60</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">6634 (89.2%)</td>
-<td style="text-align: center;">807 (10.8%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">807 (10.8%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">edugp</td>
-<td style="text-align: center;">university or more</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">university or more</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">19597 (92.9%)</td>
-<td style="text-align: center;">1502 (7.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1502 (7.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">high school</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">high school</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">14943 (91.9%)</td>
-<td style="text-align: center;">1318 (8.1%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">1318 (8.1%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">middle school or below</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">middle school or below</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">3200 (85.4%)</td>
-<td style="text-align: center;">548 (14.6%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">548 (14.6%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">empgp</td>
-<td style="text-align: center;">paid-worker</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">paid-worker</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">25786 (92.4%)</td>
-<td style="text-align: center;">2122 (7.6%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">2122 (7.6%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">employer/self-employer</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">employer/self-employer</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">2539 (91.7%)</td>
-<td style="text-align: center;">229 (8.3%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">229 (8.3%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">own-account worker</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">own-account worker</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">8359 (90.5%)</td>
-<td style="text-align: center;">880 (9.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">880 (9.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;"></td>
-<td style="text-align: center;">unpaind family work</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">unpaind family work</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">1056 (88.5%)</td>
-<td style="text-align: center;">137 (11.5%)</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">137 (11.5%)</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">AGE</td>
-<td style="text-align: center;"></td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">46.8±12.4</td>
-<td style="text-align: center;">49.7±11.9</td> 
-<td style="text-align: center;" colspan="1">&nbsp;</td>
+<td style="text-align: center;">49.7±11.9</td>
+<td style="text-align: center;">&nbsp;</td>
 <td style="text-align: center;">&lt;0.001</td>
 </tr>
-<tr>
-<td style="border-bottom: 2px solid grey; text-align: center;">satisfaction</td>
-<td style="border-bottom: 2px solid grey; text-align: center;"></td> 
-<td style="border-bottom: 2px solid grey; text-align: center;" colspan="1">&nbsp;</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.1±0.5</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">2.4±0.6</td> 
-<td style="border-bottom: 2px solid grey; text-align: center;" colspan="1">&nbsp;</td>
-<td style="border-bottom: 2px solid grey; text-align: center;">&lt;0.001</td>
+<tr class="odd">
+<td style="text-align: center; border-bottom: 2px solid grey;">satisfaction</td>
+<td style="text-align: center; border-bottom: 2px solid grey;"></td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&nbsp;</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.1±0.5</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">2.4±0.6</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&nbsp;</td>
+<td style="text-align: center; border-bottom: 2px solid grey;">&lt;0.001</td>
 </tr>
-</tbody>
-<tfoot><tr><td colspan="7">
-P value calculated by Chisq-Test and T-Test</td></tr></tfoot>
+</tbody><tfoot>
+<tr class="odd">
+<td colspan="7" style="text-align: center;">P value calculated by Chisq-Test and T-Test</td>
+</tr>
+</tfoot>
+
 </table>
 </div>
 </div>
@@ -2204,6 +2311,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -2272,13 +2406,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2305,12 +2441,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
     }
-  });
-  clipboard.on('success', function(e) {
+    return false;
+  }
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2342,11 +2481,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2356,8 +2534,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2369,9 +2556,245 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -2411,20 +2834,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./245_datamanipulation_for_table.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">보건학표_1</span></span>
+      <a href="./245_datamanipulation_for_table.html" class="pagination-link" aria-label="보건학표_1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">보건학표_1</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./248_datamanipulation_for_table_3.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보건학표_3</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./248_datamanipulation_for_table_3.html" class="pagination-link" aria-label="보건학표_3">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">보건학표_3</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

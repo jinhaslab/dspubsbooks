@@ -1,0 +1,33 @@
+# 통계 요약값 플랏
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+<br>
+1. 교차표와 모자이크 플롯 (Crosstab and Mosaic Plot)
+
+- 데이터 예시: 성별과 흡연 여부의 관계를 조사한 데이터
+- 사용 목적: 두 개의 범주형 변수 간의 관계를 시각화하여 변수 간 연관성이나 독립성을 파악합니다.
+- 설명: 교차표는 각 범주의 빈도를 보여주며, 모자이크 플롯은 빈도에 따라 박스 크기를 조정해 시각적으로 표현합니다.
+- 보건학에서의 쓰임: 성별과 흡연 여부가 관련이 있는지, 연령대와 만성질환 유무 간의 연관성을 탐구할 때 유용합니다.
+
+```{r}
+# 예제 코드
+data <- tibble(
+  gender = sample(c("Male", "Female"), 100, replace = TRUE),
+  smoking_status = sample(c("Smoker", "Non-smoker"), 100, replace = TRUE)
+)
+
+data %>%
+  count(gender, smoking_status) %>%
+  ggplot(aes(x = gender, y = n, fill = smoking_status)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Smoking Status by Gender")
+
+```
+

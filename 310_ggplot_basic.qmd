@@ -1,6 +1,6 @@
 # 기본 플롯 시각화 (ggplot2)
 
-```{r, echo= FALSE, message = FALSE}
+```{r, echo= FALSE, message = FALSE} 
 rm(list=ls())
 if(!require("tidyverse")) install.packages("tidyverse")
 if(!require("htmlTable")) install.packages("htmlTable")
